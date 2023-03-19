@@ -6,7 +6,7 @@
 
 <script>
 export default {
-    name: "TopBar"
+    name: "TopBarDummy"
 }
 </script>
 

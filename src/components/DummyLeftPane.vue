@@ -4,7 +4,9 @@
         <ul>
             <li>Dashboard</li>
             <li>Food</li>
-            <li>Exercise</li>
+            <li>
+                <router-link to="/exercise">Exercise</router-link>
+            </li>
             <li>Leaderboard</li>
             <li>Info cards</li>
             <li>Goals</li>
@@ -15,9 +17,14 @@
 </template>
 
 <script>
+import { RouterLink } from 'vue-router'
+
 export default {
     name: 'LeftPane',
-    style: 'width: 100%'
+    style: 'width: 100%',
+    components: {
+        RouterLink
+    }
 };
 
 </script>
