@@ -1,13 +1,21 @@
 <template>
     <div class = "exercise-tool-wrapper">
+        
         <div class = "exercise-tool-title">
             <h4>Exercise Tracking Utility Tools</h4>
         </div>
+        <div class = "calorie-checker-title">
+            <h4>
+                <a @click = "showChecker=true">Calorie Checker</a>
+                <ExerciseChecker :showChecker="showChecker" 
+                @close="showChecker = false"
+                class = "exercise-checker-overlay" /> <!-- Mainly for adjusting z-index -->
+                <!-- You must declare showChecker property before you can use it -->
+            </h4>                
+        </div>
 
         <div class = "calorie-checker-wrapper">
-            <div class = "calorie-checker-title">
-                <h4>Calorie Checker</h4>
-            </div>
+            <!-- Originally title is put here, later move outside to ensure correct display of ExerciseChecker -->
             <div class = "calorie-checker-intro">
                 <p>Check the calorie burnt per minute for different types of sports!</p>
             </div>
@@ -36,13 +44,28 @@
 
 <script>
 
+import ExerciseChecker from './ExerciseChecker.vue';
+
 export default {
-    name: "Exercise-Tools"
+    name: "Exercise-Tools",
+    components: {
+        ExerciseChecker
+    },
+    data() {
+        return {
+            showChecker: false
+        }
+    }
 }
 
 </script>
 
 <style scoped>
+
+.exercise-checker-overlay {
+    position: absolute;
+    z-index: 9999; /* Set the z-index value to a high number */
+}
 
 .exercise-tool-wrapper {
     position: absolute;
@@ -81,14 +104,17 @@ export default {
 
 .calorie-checker-title {
     position: absolute;
-    top: -20px;
+    top: 60px;
     left: 30px;
+    width: 300px;
 
     font-family: 'Mulish';
     font-style: normal;
     font-weight: 700;
     font-size: 23px;
     line-height: 31px;
+
+    z-index: 10; /* Make the title display on top of the background */
 
     color: #9A6F56;
 }
