@@ -3,7 +3,7 @@
         <!-- This item only rendered if showChecker = true -->
 
         <div class = "back-button">
-            <p><a @click = "closeChecker">Back</a></p>
+            <p><a class = "back-link" @click = "closeChecker">Back</a></p>
         </div>
 
         <div class = "search-text">
@@ -73,6 +73,12 @@ export default {
     font-style: normal;
     font-size: 15px;
     color: #746652;
+}
+
+.back-link:hover {
+    color:brown;
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 .search-text {
