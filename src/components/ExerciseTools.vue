@@ -6,7 +6,7 @@
         </div>
         <div class = "calorie-checker-title">
             <h4>
-                <a @click = "showChecker=true">Calorie Checker</a>
+                <a class = "popup-link" @click = "showChecker=true">Calorie Checker</a>
                 <ExerciseChecker :showChecker="showChecker" 
                 @close="showChecker = false"
                 class = "exercise-checker-overlay" /> <!-- Mainly for adjusting z-index -->
@@ -117,6 +117,12 @@ export default {
     z-index: 10; /* Make the title display on top of the background */
 
     color: #9A6F56;
+}
+
+.popup-link:hover {
+    color:brown;
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 .calorie-checker-intro {
