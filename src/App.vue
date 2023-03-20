@@ -1,12 +1,24 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-</script>
-
 <template>
-  <div id = "leftpane">
+  <div id = "nav">
     <!-- Here which component to use is defined in index.js!! -->
-    <RouterLink to="/">Home</RouterLink>
+    <router-link to="/"> Home | </router-link>
+    <router-link to="/exercise"> Exercise </router-link>
   </div>
-  <RouterView />
+  <router-view />
 </template>
 
+<script>
+
+export default {
+  name: 'App'
+}
+
+</script>
+
+<style>
+
+#nav {
+  text-align: center;
+}
+
+</style>
