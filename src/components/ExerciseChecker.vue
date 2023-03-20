@@ -11,7 +11,7 @@
         </div>
 
         <div class = "search-field">
-            <p>Search</p>
+            <p id = "search">Search</p>
         </div>
 
         <div class = "library-title">
@@ -78,7 +78,7 @@ export default {
 .search-text {
     position: absolute;
     top: 10px;
-    left: 10px;
+    left: 20px;
 
     font-family: 'Mulish';
     font-style: normal;
@@ -89,7 +89,7 @@ export default {
 .library-title {
     position: absolute;
     top: 120px;
-    left: 10px;
+    left: 20px;
 
     font-family: 'Mulish';
     font-style: normal;
@@ -99,36 +99,43 @@ export default {
 
 .search-field {
     position: absolute;
-    top: 50px;
-    left: 10px;
+    top: 70px;
+    left: 20px;
 
     width: 680px;
     height: 50px;
 
+    background: #ECECEC;
+    border: 1px solid #D6D6D6;
+    border-radius: 30px
+
+}
+
+.search-field #search {
+    position: absolute;
+    top: -5px;
+    left: 40px;
     font-family: 'Mulish';
     font-style: normal;
     font-size: 18px;
     color: #B5B7B9;
-
-    background: #ECECEC;
-    border: 1px solid #D6D6D6;
-    border-radius: 30px
+    text-align: center;
 }
 
 .sample-result {
     position: absolute;
     top: 200px;
-    left: 10px;
+    left: 20px;
 
     width: 680px;
-    height: 150px;
+    height: 100px;
     background: #DDD8BA;
     border-radius: 20px;
 }
 
 .sample-result #sport {
     position: absolute;
-    left: 50px;
+    left: 30px;
 
     width: 300px;
     font-family: 'Lato';
@@ -150,7 +157,7 @@ export default {
 
 .add-button-wrapper {
     position: absolute;
-    left: 40px;
+    left: 100px;
     top: 580px;
 
     width: 700px;
@@ -159,6 +166,9 @@ export default {
 
 .add-button-wrapper #add-button {
 
+    width: 600px;
+    height: 50px;
+    
     font-family: 'Mulish';
     font-style: normal;
     font-size: 20px;
