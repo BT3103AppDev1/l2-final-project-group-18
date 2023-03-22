@@ -22,7 +22,7 @@
         </div>
 
         <div class = "signInButtonBox">
-            <button id = "rectangle3">Sign In</button>
+            <button id = "rectangle3" @click = "home">Sign In</button>
             
         </div>
 
@@ -39,6 +39,9 @@ export default {
     methods: {
     signup() {
       this.$router.push('/signup')
+    },
+    home() {
+      this.$router.push('/')
     }
   }
 }
