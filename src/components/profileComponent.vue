@@ -13,6 +13,7 @@
         <div class = "height-field">
             <p id = "height">Height</p>
         </div>
+        <p id="height-unit">cm</p>
     </div>
 
     <div class="container2">
@@ -20,6 +21,7 @@
         <div class = "weight-field">
             <p id = "weight">Weight</p>
         </div>
+        <p id="weight-unit">kg</p>
     </div>
 
     <div class = "confirm-button-wrapper">
@@ -153,6 +155,45 @@ export default {
 
     color: #A88151;
 }
+
+#height-unit {
+    position: absolute;
+    width: 149px;
+    height: 41px;
+    left: 1250px;
+    top: 370px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 20px;
+    /* or 63% */
+    display: flex;
+    align-items: center;
+
+    color: #A88151;
+}
+
+#weight-unit {
+    position: absolute;
+    width: 149px;
+    height: 41px;
+    left: 1250px;
+    top: 450px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 20px;
+    /* or 63% */
+    display: flex;
+    align-items: center;
+
+    color: #A88151;
+}
+
 .height-field #height {
     position: absolute;
     top: -5px;
