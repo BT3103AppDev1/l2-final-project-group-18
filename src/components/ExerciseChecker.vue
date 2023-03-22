@@ -17,6 +17,13 @@
             </div>
         </div>
 
+        <div>
+            <button @click = "showAdd=true">Add New Exercise</button>
+            <AddNewExercise :showAdd="showAdd" @close="showAdd=fakse" />
+        </div>
+
+        
+
 
 
         <!-- <div class = "search-text">
@@ -50,18 +57,21 @@ import { getFirestore } from "firebase/firestore";
 import { collection, query, where, getDocs } from "firebase/firestore";
 
 import ExerciseCheckerItem from './ExerciseCheckerItem.vue';
+import AddNewExercise from './AddNewExercise.vue';
 
 const db = getFirestore(firebaseApp)
 
 export default {
     name: 'Exercise-Checker',
     components: {
-        ExerciseCheckerItem
+        ExerciseCheckerItem,
+        AddNewExercise
     },
     data() {
         return {
             searchQuery: "",
-            searchResults: []
+            searchResults: [],
+            showAdd: false
         }
     },
     props: {
