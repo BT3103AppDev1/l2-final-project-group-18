@@ -7,10 +7,18 @@
             <li>
                 <router-link to="/exercise">Exercise</router-link>
             </li>
+            <li>
+                <router-link to="/login">login</router-link>
+            </li>
+            <li>
+                <router-link to="/welcome">welcome</router-link>
+            </li>
             <li>Leaderboard</li>
             <li>Info cards</li>
             <li>Goals</li>
-            <li>Sign out</li>
+            <li>
+                <router-link to="/signout">Sign out</router-link>
+            </li>
         </ul>
     </div>
 
