@@ -7,30 +7,35 @@
         </div>
 
         <div>
-            <button @click = "searchExercises()">Search</button>
+            <!-- <div class = "search-text">
+                <p>Enter your exercise here to check amount of calories burnt per minute: </p>
+            </div>            -->
             <input v-model.lazy="searchQuery" placeholder="Enter keyword">
+            <button @click = "searchExercises()">Search</button>
+
             <div v-if = "searchResults.length === 0">No results found.</div>
-            <div v-else>
+            <div v-else style="overflow-y: scroll; max-height: 400px;">
+                <!-- This is how you can add scroll bar to handle too-many search results -->
+
                 <exercise-checker-item v-for = "(result, index) in searchResults"
                 :key="index" :exerciseName = "result.exerciseName"
                 :caloriePerMinute = "result.calorieBurntPerMin" />
+                <!-- Generate one ExerciseCheckerItem for every search result -->
             </div>
         </div>
 
         <div>
             <button @click = "showAdd=true">Add New Exercise</button>
-            <AddNewExercise :showAdd="showAdd" @close="showAdd=fakse" />
+            <AddNewExercise :showAdd="showAdd" @close="showAdd=false" />
         </div>
 
         
 
 
 
-        <!-- <div class = "search-text">
-            <p>Enter your exercise here to check amount of calories burnt per minute: </p>
-        </div>
+        
 
-        <div class = "search-field">
+        <!-- <div class = "search-field">
             <p id = "search">Search</p>
         </div>
 
