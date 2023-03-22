@@ -21,7 +21,7 @@
         </div>
 
         <div class = "registerButtonBox">
-            <button id = "rectangle3">Register</button>
+            <button id = "rectangle3" @click = "welcome">Register</button>
             
         </div>
 
@@ -38,6 +38,9 @@ export default {
     methods: {
     login() {
       this.$router.push('/login')
+    },
+    welcome() {
+        this.$router.push('/welcome')
     }
   }
 }
