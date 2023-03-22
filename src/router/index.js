@@ -5,6 +5,7 @@ import login from '../views/login.vue'
 import signup from '../views/signup.vue'
 import signout from '../views/signout.vue'
 import welcome from '../views/WelcomePage.vue'
+import updateProfile from '../views/UpdateProfilePage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +39,11 @@ const router = createRouter({
       path: '/welcome',
       name: "welcome",
       component: welcome
+    },
+    {
+      path: '/updateProfile',
+      name: "updateProfile",
+      component: updateProfile
     }
 
   ]

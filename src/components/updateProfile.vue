@@ -1,11 +1,11 @@
 <template>
     <div class="title">
         <p>Hello, Winnie!</p>
-        <p>Welcome to your personal health tracker</p>
+        <p>Update your personal health tracker</p>
     </div>
 
     <div class="subtitle">
-        <p>Give us some basic information to get started</p>
+        <p>Start updating your height and weight</p>
     </div>
 
     <div class="container1">
@@ -27,8 +27,11 @@
     <div class = "confirm-button-wrapper">
             <button id = "confirm-button" @click = "home">Confirm</button>
     </div>
-    <img class = "icon-male" src="../assets/male icon.png" alt="image here">
-    <img class = "icon-female" src="../assets/female icon.png" alt="image here">
+
+    <div class = "cancel-button-wrapper">
+            <button id = "cancel-button" @click = "home">Cancel</button>
+    </div>
+
     <img class = "image" src="../assets/welcome.png" alt="image here">
     
 </template>
@@ -36,7 +39,7 @@
 
 <script>
 export default {
-    name: "profileComponent",
+    name: "updateProfileComponent",
     methods: {
     home() {
       this.$router.push('/')
@@ -233,7 +236,7 @@ export default {
 
 .confirm-button-wrapper {
     position: absolute;
-    left: 1000px;
+    left: 800px;
     top: 580px;
 
     width: 700px;
@@ -255,39 +258,27 @@ export default {
     border-radius: 30px;
 }
 
-/* for the icons */
-.icon-female {
-  /* Define the default appearance of the icon */
-  width: 120px;
-  height: 150px;
-  background-image: "../assets/female icon.png";
-  display: block;
+.cancel-button-wrapper {
     position: absolute;
-    top: 200px;
-    left: 1100px;
+    left: 1000px;
+    top: 580px;
+
+    width: 700px;
+    height: 50px;
 }
 
+.cancel-button-wrapper #cancel-button {
 
-/* :active is a pseudo-class and .active is a class selector */
-/* Apply the :active pseudo-class to the icon */
-.icon-female:active {
-  /* Define the appearance of the icon when it's clicked */
-  transform: scale(0.8);
-}
+    width: 168.3px;
+    height: 44.59px;
+    
+    font-family: 'Mulish';
+    font-style: normal;
+    font-size: 20px;
+    text-align: center;
+    color: #746652;
 
-.icon-male {
-  /* Define the default appearance of the icon */
-  width: 120px;
-  height: 150px;
-  background-image: "../assets/male icon.png";
-  display: block;
-    position: absolute;
-    top: 200px;
-    left: 900px;
-}
-
-.icon-male:active {
-  /* Define the appearance of the icon when it's clicked */
-  transform: scale(0.8);
+    background: #DDD8BA;
+    border-radius: 30px;
 }
 </style>
