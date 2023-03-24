@@ -1,16 +1,14 @@
-import { initializeApp } from 'firebase/app';
+import { initializeApp } from 'firebase/app'
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAQLzRABECiLf3NmSuTA7RfHpjyTURJnus",
-    authDomain: "bt3103-healthbuddy-group18.firebaseapp.com",
-    projectId: "bt3103-healthbuddy-group18",
-    storageBucket: "bt3103-healthbuddy-group18.appspot.com",
-    messagingSenderId: "156269022012",
-    appId: "1:156269022012:web:afcdce03d39b10153cac39",
-    measurementId: "G-X7X1LG8YST"
-};
+  apiKey: 'AIzaSyAewZ6dbL1H89XJ8ToGnkVvPO0K31arD6Y',
+  authDomain: 'democpp-a5eeb.firebaseapp.com',
+  projectId: 'democpp-a5eeb',
+  storageBucket: 'democpp-a5eeb.appspot.com',
+  messagingSenderId: '747713012645',
+  appId: '1:747713012645:web:5f2ee2ebab8789c8bcbe4c',
+}
 
-const firebaseApp = initializeApp(firebaseConfig);
+const firebaseApp = initializeApp(firebaseConfig)
 
-export default firebaseApp;
-
+export default firebaseApp
