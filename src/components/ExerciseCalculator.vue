@@ -61,7 +61,7 @@ export default {
 
   data() {
     return {
-      totalCalories: 1000,
+      totalCalories: 0,
       showCalculatorAdder: false,
       weeklyExercises: [],
     }
@@ -109,6 +109,21 @@ export default {
         })
       }
       this.weeklyExercises = newExercises
+      await this.calculateTotalCalories()
+    },
+
+    async calculateTotalCalories() {
+      let totalCaloriesBurnt = 0
+
+      for (const exercise of this.weeklyExercises) {
+        const exerciseTypeRef = doc(db, 'exerciseCaloriesDatabase', exercise.id)
+        const exerciseTypeSnapshot = await getDoc(exerciseTypeRef)
+        const caloriesBurntPerMinute =
+          exerciseTypeSnapshot.data().CaloriesBurntPerMinute
+        totalCaloriesBurnt += exercise.time * caloriesBurntPerMinute
+      }
+
+      this.totalCalories = totalCaloriesBurnt
     },
   },
 }
