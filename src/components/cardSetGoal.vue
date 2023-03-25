@@ -7,7 +7,7 @@
                 <p>{{ goalTitle }}</p>
             </div>
             <div id = "right-elem">
-                <button id = "button">SET</button>
+                <button @click="($event) => (showSet = true)" id = "button">SET</button>
             </div>
         </div>
 
@@ -19,21 +19,39 @@
                 <p>No goals currently</p>
             </div>
         </div>
-
+        <div v-if="showSet" class="overlay">
+            <SetGoalPopUp :showSet="showSet" @close="($event) => (showSet = false)"/>
+        </div>
     </div>
 
 
 </template>
 
 <script>
+import SetGoalPopUp from './SetGoalPopUp.vue'
+
 export default {
     name: "cardSetGoal",
+    components: {
+        SetGoalPopUp,
+    },
+    data() {
+        return {
+            showSet: false
+        }
+    },
     props: {
         goalTitle: {
             type: String,
             required: true,
         }
+    },
+    methods: {
+        togglePopUp() {
+            this.showSet = !this.showSet
+        }
     }
+
 }
 </script>
 
@@ -100,5 +118,13 @@ export default {
     color: #252733;
 }
 
+.overlay {
+    position: absolute;
+    top: 70%;
+    left: 10%;
+    z-index: 9999;
+    text-align: center;
+
+}
 </style>
 
