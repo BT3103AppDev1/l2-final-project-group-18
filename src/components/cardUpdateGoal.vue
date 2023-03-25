@@ -7,7 +7,7 @@
                 <p>{{ goalTitle }}</p>
             </div>
             <div id = "right-elem">
-                <button @click="($event) => (showSet = true)" id = "button">SET</button>
+                <button @click="($event) => (showSet = true)" id = "button">UPDATE</button>
             </div>
         </div>
 
@@ -47,7 +47,6 @@ export default {
         }
     },
     methods: {
-        
     }
 
 }
