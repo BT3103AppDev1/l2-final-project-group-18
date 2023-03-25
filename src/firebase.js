@@ -1,6 +1,7 @@
-import { initializeApp } from 'firebase/app';
+import { initializeApp } from 'firebase/app'
 
 const firebaseConfig = {
+
     apiKey: "AIzaSyAQLzRABECiLf3NmSuTA7RfHpjyTURJnus",
     authDomain: "bt3103-healthbuddy-group18.firebaseapp.com",
     projectId: "bt3103-healthbuddy-group18",
@@ -11,7 +12,6 @@ const firebaseConfig = {
 
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
+const firebaseApp = initializeApp(firebaseConfig)
 
-export default firebaseApp;
-
+export default firebaseApp
