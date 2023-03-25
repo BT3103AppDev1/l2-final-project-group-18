@@ -119,12 +119,13 @@ export default {
 }
 
 .overlay {
-    position: absolute;
-    top: 70%;
-    left: 10%;
+    position: fixed;
+    top: 20%;
+    left: 50%;
     z-index: 9999;
     text-align: center;
-
+    width: 700px;
+    height: 300px;
 }
 </style>
 

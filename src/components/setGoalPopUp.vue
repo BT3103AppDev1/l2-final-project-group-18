@@ -24,8 +24,8 @@ export default {
 
 <style scoped>
 .setGoal {
-    position: absolute;
-    width: 300px;
+    position: fixed;
+    width: 700px;
     height: 300px;
     background-color: #FAF4E1;
     border: 5px solid #9F978B;
@@ -38,8 +38,10 @@ export default {
   position: absolute;
   top: 10px;
   right: 10px;
-  font-size: 50px;
+  font-size: 10px;
   cursor: pointer;
+  background-color: #FAF4E1;
+  border: 0px;
 }
 
 </style>
