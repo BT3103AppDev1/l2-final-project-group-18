@@ -7,50 +7,38 @@
         </div>
 
         <div>
-            <!-- <div class = "search-text">
+            <div class = "search-text">
                 <p>Enter your exercise here to check amount of calories burnt per minute: </p>
-            </div>            -->
-            <input v-model.lazy="searchQuery" placeholder="Enter keyword">
-            <button @click = "searchExercises()">Search</button>
-
-            <div v-if = "searchResults.length === 0">No results found.</div>
-            <div v-else style="overflow-y: scroll; max-height: 400px;">
-                <!-- This is how you can add scroll bar to handle too-many search results -->
-
-                <exercise-checker-item v-for = "(result, index) in searchResults"
-                :key="index" :exerciseName = "result.exerciseName"
-                :caloriePerMinute = "result.calorieBurntPerMin" />
-                <!-- Generate one ExerciseCheckerItem for every search result -->
             </div>
-        </div>
+            <div class = "search-field">
+                <input class = "query-input" v-model.lazy="searchQuery" placeholder="Enter keyword">
+                <button class = "query-button" @click = "searchExercises()">Search</button>
+            </div> 
+            
+            <div class = "library-title">
+                <p>Results</p>
+            </div>
+            
+            <div>
+                <div v-if = "searchResults.length === 0" class = "default-checker-item">
+                    <p class = "exercise-checker-name">No results found.</p>
+                </div>
+                <div v-else style="overflow-y: scroll; max-height: 350px;" class = "check-item">
+                    <!-- This is how you can add scroll bar to handle too-many search results -->
 
-        <div>
-            <button @click = "showAdd=true">Add New Exercise</button>
-            <AddNewExercise :showAdd="showAdd" @close="showAdd=false" />
-        </div>
-
-        
-
-
-
-        
-
-        <!-- <div class = "search-field">
-            <p id = "search">Search</p>
-        </div>
-
-        <div class = "library-title">
-            <p>Results</p>
-        </div>
-
-        <div class = "sample-result">
-            <p id = "sport">Football (unit: minute)</p>
-            <p id = "unit-calories">9.1 calories</p>
+                    <exercise-checker-item v-for = "(result, index) in searchResults"
+                    :key="index" :exerciseName = "result.exerciseName"
+                    :caloriePerMinute = "result.calorieBurntPerMin" />
+                    <!-- Generate one ExerciseCheckerItem for every search result -->
+                </div>
+            </div>
+            
         </div>
 
         <div class = "add-button-wrapper">
-            <button id = "add-button">Add New Exercise Type</button>
-        </div> -->
+            <button id = "add-button" @click = "showAdd=true">Add New Exercise</button>
+            <AddNewExercise :showAdd="showAdd" @close="showAdd=false" />
+        </div>
         
     </div>
 </template>
@@ -175,14 +163,32 @@ export default {
     position: absolute;
     top: 70px;
     left: 20px;
+}
 
-    width: 680px;
-    height: 50px;
+input {
+    width: 650px;
+    height: 35px;
 
     background: #ECECEC;
     border: 1px solid #D6D6D6;
-    border-radius: 30px
+    border-radius: 54px;
+}
 
+.query-input::placeholder {
+    text-indent: 30px;
+    font-family: 'Mulish';
+    font-size: 16px;
+    color: #B5B7B9;
+}
+
+.query-button {
+    background-color: #A08666;
+    border: 2px solid #746652;
+    border-radius: 8px;
+    color: white;
+    font-family: 'Mulish';
+    font-size: 16px;
+    padding: 10px;
 }
 
 .search-field #search {
@@ -196,19 +202,9 @@ export default {
     text-align: center;
 }
 
-.sample-result {
+.exercise-checker-name {
     position: absolute;
-    top: 200px;
-    left: 20px;
-
-    width: 680px;
-    height: 100px;
-    background: #DDD8BA;
-    border-radius: 20px;
-}
-
-.sample-result #sport {
-    position: absolute;
+    top: 10px;
     left: 30px;
 
     width: 300px;
@@ -218,15 +214,22 @@ export default {
     color: #A08666;
 }
 
-.sample-result #unit-calories {
+.default-checker-item {
     position: absolute;
-    right: 50px;
+    top: 200px;
+    left: 20px;
+    
+    width: 750px;
+    height: 100px;
+    background-color: #DDD8BA;
+    border-radius: 20px;
+}
 
-    width: 120px;
-    font-family: 'Lato';
-    font-style: normal;
-    font-size: 20px;
-    color: #A08666;
+.check-item {
+    position: absolute;
+    top: 200px;
+    left: 20px;
+    width: 750px;
 }
 
 .add-button-wrapper {
