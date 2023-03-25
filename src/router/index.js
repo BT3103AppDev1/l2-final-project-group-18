@@ -1,52 +1,57 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import ExerciseMain from '../views/ExerciseMain.vue'
-import login from '../views/login.vue'
-import signup from '../views/signup.vue'
-import signout from '../views/signout.vue'
-import welcome from '../views/WelcomePage.vue'
-import updateProfile from '../views/UpdateProfilePage.vue'
+import { createRouter, createWebHistory } from "vue-router";
+import HomeView from "../views/HomeView.vue";
+import ExerciseMain from "../views/ExerciseMain.vue";
+import login from "../views/login.vue";
+import signup from "../views/signup.vue";
+import signout from "../views/signout.vue";
+import welcome from "../views/WelcomePage.vue";
+import updateProfile from "../views/UpdateProfilePage.vue";
+import GoalsPage from "../views/GoalsPage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: HomeView
+      path: "/",
+      name: "home",
+      component: HomeView,
     },
     {
-      path: '/exercise',
+      path: "/exercise",
       name: "exercise",
-      component: ExerciseMain
+      component: ExerciseMain,
     },
     {
-      path: '/login',
+      path: "/goals",
+      name: "Goals Page",
+      component: GoalsPage,
+    },
+    {
+      path: "/login",
       name: "login",
-      component: login
+      component: login,
     },
     {
-      path: '/signup',
+      path: "/signup",
       name: "signup",
-      component: signup
+      component: signup,
     },
     {
-      path: '/signout',
+      path: "/signout",
       name: "signout",
-      component: signout
+      component: signout,
     },
     {
-      path: '/welcome',
+      path: "/welcome",
       name: "welcome",
-      component: welcome
+      component: welcome,
     },
     {
-      path: '/updateProfile',
+      path: "/updateProfile",
       name: "updateProfile",
-      component: updateProfile
-    }
+      component: updateProfile,
+    },
+  ],
+});
 
-  ]
-})
-
-export default router
+export default router;

@@ -21,9 +21,7 @@ export default {
     width: 644.99px;
     height: 82.92px;
     left: 343.92px;
-    top: 572.62px;
-
-    transform: rotate(-0.27deg);
+    top: 200px;
 }
 
 
@@ -33,16 +31,16 @@ export default {
     box-sizing: border-box;
 
     position: absolute;
-    width: 644.91px;
-    height: 82.58px;
+    width: 300px;
+    height: 50px;
     left: 344px;
-    top: 572.62px;
+    top: 200px;
 
     font-family: 'Poppins';
     font-style: normal;
     font-weight: bold;
-    font-size: 40px;
-    line-height: 41px;
+    font-size: 30px;
+    line-height: 20px;
     text-align: center;
 
     color: #33363F;

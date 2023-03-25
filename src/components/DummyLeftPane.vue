@@ -18,7 +18,7 @@
             </li>
             <li>Leaderboard</li>
             <li>Info cards</li>
-            <li>Goals</li>
+            <li><router-link to = "/goals">Goals</router-link></li>
             <li>
                 <router-link to="/signout">Sign out</router-link>
             </li>
