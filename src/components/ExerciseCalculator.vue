@@ -16,8 +16,10 @@
         :key="exercise.id"
         class="exercise-block"
       >
-        <p id="sport">{{ exercise.name }}</p>
-        <p id="duration">{{ exercise.time }} min</p>
+        <div class="text-wrapper">
+          <p id="sport">{{ exercise.name }}</p>
+          <p id="duration">{{ exercise.duration }} min</p>
+        </div>
       </div>
     </div>
 
@@ -92,7 +94,7 @@ export default {
     },
 
     async fetchWeeklyExercises() {
-      const userRef = doc(db, 'users', 'yVcS7HsSsZiQIPoZfNuM')
+      const userRef = doc(db, 'users', 'UZwy1hqjve1VIUsgIrhy')
       const sportTrackingRef = collection(userRef, 'sportTracking')
       const exercisesSnapshot = await getDocs(sportTrackingRef)
       const exercises = exercisesSnapshot.docs.map((doc) => doc.data())
@@ -105,7 +107,7 @@ export default {
         newExercises.push({
           id: exerciseTypeSnapshot.id,
           name: exerciseTypeSnapshot.data().name,
-          time: exercise.duration,
+          duration: exercise.duration,
         })
       }
       this.weeklyExercises = newExercises
@@ -116,14 +118,14 @@ export default {
       let totalCaloriesBurnt = 0
 
       for (const exercise of this.weeklyExercises) {
-        const exerciseTypeRef = doc(db, 'exerciseCaloriesDatabase', exercise.id)
+        const exerciseTypeRef = doc(db, 'exerciseCalorie', exercise.id)
         const exerciseTypeSnapshot = await getDoc(exerciseTypeRef)
         const caloriesBurntPerMinute =
-          exerciseTypeSnapshot.data().CaloriesBurntPerMinute
-        totalCaloriesBurnt += exercise.time * caloriesBurntPerMinute
+          exerciseTypeSnapshot.data().caloriesBurntPerMinute
+        totalCaloriesBurnt += exercise.duration * caloriesBurntPerMinute
       }
 
-      this.totalCalories = totalCaloriesBurnt
+      this.totalCalories = totalCaloriesBurnt.toFixed(2)
     },
   },
 }
@@ -133,25 +135,18 @@ export default {
 .exercise-calculator {
   position: absolute;
   top: -100px;
-  left: 160px;
+  left: -100px;
 
-  width: 800px;
-  height: 670px;
+  width: 600px;
+  height: 500px;
   background: #faf4e1;
   border: 5px solid #9f978b;
   border-radius: 20px;
 }
-.exercise-container {
-  position: absolute;
-  display: flex;
-  flex-wrap: wrap; /* This will allow the items to wrap to the next row */
-  gap: 1rem;
-  top: 120px;
-  left: 50px; /* Adjust the gap between the blocks as needed */
-}
+
 .back-button {
   position: absolute;
-  top: 10px;
+  top: -10px;
   right: 10px;
 
   font-family: 'Mulish';
@@ -171,12 +166,12 @@ export default {
   width: 673px;
   height: 43px;
   left: 45px;
-  top: 46px;
+  top: 32px;
 
   font-family: 'Mulish';
   font-style: normal;
   font-weight: 700;
-  font-size: 25px;
+  font-size: 23px;
   line-height: 22px;
   /* or 88% */
   display: flex;
@@ -185,9 +180,18 @@ export default {
   color: #746652;
 }
 
+.exercise-container {
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap; /* This will allow the items to wrap to the next row */
+  gap: 1rem;
+  top: 90px;
+  left: 50px; /* Adjust the gap between the blocks as needed */
+}
+
 .exercise-block {
-  width: 250px;
-  height: 108px;
+  width: 170px;
+  height: 58px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -195,11 +199,18 @@ export default {
   border-radius: 20px;
 }
 
-.exercise-block #sport {
-  width: 140px;
+.text-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-wrapper #sport {
+  width: 89px;
+  padding-left: 35px;
   font-family: 'Lato';
   font-style: normal;
-  font-size: 28px;
+  font-size: 19px;
   color: #a08666;
 }
 
@@ -207,25 +218,25 @@ export default {
   width: 87px;
   font-family: 'Lato';
   font-style: normal;
-  font-size: 28px;
+  font-size: 19px;
   color: #a08666;
 }
 
 .add-button-wrapper {
   position: absolute;
-  left: 126px;
-  top: 530px;
-  width: 700px;
-  height: 50px;
+  left: 75px;
+  top: 400px;
+  width: 500px;
+  height: 40px;
 }
 
 .add-button-wrapper #add-button {
-  width: 550px;
-  height: 50px;
+  width: 450px;
+  height: 40px;
 
   font-family: 'Mulish';
   font-style: normal;
-  font-size: 20px;
+  font-size: 17px;
   text-align: center;
   color: #746652;
 
@@ -237,13 +248,13 @@ export default {
   position: absolute;
   width: 642px;
   height: 44px;
-  left: 130px;
-  top: 600px;
+  left: 94px;
+  top: 445px;
 
   font-family: 'Mulish';
   font-style: normal;
   font-weight: 700;
-  font-size: 30px;
+  font-size: 22px;
   line-height: 22px;
   /* or 73% */
   display: flex;
