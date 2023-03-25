@@ -1,10 +1,18 @@
 <template>
     <div v-if = "showAdd" class = "add-new-exercise">
-        <input type = "text" v-model.lazy = "exerciseType" placeholder="Exercise Type">
-        <input type = "number" v-model.lazy = "caloriesMin" placeholder="Calories Per Min">
-        <button @click="addExercise">Add</button>
+        <div class = "add-new-text">
+            <p>Add new exercise type and calories burnt per minute </p>
+        </div>
 
-        <button @click = "closeAdd">Back</button>
+        <p class = "before-input">Exercise Type: 
+        <input type = "text" v-model.lazy = "exerciseType"></p>
+        
+        <p class = "before-input">Calories / min: 
+        <input type = "number" v-model.lazy = "caloriesMin"> </p>
+        <button class = "add-exercise-button" @click="addExercise">Add</button>
+
+        <!-- <button @click = "closeAdd">Back</button> -->
+        <p><a class = "back-link" @click = "closeAdd">Back</a></p>
     </div>
 </template>
 
@@ -64,3 +72,89 @@ export default {
 }
 
 </script>
+
+<style scoped>
+
+.add-new-exercise {
+    position: absolute;
+    top: -450px;
+    left: -40px;
+
+    width: 650px;
+    height: 280px;
+
+    border-radius: 21px;
+
+    background: #FAF4E1;
+    border: 5px solid #9F978B;
+    border-radius: 20px;
+}
+
+input {
+    position: relative;
+    left: 10px;
+
+    width: 420px;
+    height: 35px;
+
+    background: #ECECEC;
+    border: 1px solid #C1C1C1;
+    border-radius: 20px;    
+}
+
+.before-input {
+    position: relative;
+    left: 20px;
+    
+    font-family: 'Mulish';
+    font-style: normal;
+    font-size: 24px;
+
+    color: #b0803e;    
+}
+
+.add-new-text {
+    position: relative;
+    top: 5px;
+    left: 20px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-size: 20px;
+    color: #746652;
+}
+
+.add-exercise-button {
+    position: relative;
+    left: 20px;
+    width: 600px;
+    height: 50px;
+    
+    font-family: 'Mulish';
+    font-style: normal;
+    font-size: 20px;
+    text-align: center;
+    color: #746652;
+
+    background: #FCB64E;
+    border-radius: 30px;
+}
+
+.back-link {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-size: 15px;
+    color: #746652;
+}
+
+.back-link:hover {
+    color:brown;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+</style>
