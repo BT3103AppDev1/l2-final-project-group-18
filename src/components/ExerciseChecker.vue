@@ -6,11 +6,36 @@
             <p><a class = "back-link" @click = "closeChecker">Back</a></p>
         </div>
 
-        <div class = "search-text">
-            <p>Enter your exercise here to check amount of calories burnt per minute: </p>
+        <div>
+            <!-- <div class = "search-text">
+                <p>Enter your exercise here to check amount of calories burnt per minute: </p>
+            </div>            -->
+            <input v-model.lazy="searchQuery" placeholder="Enter keyword">
+            <button @click = "searchExercises()">Search</button>
+
+            <div v-if = "searchResults.length === 0">No results found.</div>
+            <div v-else style="overflow-y: scroll; max-height: 400px;">
+                <!-- This is how you can add scroll bar to handle too-many search results -->
+
+                <exercise-checker-item v-for = "(result, index) in searchResults"
+                :key="index" :exerciseName = "result.exerciseName"
+                :caloriePerMinute = "result.calorieBurntPerMin" />
+                <!-- Generate one ExerciseCheckerItem for every search result -->
+            </div>
         </div>
 
-        <div class = "search-field">
+        <div>
+            <button @click = "showAdd=true">Add New Exercise</button>
+            <AddNewExercise :showAdd="showAdd" @close="showAdd=false" />
+        </div>
+
+        
+
+
+
+        
+
+        <!-- <div class = "search-field">
             <p id = "search">Search</p>
         </div>
 
@@ -25,15 +50,35 @@
 
         <div class = "add-button-wrapper">
             <button id = "add-button">Add New Exercise Type</button>
-        </div>
-
+        </div> -->
+        
     </div>
 </template>
 
 <script>
 
+import firebaseApp from '../firebase.js';
+import { getFirestore } from "firebase/firestore";
+import { collection, query, where, getDocs } from "firebase/firestore";
+
+import ExerciseCheckerItem from './ExerciseCheckerItem.vue';
+import AddNewExercise from './AddNewExercise.vue';
+
+const db = getFirestore(firebaseApp)
+
 export default {
     name: 'Exercise-Checker',
+    components: {
+        ExerciseCheckerItem,
+        AddNewExercise
+    },
+    data() {
+        return {
+            searchQuery: "",
+            searchResults: [],
+            showAdd: false
+        }
+    },
     props: {
         showChecker: {
             type: Boolean,
@@ -42,8 +87,31 @@ export default {
         }
     },
     methods: {
+        async searchExercises() {
+            const exercisesRef = collection(db, "exerciseCalorieDatabase");
+
+            const q = query(
+                exercisesRef,
+                where("exerciseName", ">=", this.searchQuery),
+                where("exerciseName", "<=", this.searchQuery + "\uf8ff")
+            );
+            try {
+                const querySnapshot = await getDocs(q);
+                const results = querySnapshot.docs.map((doc) => doc.data());
+                console.log(results);
+                this.searchResults = results;
+            } catch (error) {
+                console.error("Error searching exercises: ", error);
+            }          
+        },
         closeChecker() {
             this.$emit('close');
+        }
+    },
+    watch: {
+        searchQuery() {
+            this.searchResults = []
+            this.searchExercises()
         }
     }
 }
@@ -186,4 +254,5 @@ export default {
 }
 
 </style>
+
 
