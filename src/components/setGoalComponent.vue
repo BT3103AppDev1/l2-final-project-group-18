@@ -12,7 +12,7 @@
             <cardSetGoal goalTitle="Set daily calorie intake goal"></cardSetGoal>
         </div>
         <div class = "fourth">
-            <cardUpdateGoal goalTitle="Set daily calorie intake goal"></cardUpdateGoal>
+            <cardUpdateGoal goalTitle="Update weight gain/ weight loss goal"></cardUpdateGoal>
         </div>
         
 

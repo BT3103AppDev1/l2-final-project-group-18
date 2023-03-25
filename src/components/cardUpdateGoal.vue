@@ -24,7 +24,7 @@
         <div v-if="showUpdate" class="overlay">
             <SetGoalPopUp :showUpdate="showUpdate" @close="($event) => (showUpdate = false)"/>
         </div>
-        
+
     </div>
 
 
@@ -62,7 +62,7 @@ export default {
         goalTitle: {
             type: String,
             required: true,
-        }
+        },
     },
     mounted() {
         const auth = getAuth()
@@ -126,7 +126,7 @@ export default {
 
 #updateButton {
     background-color: #FCB64E;
-    width: 60px;
+    width: 80px;
     height: 24px;
     border-radius: 8px;
 }
