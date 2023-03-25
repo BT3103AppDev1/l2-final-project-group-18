@@ -121,7 +121,7 @@ export default {
 .overlay {
     position: fixed;
     top: 20%;
-    left: 50%;
+    left: 30%;
     z-index: 9999;
     text-align: center;
     width: 700px;

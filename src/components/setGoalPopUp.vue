@@ -38,7 +38,7 @@ export default {
   position: absolute;
   top: 10px;
   right: 10px;
-  font-size: 10px;
+  font-size: 20px;
   cursor: pointer;
   background-color: #FAF4E1;
   border: 0px;
