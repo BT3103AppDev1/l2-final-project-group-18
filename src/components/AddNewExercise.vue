@@ -46,9 +46,9 @@ export default {
             if (!this.exerciseType || !this.caloriesMin) return; // validate inputs
 
             try {
-                const docRef = await addDoc(collection(db, "exerciseCalorieDatabase"), {
-                    exerciseName: this.exerciseType,
-                    calorieBurntPerMin: parseFloat(this.caloriesMin)
+                const docRef = await addDoc(collection(db, "exerciseCalorie"), {
+                    name: this.exerciseType,
+                    caloriesBurntPerMinute: parseFloat(this.caloriesMin)
                 });
                 // console.log(docRef)
                 const docSnap = await getDoc(docRef);
