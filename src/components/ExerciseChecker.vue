@@ -27,8 +27,8 @@
                     <!-- This is how you can add scroll bar to handle too-many search results -->
 
                     <exercise-checker-item v-for = "(result, index) in searchResults"
-                    :key="index" :exerciseName = "result.exerciseName"
-                    :caloriePerMinute = "result.calorieBurntPerMin" />
+                    :key="index" :exerciseName = "result.name"
+                    :caloriePerMinute = "result.caloriesBurntPerMinute" />
                     <!-- Generate one ExerciseCheckerItem for every search result -->
                 </div>
             </div>
@@ -76,12 +76,12 @@ export default {
     },
     methods: {
         async searchExercises() {
-            const exercisesRef = collection(db, "exerciseCalorieDatabase");
+            const exercisesRef = collection(db, "exerciseCalorie");
 
             const q = query(
                 exercisesRef,
-                where("exerciseName", ">=", this.searchQuery),
-                where("exerciseName", "<=", this.searchQuery + "\uf8ff")
+                where("name", ">=", this.searchQuery),
+                where("name", "<=", this.searchQuery + "\uf8ff")
             );
             try {
                 const querySnapshot = await getDocs(q);
