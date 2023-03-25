@@ -7,7 +7,7 @@
                 <p>{{ goalTitle }}</p>
             </div>
             <div id = "right-elem">
-                <button @click="($event) => (showSet = true)" id = "button">SET</button>
+                <button @click="($event) => (showSet = true)" id = "setButton">SET</button>
             </div>
         </div>
 
@@ -19,9 +19,11 @@
                 <p>No goals currently</p>
             </div>
         </div>
+
         <div v-if="showSet" class="overlay">
             <SetGoalPopUp :showSet="showSet" @close="($event) => (showSet = false)"/>
         </div>
+        
     </div>
 
 
@@ -88,7 +90,7 @@ export default {
     color: #746652;
 }
 
-#button {
+#setButton {
     background-color: #FCB64E;
     width: 54px;
     height: 24px;

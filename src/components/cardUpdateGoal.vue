@@ -1,13 +1,13 @@
 <template>
    
-    <div class = "card">
+    <div class = "cardUpdate">
 
         <div class = "section">
             <div id = "left-elem">
                 <p>{{ goalTitle }}</p>
             </div>
             <div id = "right-elem">
-                <button @click="($event) => (showSet = true)" id = "button">UPDATE</button>
+                <button @click="($event) => (showUpdate = true)" id = "updateButton">UPDATE</button>
             </div>
         </div>
 
@@ -16,29 +16,47 @@
         <div class = "section">
             <div id = "circle"></div>
             <div id = "no-goals-elem">
-                <p>No goals currently</p>
+                <p v-if="weightGainOrLoss === 'Weight Gain'">I want to gain {{ weightChangeInKg }} kg in {{ daysToCompleteGoal }} days</p>
+                <p v-if="weightGainOrLoss === 'Weight Loss'">I want to lose {{ weightChangeInKg }} kg in {{ daysToCompleteGoal }} days</p>
             </div>
         </div>
-        <div v-if="showSet" class="overlay">
-            <SetGoalPopUp :showSet="showSet" @close="($event) => (showSet = false)"/>
+
+        <div v-if="showUpdate" class="overlay">
+            <SetGoalPopUp :showUpdate="showUpdate" @close="($event) => (showUpdate = false)"/>
         </div>
+        
     </div>
 
 
 </template>
 
 <script>
-import SetGoalPopUp from './SetGoalPopUp.vue'
+import UpdateGoalPopUp from './UpdateGoalPopUp.vue'
+import firebaseApp from '../firebase.js'
+import {
+  collection,
+  doc,
+  getDoc,
+  getFirestore,
+} from 'firebase/firestore'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
+
+
+const db = getFirestore(firebaseApp)
 
 export default {
-    name: "cardSetGoal",
+    name: "cardUpdateGoal",
     components: {
-        SetGoalPopUp,
+        UpdateGoalPopUp,
     },
     data() {
         return {
-            showSet: false
-        }
+            showUpdate: false,
+            daysToCompleteGoal: 0,
+            weightChangeInKg: 0,
+            weightGainOrLoss: ''
+
+        };
     },
     props: {
         goalTitle: {
@@ -46,7 +64,26 @@ export default {
             required: true,
         }
     },
+    mounted() {
+        const auth = getAuth()
+        onAuthStateChanged(auth, (user) => {
+        if (user) {
+            this.user = user
+        }
+        })
+        this.fetchWeightGoal()
+    },
     methods: {
+        async fetchWeightGoal() {
+            const userRef = doc(db, 'users', 'UZwy1hqjve1VIUsgIrhy')
+            const goalInfoCollection = collection(userRef, 'goalInfo')
+            const goalInfoSnapshot = await getDoc(doc(goalInfoCollection, 'weightGoals'))
+            
+            this.daysToCompleteGoal = goalInfoSnapshot.data().daysToCompleteGoal;
+            this.weightChangeInKg = goalInfoSnapshot.data().weightChangeInKg;
+            this.weightGainOrLoss = goalInfoSnapshot.data().weightGainOrLoss;
+
+        },
     }
 
 }
@@ -56,11 +93,11 @@ export default {
 <style>
 /* cards / default */
 
-.card {
+.cardUpdate {
     position: absolute;
     left: 40px;
     top: 110px;
-    width: 800px;
+    width: 900px;
     height: 116px;
     background: #fff;
     box-sizing: border-box;
@@ -87,9 +124,9 @@ export default {
     color: #746652;
 }
 
-#button {
+#updateButton {
     background-color: #FCB64E;
-    width: 54px;
+    width: 60px;
     height: 24px;
     border-radius: 8px;
 }

@@ -93,11 +93,10 @@ export default {
                 return
             } 
 
-
-
             const userRef = doc(db, 'users', 'UZwy1hqjve1VIUsgIrhy')
             const goalInfoCollection = collection(userRef, 'goalInfo')
             const goalInfoDoc = doc(goalInfoCollection, 'weightGoals')
+
             const docRef = await setDoc(goalInfoDoc, {
                 daysToCompleteGoal: this.daysToCompleteGoal,
                 weightChangeInKg: this.weightChangeInKg,
