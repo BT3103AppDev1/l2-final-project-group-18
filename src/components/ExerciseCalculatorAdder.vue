@@ -71,7 +71,7 @@ export default {
       user: false,
       exerciseTypes: [],
       selectedExerciseType: '',
-      exerciseTimes: Array.from({ length: 24 }, (_, i) => (i + 1) * 5),
+      exerciseTimes: Array.from({ length: 48 }, (_, i) => (i + 1) * 5),
       selectedExerciseTime: '',
       showSuccessMessage: false,
     }
@@ -97,7 +97,7 @@ export default {
 
   methods: {
     async fetchExerciseTypes() {
-      const exerciseTypesRef = collection(db, 'exerciseCaloriesDatabase')
+      const exerciseTypesRef = collection(db, 'exerciseCalorie')
       const exerciseTypesSnapshot = await getDocs(exerciseTypesRef)
 
       this.exerciseTypes = exerciseTypesSnapshot.docs.map((doc) => ({
@@ -113,11 +113,11 @@ export default {
       }
 
       const newExercise = {
-        type: doc(db, 'exerciseCaloriesDatabase', this.selectedExerciseType),
+        type: doc(db, 'exerciseCalorie', this.selectedExerciseType),
         duration: parseInt(this.selectedExerciseTime, 10),
       }
 
-      const userRef = doc(db, 'users', 'yVcS7HsSsZiQIPoZfNuM')
+      const userRef = doc(db, 'users', 'UZwy1hqjve1VIUsgIrhy')
       const sportTrackingRef = collection(userRef, 'sportTracking')
 
       await addDoc(sportTrackingRef, newExercise)
@@ -142,9 +142,9 @@ export default {
 .exercise-adder {
   position: absolute;
   top: -400px;
-  left: -100px;
+  left: -30px;
 
-  width: 800px;
+  width: 500px;
   height: 300px;
   background: #faf4e1;
   border: 5px solid #9f978b;
@@ -153,7 +153,7 @@ export default {
 
 .back-button {
   position: absolute;
-  top: 10px;
+  top: -10px;
   right: 10px;
 
   font-family: 'Mulish';
@@ -170,13 +170,13 @@ export default {
   position: absolute;
   width: 673px;
   height: 61px;
-  left: 41px;
-  top: 10px;
+  left: 21px;
+  top: 17px;
 
   font-family: 'Mulish';
   font-style: normal;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 12px;
   line-height: 22px;
   /* or 92% */
   display: flex;
@@ -187,7 +187,7 @@ export default {
 
 .label1 {
   position: absolute;
-  width: 149px;
+  width: 150px;
   height: 41px;
   left: 41px;
   top: 89px;
@@ -195,7 +195,7 @@ export default {
   font-family: 'Mulish';
   font-style: normal;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 17px;
   line-height: 22px;
   /* or 110% */
   display: flex;
@@ -208,10 +208,10 @@ export default {
   box-sizing: border-box;
 
   position: absolute;
-  width: 529px;
-  height: 45px;
-  left: 207px;
-  top: 85px;
+  width: 300px;
+  height: 35px;
+  left: 170px;
+  top: 92px;
 
   background: #ececec;
   border: 1px solid #c1c1c1;
@@ -220,7 +220,7 @@ export default {
 
 .label2 {
   position: absolute;
-  width: 149px;
+  width: 150px;
   height: 41px;
   left: 41px;
   top: 166px;
@@ -228,7 +228,7 @@ export default {
   font-family: 'Mulish';
   font-style: normal;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 17px;
   line-height: 22px;
   /* or 110% */
   display: flex;
@@ -241,10 +241,10 @@ export default {
   box-sizing: border-box;
 
   position: absolute;
-  width: 480px;
-  height: 45px;
-  left: 207px;
-  top: 164px;
+  width: 300px;
+  height: 35px;
+  left: 170px;
+  top: 170px;
 
   background: #ececec;
   border: 1px solid #c1c1c1;
@@ -253,15 +253,15 @@ export default {
 
 .add-button-wrapper {
   position: absolute;
-  left: 126px;
-  top: 230px;
-  width: 700px;
+  left: 50px;
+  top: 240px;
+  width: 500px;
   height: 50px;
 }
 
 .add-button-wrapper #add-button {
-  width: 550px;
-  height: 50px;
+  width: 400px;
+  height: 40px;
 
   font-family: 'Mulish';
   font-style: normal;
@@ -275,18 +275,18 @@ export default {
 
 .okay-button-wrapper {
   position: absolute;
-  left: 25px;
-  top: 230px;
-  width: 450px;
+  left: 20px;
+  top: 150px;
+  width: 200px;
   height: 50px;
 }
 .okay-button {
-  width: 450px;
-  height: 50px;
+  width: 260px;
+  height: 37px;
 
   font-family: 'Mulish';
   font-style: normal;
-  font-size: 20px;
+  font-size: 19px;
   text-align: center;
   color: #746652;
 
@@ -296,15 +296,15 @@ export default {
 
 .success-message {
   position: absolute;
-  width: 637px;
+  width: 300px;
   height: 76px;
-  left: 90px;
-  top: 100px;
+  left: 37px;
+  top: 50px;
 
   font-family: 'Mulish';
   font-style: normal;
   font-weight: 700;
-  font-size: 30px;
+  font-size: 22px;
   line-height: 22px;
   /* or 73% */
   display: flex;
@@ -316,11 +316,11 @@ export default {
 
 .success-pop-up {
   position: absolute;
-  top: 100px;
-  left: -100px;
+  top: 50px;
+  left: 70px;
 
-  width: 500px;
-  height: 300px;
+  width: 300px;
+  height: 200px;
   background: #faf4e1;
   border: 5px solid #9f978b;
   border-radius: 20px;
