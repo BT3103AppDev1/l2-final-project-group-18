@@ -1,6 +1,4 @@
 <template>
-    <!-- <div class = "main"><center> -->
-
         <div class="title">
         <p>Sign in / Register a FREE account</p>
         </div>
@@ -15,17 +13,21 @@
 
         <div class = "signInButtonBox">
             <button id = "rectangle3" @click = "home">Sign In</button>
-            
         </div>
 
         <div class = "newUserRegisterLink">
             <p><a class = "newUserRegisterLink" @click = "signup">New user? Register with email</a></p>
         </div>
-    <!-- </center>
-    </div> -->
+
+        <div id = "firebaseui-auth-container"></div>
 </template>
 
 <script>
+import firebase from '@/uifirebase.js';
+import 'firebase/compat/auth'
+import * as firebaseui from 'firebaseui'
+import 'firebaseui/dist/firebaseui.css'
+
 export default {
     name: "login",
     methods: {
@@ -35,6 +37,20 @@ export default {
     home() {
       this.$router.push('/')
     }
+  },
+  mounted() {
+    var ui = firebaseui.auth.AuthUI.getInstance();
+    if (!ui) {
+        ui = new firebaseui.auth.AuthUI(firebase.auth());
+    }
+    var uiConfig = {
+        signInSuccessUrl: '/',
+        signInOptions: [
+            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            firebase.auth.EmailAuthProvider.PROVIDER_ID,
+        ]
+    };
+    ui.start("#firebaseui-auth-container", uiConfig)
   }
 }
 </script>

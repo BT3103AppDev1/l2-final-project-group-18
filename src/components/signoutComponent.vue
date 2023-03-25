@@ -5,11 +5,28 @@
 </template>
 
 <script>
+import { getAuth, onAuthStateChanged, signOut } from '@firebase/auth';
 export default {
     name: "signout",
     methods: {
     login() {
+      const auth = getAuth();
+      const user = auth.currentUser;
+      signOut(auth, user)
       this.$router.push('/login')
+    }
+  },
+  mounted() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.user = user;
+      }
+    })
+  },
+  data() {
+    return {
+      user: false,
     }
   }
 }
