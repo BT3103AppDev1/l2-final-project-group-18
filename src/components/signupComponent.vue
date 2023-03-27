@@ -1,24 +1,22 @@
 <template>
-    
-
-        <div class = "title">
+            <div class = "title">
             <p>Register a FREE account</p>
         </div>
 
         <div class = "userNameBox">
-            <p id = "username">Username</p>
+            <input class = "query-input" placeholder="Username" type="username" v-model="username">
         </div>
 
         <div class = "emailInputBox">
-            <p id = "email">Email</p>
+            <input class = "query-input" placeholder="Email" type="email" v-model="email">
         </div>
 
         <div class = "passwordInputBox">
-            <p id = "password">Password</p>
+            <input class = "query-input" placeholder="Password" type="password" v-model="password">
         </div>
 
         <div class = "registerButtonBox">
-            <button id = "rectangle3" @click = "welcome">Register</button>
+            <button id = "rectangle3" @click = "register()">Register</button>
             
         </div>
 
@@ -28,17 +26,43 @@
 </template>
 
 <script>
+import { ref } from 'vue';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { collection, doc, setDoc, getDocs } from "firebase/firestore";
+import { auth, db } from '@/firebase.js';
+
 export default {
-    name: "signup",
-    methods: {
-    login() {
-      this.$router.push('/login')
+  data() {
+    return {
+      username: '',
+      email: '',
+      password: '',
+    };
+  },
+  methods: {
+    async register() {
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, this.email, this.password);
+        const user = userCredential.user;
+        const profileDocRef = doc(db, "users", user.uid);
+        const profileData = {
+          email: this.email,
+          password: this.password,
+          username: this.username,
+        };
+        await setDoc(profileDocRef, { profile_info: profileData });
+        console.log('User signed up successfully!');
+        this.$router.push('/login')
+      } catch (error) {
+        console.error(error);
+      }
     },
-    welcome() {
-        this.$router.push('/welcome')
+
+    login() {
+        this.$router.push('/login')
     }
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
@@ -62,43 +86,26 @@ export default {
 }
 
 .userNameBox {
-    box-sizing: border-box;
-
     position: absolute;
-    width: 335px;
-    height: 48px;
-    left: 620px;
-    top: 150px;
-
-    border-radius: 40px;
-
-    background: #FFFEFE;
-    border: 1.50794px solid #000000;
-    
-    transform: matrix(1, 0, 0, 1, 0, 0);
+    top: -50px;
+    left: 20px;
 
 }
-
-.userNameBox #username {
-    position: absolute;
-    top: -5px;
-    left: 40px;
-    font-family: 'Mulish';
-    font-style: normal;
-    font-size: 18px;
-    color: #B5B7B9;
-    text-align: center;
-}
-
 
 .emailInputBox {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+}
+
+input {
     box-sizing: border-box;
 
     position: absolute;
     width: 335px;
     height: 48px;
-    left: 620px;
-    top: 240px;
+    left: 650px;
+    top: 200px;
 
     border-radius: 40px;
 
@@ -106,49 +113,20 @@ export default {
     border: 1.50794px solid #000000;
     
     transform: matrix(1, 0, 0, 1, 0, 0);
-
 }
 
-.emailInputBox #email {
-    position: absolute;
-    top: -5px;
-    left: 40px;
+.query-input::placeholder {
+    text-indent: 30px;
     font-family: 'Mulish';
-    font-style: normal;
-    font-size: 18px;
+    font-size: 16px;
     color: #B5B7B9;
-    text-align: center;
 }
 
 .passwordInputBox {
-    box-sizing: border-box;
-
     position: absolute;
-    width: 335px;
-    height: 48px;
-    left: 620px;
-    top: 330px;
-
-    
-    border-radius: 40px;
-
-    background: #FFFEFE;
-    border: 1.50794px solid #000000;
-    
-    transform: matrix(1, 0, 0, 1, 0, 0);
+    top: 70px;
+    left: 20px;
 }
-
-.passwordInputBox #password {
-    position: absolute;
-    top: -5px;
-    left: 40px;
-    font-family: 'Mulish';
-    font-style: normal;
-    font-size: 18px;
-    color: #B5B7B9;
-    text-align: center;
-}
-
 .registerButtonBox {
     position: absolute;
     width: 300.99px;

@@ -1,23 +1,16 @@
 <template>
     <div class = "signOutButtonBox">
-            <button id = "rectangle3" @click = "login">Sign Out</button>          
+            <button id = "rectangle3" @click = "signOut">Sign Out</button>          
     </div>
 </template>
 
 <script>
 import { getAuth, onAuthStateChanged, signOut } from '@firebase/auth';
+import { auth } from '@/firebase.js';
 export default {
     name: "signout",
-    methods: {
-    login() {
-      const auth = getAuth();
-      const user = auth.currentUser;
-      signOut(auth, user)
-      this.$router.push('/login')
-    }
-  },
-  mounted() {
-    const auth = getAuth();
+    mounted() {
+    //const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
         this.user = user;
@@ -28,7 +21,25 @@ export default {
     return {
       user: false,
     }
-  }
+  },
+
+  // data() {
+  //   return {
+  //     user: null,
+  //   };
+  // },
+  
+  methods: {
+    async signOut() {
+      try {
+        await signOut(auth);
+        console.log("signed out successfully");
+        this.$router.push('/login');
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  },
 }
 </script>
 

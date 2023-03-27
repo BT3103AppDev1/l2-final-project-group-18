@@ -4,15 +4,15 @@
         </div>
 
         <div class = "emailInputBox">
-            <p id = "email">Email</p>
+            <input class = "query-input" placeholder="Email" type="email" v-model="email" required>
         </div>
 
         <div class = "passwordInputBox">
-            <p id = "password">Password</p>
+            <input class = "query-input" placeholder="Password" type="password" v-model="password" required>
         </div>
 
         <div class = "signInButtonBox">
-            <button id = "rectangle3" @click = "home">Sign In</button>
+            <button id = "rectangle3" @click = "signin()">Sign In</button>
         </div>
 
         <div class = "newUserRegisterLink">
@@ -27,18 +27,12 @@ import firebase from '@/uifirebase.js';
 import 'firebase/compat/auth'
 import * as firebaseui from 'firebaseui'
 import 'firebaseui/dist/firebaseui.css'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 export default {
     name: "login",
-    methods: {
-    signup() {
-      this.$router.push('/signup')
-    },
-    home() {
-      this.$router.push('/')
-    }
-  },
-  mounted() {
+  
+    mounted() {
     var ui = firebaseui.auth.AuthUI.getInstance();
     if (!ui) {
         ui = new firebaseui.auth.AuthUI(firebase.auth());
@@ -47,22 +41,52 @@ export default {
         signInSuccessUrl: '/',
         signInOptions: [
             firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            firebase.auth.EmailAuthProvider.PROVIDER_ID,
         ]
     };
     ui.start("#firebaseui-auth-container", uiConfig)
-  }
+  },
+
+  data() {
+    return {
+      email: '',
+      password: '',
+      error: null,
+    };
+  },
+  methods: {
+    signup() {
+      this.$router.push('/signup')
+    },
+    
+    async signin() {
+      try {
+        const auth = getAuth();
+        await signInWithEmailAndPassword(auth, this.email, this.password);
+        this.$router.push('/');
+      } catch (error) {
+        this.error = error.message;
+      }
+    },
+  },
+
 }
 </script>
 
 <style scoped>
+#firebaseui-auth-container {
+    position: absolute;
+    border-radius: 40px;
+    width: 953.85px;
+    height: 118px;
+    left: 330px;
+    top: 560px;
+}
 
 .title {
     position: absolute;
     width: 953.85px;
     height: 118px;
     left: 550px;
-    /* top: 79px; */
 
     font-family: 'DM Sans';
     font-style: normal;
@@ -76,6 +100,12 @@ export default {
 }
 
 .emailInputBox {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+}
+
+input {
     box-sizing: border-box;
 
     position: absolute;
@@ -90,49 +120,21 @@ export default {
     border: 1.50794px solid #000000;
     
     transform: matrix(1, 0, 0, 1, 0, 0);
-
 }
 
-.emailInputBox #email {
-    position: absolute;
-    top: -5px;
-    left: 40px;
+.query-input::placeholder {
+    text-indent: 30px;
     font-family: 'Mulish';
-    font-style: normal;
-    font-size: 18px;
+    font-size: 16px;
     color: #B5B7B9;
-    text-align: center;
 }
 
 .passwordInputBox {
-    box-sizing: border-box;
-
     position: absolute;
-    width: 335px;
-    height: 48px;
-    left: 650px;
-    top: 300px;
-
-    
-    border-radius: 40px;
-
-    background: #FFFEFE;
-    border: 1.50794px solid #000000;
-    
-    transform: matrix(1, 0, 0, 1, 0, 0);
-
+    top: 70px;
+    left: 20px;
 }
 
-.passwordInputBox #password {
-    position: absolute;
-    top: -5px;
-    left: 40px;
-    font-family: 'Mulish';
-    font-style: normal;
-    font-size: 18px;
-    color: #B5B7B9;
-    text-align: center;
-}
 
 
 /* signInButtonBox */
@@ -178,7 +180,7 @@ export default {
     width: 502.31px;
     height: 10px;
     left: 340px;
-    top: 275px;
+    top: 250px;
 
     font-family: 'Poppins';
     font-style: normal;
