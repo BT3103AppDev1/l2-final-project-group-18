@@ -11,6 +11,9 @@
         <div class = "third">
             <cardSetGoal goalTitle="Set daily calorie intake goal"></cardSetGoal>
         </div>
+        <div class = "fourth">
+            <cardUpdateGoal goalTitle="Update weight gain/ weight loss goal"></cardUpdateGoal>
+        </div>
         
 
 
@@ -20,11 +23,13 @@
 
 <script>
 import cardSetGoal from '../components/cardSetGoal.vue';
+import cardUpdateGoal from '../components/cardUpdateGoal.vue';
 
 export default {
     name: "SetGoalComponent",
     components: {
-        cardSetGoal
+        cardSetGoal,
+        cardUpdateGoal
     }
 }
 </script>
@@ -63,6 +68,11 @@ h1 {
 .third {
     position: absolute;
     top: 300px;
+}
+
+.fourth {
+    position: absolute;
+    top: 450px;
 }
 
 </style>
