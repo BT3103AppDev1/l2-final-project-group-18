@@ -3,7 +3,9 @@
         <h2>HealthBuddy</h2>
         <ul>
             <li>Dashboard</li>
-            <li>Food</li>
+            <li>
+                <router-link to="/food">Food</router-link>
+            </li>
             <li>
                 <router-link to="/exercise">Exercise</router-link>
             </li>
