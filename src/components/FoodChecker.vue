@@ -11,7 +11,9 @@
                 <p>Enter your food here to check calories per serving: </p>
             </div>
             <div class = "search-field">
-
+                <input class = "query-input" v-model.lazy = "searchFoodQuery"
+                placeholder="Enter keyword">
+                <button class = "query-button" @click="searchFood()">Search</button>
             </div>
 
             <div class = "library-title">
