@@ -19,6 +19,19 @@
             <div class = "library-title">
                 <p>Results</p>
             </div>
+
+            <div>
+                <div v-if = "searchFoodResults.length === 0" 
+                class = "default-checker-item">
+                    <p class = "food-checker-name">No results found.</p>
+                </div>
+                <div v-else style = "overflow-y: scroll; max-height: 350px;" class = "check-item">
+                    <FoodCheckerItem v-for = "(result, index) in searchFoodResults"
+                    :key = "index" :foodName = "result.foodName"
+                    :calorieFoodPerMinute = "result.caloriePerServing" />
+                </div>
+            </div>
+
         </div>
 
         <div class = "add-button-wrapper">
@@ -31,15 +44,25 @@
 
 <script>
 
+import firebaseApp from '../firebase.js';
+import { getFirestore } from "firebase/firestore";
+import { collection, query, where, getDocs } from "firebase/firestore";
+
+import FoodCheckerItem from './FoodCheckerItem.vue';
 import AddNewFood from './AddNewFood.vue';
+
+const db = getFirestore(firebaseApp)
 
 export default {
     name: 'Food-Checker',
     components: {
+        FoodCheckerItem,
         AddNewFood
     },
     data() {
         return {
+            searchFoodQuery: "",
+            searchFoodResults: [],
             showFoodAdd: false
         }
     },
@@ -50,8 +73,30 @@ export default {
         }
     },
     methods: {
+        async searchFood() {
+            const foodRef = collection(db, "foodCalorieDatabase");
+            const q = query(
+                foodRef,
+                where("foodName", ">=", this.searchFoodQuery),
+                where("foodName", "<=", this.searchFoodQuery + "\uf8ff")
+            );
+            try {
+                const querySnapshot = await getDocs(q);
+                const results = querySnapshot.docs.map((doc) =>
+                    doc.data());
+                this.searchFoodResults = results;
+            } catch (error) {
+                console.error("Error searching food: ", error);
+            }
+        },
         closeFoodChecker() {
             this.$emit('close');
+        }
+    },
+    watch: {
+        searchFoodQuery() {
+            this.searchFoodResults = [],
+            this.searchFood()
         }
     }
 }
@@ -124,6 +169,53 @@ input {
     background: #ECECEC;
     border: 1px solid #D6D6D6;
     border-radius: 54px;
+}
+
+.query-input::placeholder {
+    text-indent: 30px;
+    font-family: 'Mulish';
+    font-size: 16px;
+    color: #B5B7B9;
+}
+
+.query-button {
+    background-color: #A08666;
+    border: 2px solid #746652;
+    border-radius: 8px;
+    color: white;
+    font-family: 'Mulish';
+    font-size: 16px;
+    padding: 10px;
+}
+
+.default-checker-item {
+    position: absolute;
+    top: 200px;
+    left: 20px;
+    
+    width: 750px;
+    height: 100px;
+    background-color: #DDD8BA;
+    border-radius: 20px;
+}
+
+.food-checker-name {
+    position: absolute;
+    top: 10px;
+    left: 30px;
+
+    width: 300px;
+    font-family: 'Lato';
+    font-style: normal;
+    font-size: 28px;
+    color: #A08666;
+}
+
+.check-item {
+    position: absolute;
+    top: 200px;
+    left: 20px;
+    width: 750px;
 }
 
 .add-button-wrapper {

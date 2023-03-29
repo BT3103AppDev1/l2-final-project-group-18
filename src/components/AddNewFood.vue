@@ -1,13 +1,18 @@
 <template>
     <div v-if = "showFoodAdd" class = "add-new-food">
-        <p>Add new food type and calories per 100g: </p>
+        <div class = "add-new-text">
+            <p>Add new food type and calories per 100g: </p>
+        </div>       
 
         <p class = "before-input">
-        Food Type:
+            Food Type: 
+            <input type = "text" v-model.lazy ="foodType">
         </p>
         <p class = "before-input">
             Calories / 100g: 
+            <input type = "number" v-model.lazy = "caloriesMin">
         </p>
+        <button class = "add-food-button" @click="addFood">Add</button>
 
         <p>
             <a class = "back-link" @click = "closeFoodAdd">Back</a>
@@ -18,11 +23,18 @@
 
 <script>
 
+import firebaseApp from '../firebase.js';
+import { collection, getFirestore } from 'firebase/firestore';
+import { addDoc, getDoc } from "firebase/firestore";
+
+const db = getFirestore(firebaseApp);
+
 export default {
     name: 'AddFood',
     data() {
         return {
-
+            foodType: "",
+            caloriesMin: ""
         }
     },
     props: {
@@ -32,6 +44,25 @@ export default {
         }
     },
     methods: {
+        async addFood() {
+            if (!this.foodType || !this.caloriesMin) return;
+
+            try {
+                const docRef = await addDoc(collection(
+                    db, "foodCalorieDatabase"
+                ), {
+                    foodName: this.foodType,
+                    caloriePerServing: parseFloat(this.caloriesMin)
+                });
+                const docSnap = await getDoc(docRef);
+                console.log("Added document data:", docSnap.data());
+            } catch(error) {
+                console.error("Error adding document: ", error);
+            }
+
+            this.foodType = '';
+            this.caloriesMin = '';
+        },
         closeFoodAdd() {
             this.$emit('close');
         }
@@ -78,6 +109,33 @@ input {
     font-size: 24px;
 
     color: #b0803e;    
+}
+
+.add-new-text {
+    position: relative;
+    top: 5px;
+    left: 20px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-size: 20px;
+    color: #746652;
+}
+
+.add-food-button {
+    position: relative;
+    left: 20px;
+    width: 600px;
+    height: 50px;
+    
+    font-family: 'Mulish';
+    font-style: normal;
+    font-size: 20px;
+    text-align: center;
+    color: #746652;
+
+    background: #FCB64E;
+    border-radius: 30px;
 }
 
 .back-link {
