@@ -51,6 +51,7 @@ import {
 } from 'firebase/firestore'
 import firebaseApp from '../firebase.js'
 import { eventBus } from '@/eventBus.js'
+import { mapActions, mapState } from 'vuex'
 
 const db = getFirestore(firebaseApp)
 
@@ -85,7 +86,7 @@ export default {
 
   beforeDestroy() {
     // Remove the event listener when the component is destroyed
-    eventBus.off('exerciseAdded', this.fetchExercises)
+    eventBus.off('exerciseAdded', this.fetchWeeklyExercises)
   },
 
   methods: {
@@ -112,6 +113,7 @@ export default {
       }
       this.weeklyExercises = newExercises
       await this.calculateTotalCalories()
+      await this.calculateTotalWeeklyExerciseTime()
     },
 
     async calculateTotalCalories() {
@@ -127,6 +129,18 @@ export default {
 
       this.totalCalories = totalCaloriesBurnt.toFixed(2)
     },
+
+    async calculateTotalWeeklyExerciseTime() {
+      let totalWeeklyExerciseTime = 0
+
+      for (const exercise of this.weeklyExercises) {
+        totalWeeklyExerciseTime += exercise.duration
+      }
+
+      this.updateTotalWeeklyExerciseTime(totalWeeklyExerciseTime)
+    },
+
+    ...mapActions(['updateTotalWeeklyExerciseTime']),
   },
 }
 </script>
@@ -165,7 +179,7 @@ export default {
   position: absolute;
   width: 673px;
   height: 43px;
-  left: 45px;
+  left: 28px;
   top: 32px;
 
   font-family: 'Mulish';
@@ -186,7 +200,8 @@ export default {
   flex-wrap: wrap; /* This will allow the items to wrap to the next row */
   gap: 1rem;
   top: 90px;
-  left: 50px; /* Adjust the gap between the blocks as needed */
+  width: 550px;
+  left: 28px; /* Adjust the gap between the blocks as needed */
 }
 
 .exercise-block {
