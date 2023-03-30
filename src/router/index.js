@@ -1,13 +1,15 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import ExerciseMain from '../views/ExerciseMain.vue'
-import FoodMain from '../views/FoodMain.vue'
-import login from '../views/login.vue'
-import signup from '../views/signup.vue'
-import signout from '../views/signout.vue'
-import welcome from '../views/WelcomePage.vue'
-import updateProfile from '../views/UpdateProfilePage.vue'
-import GoalsPage from '../views/GoalsPage.vue'
+
+import { createRouter, createWebHistory } from "vue-router";
+import HomeView from "../views/HomeView.vue";
+import FoodMain from "../views/FoodMain.vue";
+import ExerciseMain from "../views/ExerciseMain.vue";
+import login from "../views/login.vue";
+import signup from "../views/signup.vue";
+import signout from "../views/signout.vue";
+import welcome from "../views/WelcomePage.vue";
+import updateProfile from "../views/UpdateProfilePage.vue";
+import GoalsPage from "../views/GoalsPage.vue";
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,14 +20,14 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/exercise',
-      name: 'exercise',
-      component: ExerciseMain,
+      path: "/food",
+      name: "food",
+      component: FoodMain,
     },
     {
-      path: '/food',
-      name: 'food',
-      component: FoodMain,
+      path: "/exercise",
+      name: "exercise",
+      component: ExerciseMain,
     },
     {
       path: '/goals',
