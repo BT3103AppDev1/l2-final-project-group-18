@@ -113,7 +113,6 @@ export default {
   text-decoration: underline;
 }
 
-
 .calorie-checker-intro {
     position: absolute;
     width: 100px;
@@ -185,7 +184,3 @@ export default {
 }
 
 </style>
-
-
-
-

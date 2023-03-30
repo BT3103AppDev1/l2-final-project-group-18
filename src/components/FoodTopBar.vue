@@ -51,7 +51,6 @@ export default {
     height: 32px;
     background-color: #869F77;
     border-radius: 21px;
-    
 }
 
 /* The gray part */
@@ -81,4 +80,3 @@ export default {
 
 
 </style>
-

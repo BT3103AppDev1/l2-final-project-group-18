@@ -1,3 +1,4 @@
+
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import FoodMain from "../views/FoodMain.vue";
@@ -9,12 +10,13 @@ import welcome from "../views/WelcomePage.vue";
 import updateProfile from "../views/UpdateProfilePage.vue";
 import GoalsPage from "../views/GoalsPage.vue";
 
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: "/",
-      name: "home",
+      path: '/',
+      name: 'home',
       component: HomeView,
     },
     {
@@ -28,36 +30,36 @@ const router = createRouter({
       component: ExerciseMain,
     },
     {
-      path: "/goals",
-      name: "Goals Page",
+      path: '/goals',
+      name: 'Goals Page',
       component: GoalsPage,
     },
     {
-      path: "/login",
-      name: "login",
+      path: '/login',
+      name: 'login',
       component: login,
     },
     {
-      path: "/signup",
-      name: "signup",
+      path: '/signup',
+      name: 'signup',
       component: signup,
     },
     {
-      path: "/signout",
-      name: "signout",
+      path: '/signout',
+      name: 'signout',
       component: signout,
     },
     {
-      path: "/welcome",
-      name: "welcome",
+      path: '/welcome',
+      name: 'welcome',
       component: welcome,
     },
     {
-      path: "/updateProfile",
-      name: "updateProfile",
+      path: '/updateProfile',
+      name: 'updateProfile',
       component: updateProfile,
     },
   ],
-});
+})
 
-export default router;
+export default router
