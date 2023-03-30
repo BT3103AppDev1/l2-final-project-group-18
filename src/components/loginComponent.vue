@@ -28,6 +28,8 @@ import 'firebase/compat/auth'
 import * as firebaseui from 'firebaseui'
 import 'firebaseui/dist/firebaseui.css'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc } from "firebase/firestore";
+import { auth, db } from '@/firebase.js';
 
 export default {
     name: "login",
@@ -41,7 +43,29 @@ export default {
         signInSuccessUrl: '/',
         signInOptions: [
             firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        ]
+        ],
+        callbacks: {
+        signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+            var user = authResult.user;
+            var profileInfo = {
+                profile_info: {
+                    email: user.email,
+                    username: user.displayName,
+                    password: '' 
+                }
+            };
+            var profileDocRef = doc(db, 'users', user.uid);
+            setDoc(profileDocRef, profileInfo, { merge: false })
+                .then(() => {
+                    // this.$router.push('/');
+                    console.log("Profile info saved successfully");
+                })
+                .catch((error) => {
+                    console.log("Error saving profile info: ", error);
+                });
+            return false;
+        }
+    }
     };
     ui.start("#firebaseui-auth-container", uiConfig)
   },

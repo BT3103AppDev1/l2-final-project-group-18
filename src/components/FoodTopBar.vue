@@ -23,19 +23,10 @@ export default {
 </script>
 
 <style scoped>
-.topbar-wrapper {
-  position: fixed;
-  top: 0;
-  right: 0;
-  /* right:0 -> the element should be positioned at the right edge of its parent element */
-  width: 82%;
-  height: 18%;
-  /* background-color: #FBF5F4; */
-}
-
 .topbar-achieve-text {
   position: absolute;
-  left: 20px;
+  left: 300px;
+  top: -5px;
   font-family: 'Mulish';
   font-style: normal;
   font-weight: 700;
@@ -44,7 +35,9 @@ export default {
 }
 
 .progressbar-wrapper {
-  position: relative;
+  position: absolute;
+  left: 278px;
+  top: -5px;
 }
 
 .progress {

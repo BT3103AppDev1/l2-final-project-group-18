@@ -1,100 +1,67 @@
 <template>
-  <div class="exercise-tool-wrapper">
-    <div class="exercise-tool-title">
-      <h4>Exercise Tracking Utility Tools</h4>
-    </div>
-    <div class="calorie-checker-title">
-      <h4>
-        <a class="popup-link" @click="($event) => (showChecker = true)"
-          >Calorie Checker</a
-        >
-        <ExerciseChecker
-          :showChecker="showChecker"
-          @close="($event) => (showChecker = false)"
-          class="exercise-checker-overlay"
-        />
-        <!-- Mainly for adjusting z-index -->
-        <!-- You must declare showChecker property before you can use it -->
-      </h4>
+  <div class="food-tool-wrapper">
+    <div class="food-tool-title">
+      <h4>Food Intake Utility Tools</h4>
     </div>
 
+    <div class="calorie-checker-title">
+      <h4>
+        <a class="popup-link" @click="showFoodChecker = true">
+          Calorie Checker
+        </a>
+        <FoodChecker
+          :showFoodChecker="showFoodChecker"
+          @close="showFoodChecker = false"
+          class="food-checker-overlay"
+        />
+      </h4>
+    </div>
     <div class="calorie-checker-wrapper">
-      <!-- Originally title is put here, later move outside to ensure correct display of ExerciseChecker -->
       <div class="calorie-checker-intro">
-        <p>Check the calorie burnt per minute for different types of sports!</p>
+        <p>Check the calorie content of each serving of food!</p>
       </div>
     </div>
 
     <div class="calorie-calculator-title">
-      <h4>
-        <a class="popup-link" @click="($event) => (showCalculator = true)"
-          >Calorie Calculator</a
-        >
-        <ExerciseCalculator
-          :showCalculator="showCalculator"
-          @close="($event) => (showCalculator = false)"
-          class="exercise-calculator-overlay"
-        />
-        <!-- Mainly for adjusting z-index -->
-        <!-- You must declare showChecker property before you can use it -->
-      </h4>
+      <h4>Calorie Calculator</h4>
     </div>
-
     <div class="calorie-calculator-wrapper">
       <div class="calorie-calculator-intro">
         <p>Calculate your current weekly calories burnt!</p>
-      </div>
-    </div>
-
-    <div class="exercise-planning-wrapper">
-      <div class="exercise-planning-title">
-        <h4>Exercise Planning</h4>
-      </div>
-      <div class="exercise-planning-intro">
-        <p>Plan your personal fitness activities!</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import ExerciseChecker from './ExerciseChecker.vue'
-import ExerciseCalculator from './ExerciseCalculator.vue'
+import FoodChecker from './FoodChecker.vue'
 
 export default {
-  name: 'Exercise-Tools',
+  name: 'Food-Tools',
   components: {
-    ExerciseChecker,
-    ExerciseCalculator,
+    FoodChecker,
   },
   data() {
     return {
-      showChecker: false,
-      showCalculator: false,
+      showFoodChecker: false,
     }
   },
-  methods: {},
 }
 </script>
 
 <style scoped>
-.exercise-checker-overlay {
+.food-checker-overlay {
   position: absolute;
-  z-index: 9999; /* Set the z-index value to a high number */
+  z-index: 9999;
 }
 
-.exercise-calculator-overlay {
-  position: absolute;
-  z-index: 9999; /* Set the z-index value to a high number */
-}
-
-.exercise-tool-wrapper {
+.food-tool-wrapper {
   position: absolute;
   top: 100px;
   left: 320px;
 }
 
-.exercise-tool-title {
+.food-tool-title {
   position: absolute;
   top: 0px;
   left: 10px;
@@ -197,53 +164,6 @@ export default {
 }
 
 .calorie-calculator-intro {
-  position: absolute;
-  width: 100px;
-  height: 80px;
-  top: 80px;
-  left: 150px;
-
-  font-family: 'Mulish';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 15px;
-  line-height: 19px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  letter-spacing: 0.4px;
-
-  color: #7d7d7d;
-}
-
-.exercise-planning-wrapper {
-  position: absolute;
-  width: 300px;
-  height: 200px;
-  left: 650px;
-  top: 80px;
-
-  background: #fdf6e9;
-  border: 1px solid #dde2ff;
-  border-radius: 8px;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-}
-
-.exercise-planning-title {
-  position: absolute;
-  top: -20px;
-  left: 30px;
-
-  font-family: 'Mulish';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 23px;
-  line-height: 31px;
-
-  color: #9a6f56;
-}
-
-.exercise-planning-intro {
   position: absolute;
   width: 100px;
   height: 80px;
