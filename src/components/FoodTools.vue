@@ -106,13 +106,6 @@ export default {
 
   color: #9a6f56;
 }
-
-.popup-link:hover {
-  color: brown;
-  cursor: pointer;
-  text-decoration: underline;
-}
-
 .calorie-checker-intro {
   position: absolute;
   width: 100px;

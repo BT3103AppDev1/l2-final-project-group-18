@@ -28,11 +28,6 @@ const router = createRouter({
       component: ExerciseMain,
     },
     {
-      path: '/food',
-      name: 'food',
-      component: FoodMain,
-    },
-    {
       path: '/goals',
       name: 'Goals Page',
       component: GoalsPage,
