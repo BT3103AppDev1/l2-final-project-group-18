@@ -7,7 +7,8 @@
                 <p>{{ goalTitle }}</p>
             </div>
             <div id = "right-elem">
-                <button @click="($event) => (showSet = true)" id = "button">SET</button>
+                <!--<button @click="($event) => (showSet = true)" id = "button">SET</button>-->
+                <button @click="showPopUp()" id = "button">SET</button>
             </div>
         </div>
 
@@ -44,11 +45,15 @@ export default {
         goalTitle: {
             type: String,
             required: true,
+        },
+        firstPopUpComponent: {
+            type: String,
+            required: true
         }
     },
     methods: {
-        togglePopUp() {
-            this.showSet = !this.showSet
+        showPopUp() {
+            this.$bvModal.show(this.firstPopUpComponent)
         }
     }
 

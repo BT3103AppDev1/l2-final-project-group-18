@@ -3,7 +3,7 @@
         
         <h1>Current Goals</h1>
         <div class = "first">
-            <cardSetGoal goalTitle="Set weight gain/ weight loss goal"></cardSetGoal>
+            <cardSetGoal :firstPopUpComponent="setGoalPopUp" goalTitle="Set weight gain/ weight loss goal"></cardSetGoal>
         </div>
         <div class = "second">
             <cardSetGoal goalTitle="Set weekly exercise goal"></cardSetGoal>
@@ -24,12 +24,14 @@
 <script>
 import cardSetGoal from '../components/cardSetGoal.vue';
 import cardUpdateGoal from '../components/cardUpdateGoal.vue';
+import setGoalPopUp from '../components/setGoalPopUp.vue';
 
 export default {
     name: "SetGoalComponent",
     components: {
         cardSetGoal,
-        cardUpdateGoal
+        cardUpdateGoal,
+        setGoalPopUp,
     }
 }
 </script>
