@@ -1,5 +1,5 @@
 <template>
-    <div v-if = "showSet" class = "setGoal">
+    <div v-if = "showPopUp1" class = "setGoal">
 
         <div class = "topRow">
             <div id = "right-elem">
@@ -70,7 +70,7 @@ const db = getFirestore(firebaseApp)
 export default {
     name: 'SetGoalPopUp',
     props: {
-        showSet: {
+        showPopUp1: {
             type: Boolean,
             required: true
         },
@@ -102,6 +102,8 @@ export default {
                 weightChangeInKg: this.weightChangeInKg,
                 weightGainOrLoss: this.weightGainOrLoss,
             })
+            this.closePopUp()
+            location.reload()
         }
 
     }

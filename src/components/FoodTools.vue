@@ -5,7 +5,14 @@
         </div>
 
         <div class = "calorie-checker-title">
-            <h4>Calorie Checker</h4>
+            <h4>
+                <a class = "popup-link" @click = "showFoodChecker = true">
+                    Calorie Checker
+                </a>
+                <FoodChecker :showFoodChecker = "showFoodChecker"
+                    @close = "showFoodChecker = false"
+                    class = "food-checker-overlay"/>
+            </h4>
         </div>
         <div class = "calorie-checker-wrapper">
             <div class = "calorie-checker-intro">
@@ -25,12 +32,16 @@
 </template>
 
 <script>
+import FoodChecker from './FoodChecker.vue';
 
 export default {
     name: 'Food-Tools',
+    components: {
+        FoodChecker
+    },
     data() {
         return {
-
+            showFoodChecker: false
         }
     }
 }
@@ -38,6 +49,11 @@ export default {
 </script>
 
 <style scoped>
+
+.food-checker-overlay {
+    position: absolute;
+    z-index: 9999;
+}
 
 .food-tool-wrapper {
     position: absolute;
@@ -90,6 +106,13 @@ export default {
 
     color: #9a6f56;
 }
+
+.popup-link:hover {
+  color: brown;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 
 .calorie-checker-intro {
     position: absolute;

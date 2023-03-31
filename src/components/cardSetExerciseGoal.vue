@@ -1,26 +1,26 @@
 <template>
    
-    <div class = "card">
+    <div class = "cardExercise">
 
-        <div class = "section">
-            <div id = "left-elem">
-                <p>{{ goalTitle }}</p>
+        <div class = "sectionExercise">
+            <div id = "left-elem-e">
+                <p>{{ goalTitleE }}</p>
             </div>
-            <div id = "right-elem">
-                <button @click="($event) => (showPopUp1 = true)" id = "button">SET</button>
+            <div id = "right-elem-e">
+                <button @click="($event) => (showPopUp2 = true)" id = "exerciseButton">SET</button>
             </div>
         </div>
 
         <div class = "divider"></div>
 
-        <div class = "section">
+        <div class = "sectionExercise">
             <div id = "circle"></div>
             <div id = "no-goals-elem">
                 <p>No goals currently</p>
             </div>
         </div>
-        <div v-if="showPopUp1" class="overlay">
-            <SetGoalPopUp :showPopUp1 = "showPopUp1" @close="($event) => (showPopUp1 = false)"/>
+        <div v-if="showPopUp2" class="overlayExercise">
+            <SetExercisePopUp :showPopUp2 = "showPopUp2" @close="($event) => (showPopUp2 = false)"/>
         </div>
     </div>
 
@@ -28,20 +28,20 @@
 </template>
 
 <script>
-import SetGoalPopUp from './SetGoalPopUp.vue'
+import SetExercisePopUp from './SetExercisePopUp.vue'
 
 export default {
-    name: "cardSetGoal",
+    name: "cardSetExerciseGoal",
     components: {
-        SetGoalPopUp,
+        SetExercisePopUp,
     },
     data() {
         return {
-            showPopUp1: false,
+            showPopUp2: false,
         }
     },
     props: {
-        goalTitle: {
+        goalTitleE: {
             type: String,
             required: true,
         },
@@ -54,7 +54,7 @@ export default {
 <style>
 /* cards / default */
 
-.card {
+.cardExercise {
     position: absolute;
     left: 40px;
     top: 110px;
@@ -66,7 +66,7 @@ export default {
     border: 1px solid #DFE0EB;
 }
 
-.section {
+.sectionExercise {
     display: flex;
     font-family: 'Mulish', sans-serif;
     padding-left: 20px;
@@ -75,17 +75,17 @@ export default {
     
 }
 
-#left-elem {
+#left-elem-e {
     color: #C5C7CD;
     flex: 0.95;
 }
 
-#right-elem {
+#right-elem-e {
     padding-top: 11px;
     color: #746652;
 }
 
-#button {
+#exerciseButton {
     background-color: #FCB64E;
     width: 54px;
     height: 24px;
@@ -113,7 +113,7 @@ export default {
     color: #252733;
 }
 
-.overlay {
+.overlayExercise {
     position: fixed;
     top: 20%;
     left: 30%;
