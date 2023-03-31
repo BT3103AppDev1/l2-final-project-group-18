@@ -1,26 +1,26 @@
 <template>
    
-    <div class = "card">
+    <div class = "cardCalorie">
 
-        <div class = "section">
-            <div id = "left-elem">
-                <p>{{ goalTitle }}</p>
+        <div class = "sectionCalorie">
+            <div id = "left-elem-c">
+                <p>{{ goalTitleC }}</p>
             </div>
-            <div id = "right-elem">
-                <button @click="($event) => (showPopUp1 = true)" id = "button">SET</button>
+            <div id = "right-elem-c">
+                <button @click="($event) => (showPopUp3 = true)" id = "calorieButton">SET</button>
             </div>
         </div>
 
         <div class = "divider"></div>
 
-        <div class = "section">
+        <div class = "sectionCalorie">
             <div id = "circle"></div>
             <div id = "no-goals-elem">
                 <p>No goals currently</p>
             </div>
         </div>
-        <div v-if="showPopUp1" class="overlay">
-            <SetGoalPopUp :showPopUp1 = "showPopUp1" @close="($event) => (showPopUp1 = false)"/>
+        <div v-if="showPopUp3" class="overlayCalorie">
+            <SetCaloriePopUp :showPopUp3 = "showPopUp3" @close="($event) => (showPopUp3 = false)"/>
         </div>
     </div>
 
@@ -28,20 +28,20 @@
 </template>
 
 <script>
-import SetGoalPopUp from './SetGoalPopUp.vue'
+import SetCaloriePopUp from './SetCaloriePopUp.vue'
 
 export default {
-    name: "cardSetGoal",
+    name: "cardSetCalorieGoal",
     components: {
-        SetGoalPopUp,
+        SetCaloriePopUp,
     },
     data() {
         return {
-            showPopUp1: false,
+            showPopUp3: false,
         }
     },
     props: {
-        goalTitle: {
+        goalTitleC: {
             type: String,
             required: true,
         },
@@ -54,7 +54,7 @@ export default {
 <style>
 /* cards / default */
 
-.card {
+.cardCalorie {
     position: absolute;
     left: 40px;
     top: 110px;
@@ -66,7 +66,7 @@ export default {
     border: 1px solid #DFE0EB;
 }
 
-.section {
+.sectionCalorie {
     display: flex;
     font-family: 'Mulish', sans-serif;
     padding-left: 20px;
@@ -75,17 +75,17 @@ export default {
     
 }
 
-#left-elem {
+#left-elem-c {
     color: #C5C7CD;
     flex: 0.95;
 }
 
-#right-elem {
+#right-elem-c {
     padding-top: 11px;
     color: #746652;
 }
 
-#button {
+#calorieButton {
     background-color: #FCB64E;
     width: 54px;
     height: 24px;
@@ -113,7 +113,7 @@ export default {
     color: #252733;
 }
 
-.overlay {
+.overlayCalorie {
     position: fixed;
     top: 20%;
     left: 30%;

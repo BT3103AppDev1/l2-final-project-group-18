@@ -1,14 +1,14 @@
 <template>
-    <div v-if = "showPopUp2" class = "setExerciseGoal">
+    <div v-if = "showPopUp5" class = "updateExerciseGoal">
 
         <div class = "topExerciseRow">
             <div id = "right-elem-e">
-                <button @click = "closePopUp2" class = "close-icon-e">x</button>
+                <button @click = "closePopUp5" class = "close-icon-e">x</button>
             </div>
         </div>
 
         <div id = "title">
-            <h1>Set Goal</h1>
+            <h1>Update Goal</h1>
         </div>
         
         <div class = "allExerciseRows">
@@ -26,7 +26,7 @@
             </div>
 
         </div>
-        <button id = "addExerciseGoalButton" @click="addExerciseGoal">SET</button>
+        <button id = "updateExerciseGoalButton" @click="updateExerciseGoalClick">UPDATE</button>
 
     </div>
 </template>
@@ -43,9 +43,9 @@ import {
 const db = getFirestore(firebaseApp)
 
 export default {
-    name: 'SetExercisePopUp',
+    name: 'UpdateExercisePopUp',
     props: {
-        showPopUp2: {
+        showPopUp5: {
             type: Boolean,
             required: true
         },
@@ -56,13 +56,13 @@ export default {
         };
     },
     methods: {
-        closePopUp2() {
+        closePopUp5() {
             this.$emit('close')
         },
 
-        async addExerciseGoal() {
+        async updateExerciseGoalClick() {
             if (!this.targetMin) {
-                alert('Please fill in the weekly exercise target.')
+                alert('Please fill in the weekly exercise target you want to update to.')
                 return
             } 
 
@@ -73,16 +73,16 @@ export default {
             const docRef = await setDoc(goalInfoDoc, {
                 targetMin: this.targetMin
             })
-            this.closePopUp2()
+            this.closePopUp5()
             location.reload()
-        }
+        },
 
     }
 }
 </script>
 
 <style scoped>
-.setExerciseGoal {
+.updateExerciseGoal {
     position: fixed;
     width: 700px;
     height: 350px;
@@ -173,7 +173,7 @@ input {
     font-size: 20px;
 }
 
-#addExerciseGoalButton {
+#updateExerciseGoalButton {
     background-color: #FCB64E;
     width: 200px;
     height: 50px;

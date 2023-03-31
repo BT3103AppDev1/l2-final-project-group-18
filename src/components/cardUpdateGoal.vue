@@ -4,10 +4,10 @@
 
         <div class = "section">
             <div id = "left-elem">
-                <p>{{ goalTitle }}</p>
+                <p>{{ goalTitleU }}</p>
             </div>
             <div id = "right-elem">
-                <button @click="($event) => (showUpdate = true)" id = "updateButton">UPDATE</button>
+                <button @click="($event) => (showPopUp6 = true)" id = "updateButton">UPDATE</button>
             </div>
         </div>
 
@@ -21,8 +21,8 @@
             </div>
         </div>
 
-        <div v-if="showUpdate" class="overlay">
-            <SetGoalPopUp :showUpdate="showUpdate" @close="($event) => (showUpdate = false)"/>
+        <div v-if="showPopUp6" class="overlay">
+            <UpdateGoalPopUp :showPopUp6="showPopUp6" @close="($event) => (showPopUp6 = false)"/>
         </div>
 
     </div>
@@ -41,7 +41,6 @@ import {
 } from 'firebase/firestore'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
-
 const db = getFirestore(firebaseApp)
 
 export default {
@@ -51,15 +50,14 @@ export default {
     },
     data() {
         return {
-            showUpdate: false,
+            showPopUp6: false,
             daysToCompleteGoal: 0,
             weightChangeInKg: 0,
-            weightGainOrLoss: ''
-
+            weightGainOrLoss: '',
         };
     },
     props: {
-        goalTitle: {
+        goalTitleU: {
             type: String,
             required: true,
         },
@@ -85,14 +83,12 @@ export default {
 
         },
     }
-
 }
 </script>
 
 
 <style>
 /* cards / default */
-
 .cardUpdate {
     position: absolute;
     left: 40px;
@@ -104,7 +100,6 @@ export default {
     border-radius: 8px;
     border: 1px solid #DFE0EB;
 }
-
 .section {
     display: flex;
     font-family: 'Mulish', sans-serif;
@@ -113,31 +108,25 @@ export default {
     padding-top: 5px;
     
 }
-
 #left-elem {
     color: #C5C7CD;
     flex: 0.95;
 }
-
 #right-elem {
     padding-top: 11px;
     color: #746652;
 }
-
 #updateButton {
     background-color: #FCB64E;
     width: 80px;
     height: 24px;
     border-radius: 8px;
 }
-
 /* sheet */
-
 .divider {
     border: 1px solid #DFE0EB;
     border-radius: 8px;
 }
-
 #circle {
   border-radius: 50%;
   border: 2px solid #DFE0EB;
@@ -147,11 +136,9 @@ export default {
   margin-top: 13px;
   margin-right: 20px;
 }
-
 #no-goals-elem {
     color: #252733;
 }
-
 .overlay {
     position: fixed;
     top: 13%;
@@ -162,4 +149,3 @@ export default {
     height: 300px;
 }
 </style>
-
