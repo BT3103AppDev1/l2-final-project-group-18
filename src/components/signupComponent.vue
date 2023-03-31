@@ -52,7 +52,7 @@ export default {
         };
         await setDoc(profileDocRef, { profile_info: profileData });
         console.log('User signed up successfully!');
-        this.$router.push('/login')
+        this.$router.push('/welcome')
       } catch (error) {
         console.error(error);
       }

@@ -8,10 +8,23 @@
         <p>Give us some basic information to get started</p>
     </div>
 
+    <div>
+    <div class="gender-selection">
+      <div class="gender-option" :class="{ active: gender === 'male' }" @click="gender = 'male'">
+        <img src="../assets/male icon.png">
+        <p>Male</p>
+      </div>
+      <div class="gender-option" :class="{ active: gender === 'female' }" @click="gender = 'female'">
+        <img src="../assets/female icon.png" >
+        <p>Female</p>
+      </div>
+    </div>
+  </div>
+  
     <div class="container1">
         <p id="height-label">Height:</p>
         <div class = "height-field">
-            <p id = "height"></p>
+            <input class = "query-input" placeholder="Height" type="number" v-model="height" required>
         </div>
         <p id="height-unit">cm</p>
     </div>
@@ -19,34 +32,91 @@
     <div class="container2">
         <p id="weight-label">Weight:</p>
         <div class = "weight-field">
-            <p id = "weight"></p>
+            <input class = "query-input" placeholder="Weight" type="number" v-model="weight" required>
         </div>
         <p id="weight-unit">kg</p>
     </div>
 
     <div class = "confirm-button-wrapper">
-            <button id = "confirm-button" @click = "home">Confirm</button>
+            <button id = "confirm-button" @click = "saveProfile">Confirm</button>
     </div>
-    <img class = "icon-male" src="../assets/male icon.png" alt="image here">
-    <img class = "icon-female" src="../assets/female icon.png" alt="image here">
     <img class = "image" src="../assets/welcome.png" alt="image here">
+    
     
 </template>
 
 
 <script>
+import { doc, setDoc } from 'firebase/firestore'
+import { auth, db } from '@/firebase.js';
+
 export default {
     name: "profileComponent",
-    methods: {
-    home() {
-      this.$router.push('/')
+data() {
+    return {
+      gender: null,
+      height: null,
+      weight: null,
+    }
+  },
+  async created() {
+    // Get the current user's UID
+    const user = auth.currentUser;
+    if (user) {
+      this.uid = user.uid;
+    }
+  },
+  methods: {
+    async saveProfile() {
+      // Check if all input fields are filled
+      if (!this.gender || !this.height || !this.weight) {
+        alert('Please fill in all fields.');
+        return;
+      }
+
+      const profileDocRef = doc(db, 'users', this.uid);
+      const data = {       
+        healthStats: {
+          gender: this.gender,
+          height: this.height,
+          weight: this.weight,
+        }
+      };
+      await setDoc(profileDocRef, data, { merge: true });
+
+      alert('Profile saved successfully!');
+      this.$router.push('/');
     }
   }
-}
+};
 </script>
 
 
 <style scoped>
+input {
+    box-sizing: border-box;
+
+    position: absolute;
+    width: 335px;
+    height: 48px;
+    left: 650px;
+    top: 200px;
+
+    border-radius: 40px;
+
+    background: #FFFEFE;
+    border: 1.50794px solid #000000;
+    
+    transform: matrix(1, 0, 0, 1, 0, 0);
+}
+
+.query-input::placeholder {
+    text-indent: 30px;
+    font-family: 'Mulish';
+    font-size: 16px;
+    color: #B5B7B9;
+}
+
 .image {
     display: block;
     width: 220px;
@@ -104,18 +174,9 @@ export default {
 }
 
 .height-field {
-    box-sizing: border-box;
-
     position: absolute;
-    width: 335px;
-    height: 48px;
-    left: 900px;
-    top: 400px;
-
-    background: #ECECEC;
-    border: 1px solid #C1C1C1;
-    border-radius: 20px;
-
+    top: 200px;
+    left: 240px;
 }
 
 #height-label {
@@ -206,18 +267,9 @@ export default {
 }
 
 .weight-field {
-    box-sizing: border-box;
-
     position: absolute;
-    width: 335px;
-    height: 48px;
-    left: 900px;
-    top: 480px;
-
-    background: #ECECEC;
-    border: 1px solid #C1C1C1;
-    border-radius: 20px;
-
+    top: 280px;
+    left: 240px;
 }
 
 .weight-field #weight {
@@ -255,39 +307,28 @@ export default {
     border-radius: 30px;
 }
 
-/* for the icons */
-.icon-female {
-  /* Define the default appearance of the icon */
-  width: 120px;
-  height: 150px;
-  background-image: "../assets/female icon.png";
-  display: block;
-    position: absolute;
-    top: 200px;
-    left: 1100px;
+.gender-selection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20%;
+  position: absolute;
+  right: 180px;
+  top: 200px;
 }
 
-
-/* :active is a pseudo-class and .active is a class selector */
-/* Apply the :active pseudo-class to the icon */
-.icon-female:active {
-  /* Define the appearance of the icon when it's clicked */
-  transform: scale(0.8);
+.gender-option {
+  margin-right: 15px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.icon-male {
-  /* Define the default appearance of the icon */
-  width: 120px;
-  height: 150px;
-  background-image: "../assets/male icon.png";
-  display: block;
-    position: absolute;
-    top: 200px;
-    left: 900px;
-}
-
-.icon-male:active {
-  /* Define the appearance of the icon when it's clicked */
-  transform: scale(0.8);
+.gender-option.active img {
+    border: 10px solid #DDD8BA;
+    box-shadow: 0px 0px 20px #DDD8BA;
+    border-radius: 20px;
 }
 </style>
