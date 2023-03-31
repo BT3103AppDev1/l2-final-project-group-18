@@ -1,4 +1,5 @@
 
+
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import FoodMain from "../views/FoodMain.vue";
@@ -12,6 +13,7 @@ import GoalsPage from "../views/GoalsPage.vue";
 import DashboardView from "../views/DashboardView.vue";
 
 
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -21,6 +23,7 @@ const router = createRouter({
       component: HomeView,
     },
     {
+
       path: "/dashboard",
       name: "dashboard",
       component: DashboardView,
@@ -31,8 +34,8 @@ const router = createRouter({
       component: FoodMain,
     },
     {
-      path: "/exercise",
-      name: "exercise",
+      path: '/exercise',
+      name: 'exercise',
       component: ExerciseMain,
     },
     {
