@@ -11,7 +11,7 @@
     <div class="container1">
         <p id="height-label">Height:</p>
         <div class = "height-field">
-            <p id = "height"></p>
+            <input class = "query-input" placeholder="Height" type="number" v-model="height" required>
         </div>
         <p id="height-unit">cm</p>
     </div>
@@ -19,13 +19,13 @@
     <div class="container2">
         <p id="weight-label">Weight:</p>
         <div class = "weight-field">
-            <p id = "weight"></p>
+            <input class = "query-input" placeholder="Weight" type="number" v-model="weight" required>
         </div>
         <p id="weight-unit">kg</p>
     </div>
 
     <div class = "confirm-button-wrapper">
-            <button id = "confirm-button" @click = "home">Confirm</button>
+            <button id = "confirm-button" @click = "updateProfile">Confirm</button>
     </div>
 
     <div class = "cancel-button-wrapper">
@@ -38,18 +38,66 @@
 
 
 <script>
+import { doc, updateDoc } from 'firebase/firestore'
+import { auth, db } from '@/firebase.js';
+
 export default {
     name: "updateProfileComponent",
+    data() {
+        return {
+            weight: '',
+            height: ''
+        }
+    },
     methods: {
     home() {
       this.$router.push('/')
+    },
+    async updateProfile() {
+        const user = auth.currentUser;
+        if (user) {
+            this.uid = user.uid;
+            const healthStatsRef = doc(db, 'users', this.uid);
+            await updateDoc(healthStatsRef, {
+            'healthStats.height': this.height,
+            'healthStats.weight': this.weight
+            });
+            alert('Profile updated successfully!');
+            this.$router.push('/');
+        }         
     }
-  }
+    }
 }
+  
+
 </script>
 
 
 <style scoped>
+input {
+    box-sizing: border-box;
+
+    position: absolute;
+    width: 335px;
+    height: 48px;
+    left: 650px;
+    top: 200px;
+
+    border-radius: 40px;
+
+    background: #FFFEFE;
+    border: 1.50794px solid #000000;
+    
+    transform: matrix(1, 0, 0, 1, 0, 0);
+}
+
+.query-input::placeholder {
+    text-indent: 30px;
+    font-family: 'Mulish';
+    font-size: 16px;
+    color: #B5B7B9;
+}
+
 .image {
     display: block;
     width: 220px;
@@ -107,18 +155,9 @@ export default {
 }
 
 .height-field {
-    box-sizing: border-box;
-
     position: absolute;
-    width: 335px;
-    height: 48px;
-    left: 900px;
-    top: 400px;
-
-    background: #ECECEC;
-    border: 1px solid #C1C1C1;
-    border-radius: 20px;
-
+    top: 200px;
+    left: 240px;
 }
 
 #height-label {
@@ -209,18 +248,9 @@ export default {
 }
 
 .weight-field {
-    box-sizing: border-box;
-
     position: absolute;
-    width: 335px;
-    height: 48px;
-    left: 900px;
-    top: 480px;
-
-    background: #ECECEC;
-    border: 1px solid #C1C1C1;
-    border-radius: 20px;
-
+    top: 280px;
+    left: 240px;
 }
 
 .weight-field #weight {
