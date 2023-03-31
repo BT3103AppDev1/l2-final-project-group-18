@@ -18,6 +18,11 @@
             <div id = "no-goals-elem">
                 <p>I want to exercise {{ targetMin }} minutes every week.</p>
             </div>
+            <div id = "seeExerciseProgress">
+                <router-link to = "/exercise">
+                    <button id = "seeExerciseProgressButton">SEE PROGRESS</button>
+                </router-link>
+            </div>
         </div>
 
         <div v-if="showPopUp5" class="overlay">
@@ -115,7 +120,14 @@ export default {
     width: 80px;
     height: 24px;
     border-radius: 8px;
+    border: 0;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.25)
 }
+
+#updateExerciseButton:active {
+    color: #fff;
+}
+
 /* sheet */
 .divider {
     border: 1px solid #DFE0EB;
@@ -132,7 +144,31 @@ export default {
 }
 #no-goals-elem {
     color: #252733;
+    width: 50%;
+
 }
+
+#seeExerciseProgress {
+    padding-top: 11px;
+    width: 50%;
+    padding-right: 40px;
+}
+
+#seeExerciseProgressButton {
+    background-color: #869F77;
+    width: 140px;
+    height: 24px;
+    border-radius: 8px;
+    float: right;
+    border: 0;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.25)
+}
+
+#seeExerciseProgressButton:active {
+    color: #fff;
+}
+
+
 .overlay {
     position: fixed;
     top: 13%;
