@@ -64,6 +64,7 @@ import {
   setDoc,
   getFirestore,
 } from 'firebase/firestore'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
 const db = getFirestore(firebaseApp)
 
@@ -79,8 +80,17 @@ export default {
         return {
             weightGainOrLoss: '',
             weightChangeInKg: 0,
-            daysToCompleteGoal: 0
+            daysToCompleteGoal: 0,
+            userID: '',
         };
+    },
+    created() {
+        const auth = getAuth()
+        onAuthStateChanged(auth, (user) => {
+        if (user) {
+            this.userID = user.uid
+        }
+        })
     },
     methods: {
         closePopUp() {
@@ -93,7 +103,7 @@ export default {
                 return
             } 
 
-            const userRef = doc(db, 'users', 'UZwy1hqjve1VIUsgIrhy')
+            const userRef = doc(db, 'users', this.userID)
             const goalInfoCollection = collection(userRef, 'goalInfo')
             const goalInfoDoc = doc(goalInfoCollection, 'weightGoals')
 

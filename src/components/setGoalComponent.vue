@@ -44,6 +44,8 @@ import {
   getDoc,
   getFirestore,
 } from 'firebase/firestore'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
+
 
 const db = getFirestore(firebaseApp)
 
@@ -64,37 +66,49 @@ export default {
             daysToCompleteGoal: null,
             weightChangeInKg: null,
             weightGainOrLoss: null,
+            userID: '',
         }
     },
     created() { 
-        this.getExerciseData();
-        this.getCalorieData();
-        this.getWeightData();
+        const auth = getAuth()
+        onAuthStateChanged(auth, (user) => {
+        if (user) {
+            this.userID = user.uid
+            this.getWeightData();
+            this.getExerciseData();
+            this.getCalorieData();
+        }
+        })
     },
     methods: {
         async getExerciseData() {
-            const userRef = doc(db, 'users', 'UZwy1hqjve1VIUsgIrhy')
+            const userRef = doc(db, 'users', this.userID)
             const goalInfoCollection = collection(userRef, 'goalInfo')
             const goalInfoSnapshot = await getDoc(doc(goalInfoCollection, 'weeklyExercise'))
 
-            this.targetMin = goalInfoSnapshot.data().targetMin;
+            if (goalInfoSnapshot.exists()) { 
+                this.targetMin = goalInfoSnapshot.data().targetMin;
+            }
         },
         async getCalorieData() {
-            const userRef = doc(db, 'users', 'UZwy1hqjve1VIUsgIrhy')
+            const userRef = doc(db, 'users', this.userID)
             const goalInfoCollection = collection(userRef, 'goalInfo')
             const goalInfoSnapshot = await getDoc(doc(goalInfoCollection, 'dailyCalorie'))
 
-            this.targetCalorie = goalInfoSnapshot.data().targetCalorie;
+            if (goalInfoSnapshot.exists()) { 
+                this.targetCalorie = goalInfoSnapshot.data().targetCalorie;
+            }
         },
         async getWeightData() {
-            const userRef = doc(db, 'users', 'UZwy1hqjve1VIUsgIrhy')
+            const userRef = doc(db, 'users', this.userID)
             const goalInfoCollection = collection(userRef, 'goalInfo')
             const goalInfoSnapshot = await getDoc(doc(goalInfoCollection, 'weightGoals'))
-
-            this.daysToCompleteGoal = goalInfoSnapshot.data().daysToCompleteGoal;
-            this.weightChangeInKg = goalInfoSnapshot.data().weightChangeInKg;
-            this.weightGainOrLoss = goalInfoSnapshot.data().weightGainOrLoss;
-
+            
+            if (goalInfoSnapshot.exists()) {
+                this.daysToCompleteGoal = goalInfoSnapshot.data().daysToCompleteGoal;
+                this.weightChangeInKg = goalInfoSnapshot.data().weightChangeInKg;
+                this.weightGainOrLoss = goalInfoSnapshot.data().weightGainOrLoss;
+            }
         },
     },
     computed: {

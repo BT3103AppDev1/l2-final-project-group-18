@@ -56,6 +56,7 @@ export default {
         return {
             showPopUp5: false,
             targetMin: 0,
+            userID: '',
         };
     },
     props: {
@@ -64,18 +65,18 @@ export default {
             required: true,
         },
     },
-    mounted() {
+    created() {
         const auth = getAuth()
         onAuthStateChanged(auth, (user) => {
         if (user) {
-            this.user = user
+            this.userID = user.uid
+            this.fetchExerciseGoal()
         }
         })
-        this.fetchExerciseGoal()
     },
     methods: {
         async fetchExerciseGoal() {
-            const userRef = doc(db, 'users', 'UZwy1hqjve1VIUsgIrhy')
+            const userRef = doc(db, 'users', this.userID)
             const goalInfoCollection = collection(userRef, 'goalInfo')
             const goalInfoSnapshot = await getDoc(doc(goalInfoCollection, 'weeklyExercise'))
             
