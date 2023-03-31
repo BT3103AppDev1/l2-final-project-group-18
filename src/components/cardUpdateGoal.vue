@@ -60,6 +60,7 @@ export default {
             daysToCompleteGoal: 0,
             weightChangeInKg: 0,
             weightGainOrLoss: '',
+            userID: '',
         };
     },
     props: {
@@ -68,18 +69,18 @@ export default {
             required: true,
         },
     },
-    mounted() {
+    created() {
         const auth = getAuth()
         onAuthStateChanged(auth, (user) => {
         if (user) {
-            this.user = user
+            this.userID = user.uid
+            this.fetchWeightGoal()
         }
         })
-        this.fetchWeightGoal()
     },
     methods: {
         async fetchWeightGoal() {
-            const userRef = doc(db, 'users', 'UZwy1hqjve1VIUsgIrhy')
+            const userRef = doc(db, 'users', this.userID)
             const goalInfoCollection = collection(userRef, 'goalInfo')
             const goalInfoSnapshot = await getDoc(doc(goalInfoCollection, 'weightGoals'))
             
