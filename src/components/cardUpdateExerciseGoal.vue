@@ -1,13 +1,13 @@
 <template>
    
-    <div class = "cardUpdate">
+    <div class = "cardUpdateExercise">
 
         <div class = "section">
             <div id = "left-elem">
-                <p>{{ goalTitleU }}</p>
+                <p>{{ goalTitleUE }}</p>
             </div>
             <div id = "right-elem">
-                <button @click="($event) => (showPopUp6 = true)" id = "updateButton">UPDATE</button>
+                <button @click="($event) => (showPopUp5 = true)" id = "updateExerciseButton">UPDATE</button>
             </div>
         </div>
 
@@ -16,19 +16,17 @@
         <div class = "section">
             <div id = "circle"></div>
             <div id = "no-goals-elem">
-                <p v-if="weightGainOrLoss === 'Weight Gain'">I want to gain {{ weightChangeInKg }} kg in {{ daysToCompleteGoal }} days</p>
-                <p v-if="weightGainOrLoss === 'Weight Loss'">I want to lose {{ weightChangeInKg }} kg in {{ daysToCompleteGoal }} days</p>
+                <p>I want to exercise {{ targetMin }} minutes every week.</p>
             </div>
-            <div id = "seeProgress">
-                <router-link to = "/dashboard">
-                    <button id = "seeProgressButton">SEE PROGRESS</button>
+            <div id = "seeExerciseProgress">
+                <router-link to = "/exercise">
+                    <button id = "seeExerciseProgressButton">SEE PROGRESS</button>
                 </router-link>
-                
             </div>
         </div>
 
-        <div v-if="showPopUp6" class="overlay">
-            <UpdateGoalPopUp :showPopUp6="showPopUp6" @close="($event) => (showPopUp6 = false)"/>
+        <div v-if="showPopUp5" class="overlay">
+            <UpdateExercisePopUp :showPopUp5="showPopUp5" @close="($event) => (showPopUp5 = false)"/>
         </div>
 
     </div>
@@ -37,7 +35,7 @@
 </template>
 
 <script>
-import UpdateGoalPopUp from './UpdateGoalPopUp.vue'
+import UpdateExercisePopUp from './UpdateExercisePopUp.vue'
 import firebaseApp from '../firebase.js'
 import {
   collection,
@@ -50,20 +48,18 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth'
 const db = getFirestore(firebaseApp)
 
 export default {
-    name: "cardUpdateGoal",
+    name: "cardUpdateExerciseGoal",
     components: {
-        UpdateGoalPopUp,
+        UpdateExercisePopUp,
     },
     data() {
         return {
-            showPopUp6: false,
-            daysToCompleteGoal: 0,
-            weightChangeInKg: 0,
-            weightGainOrLoss: '',
+            showPopUp5: false,
+            targetMin: 0,
         };
     },
     props: {
-        goalTitleU: {
+        goalTitleUE: {
             type: String,
             required: true,
         },
@@ -75,18 +71,15 @@ export default {
             this.user = user
         }
         })
-        this.fetchWeightGoal()
+        this.fetchExerciseGoal()
     },
     methods: {
-        async fetchWeightGoal() {
+        async fetchExerciseGoal() {
             const userRef = doc(db, 'users', 'UZwy1hqjve1VIUsgIrhy')
             const goalInfoCollection = collection(userRef, 'goalInfo')
-            const goalInfoSnapshot = await getDoc(doc(goalInfoCollection, 'weightGoals'))
+            const goalInfoSnapshot = await getDoc(doc(goalInfoCollection, 'weeklyExercise'))
             
-            this.daysToCompleteGoal = goalInfoSnapshot.data().daysToCompleteGoal;
-            this.weightChangeInKg = goalInfoSnapshot.data().weightChangeInKg;
-            this.weightGainOrLoss = goalInfoSnapshot.data().weightGainOrLoss;
-
+            this.targetMin = goalInfoSnapshot.data().targetMin;
         },
     }
 }
@@ -95,7 +88,7 @@ export default {
 
 <style>
 /* cards / default */
-.cardUpdate {
+.cardUpdateExercise {
     position: absolute;
     left: 40px;
     top: 110px;
@@ -122,7 +115,7 @@ export default {
     padding-top: 11px;
     color: #746652;
 }
-#updateButton {
+#updateExerciseButton {
     background-color: #FCB64E;
     width: 80px;
     height: 24px;
@@ -131,7 +124,7 @@ export default {
     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.25)
 }
 
-#updateButton:active {
+#updateExerciseButton:active {
     color: #fff;
 }
 
@@ -152,15 +145,16 @@ export default {
 #no-goals-elem {
     color: #252733;
     width: 50%;
+
 }
 
-#seeProgress {
+#seeExerciseProgress {
     padding-top: 11px;
     width: 50%;
     padding-right: 40px;
 }
 
-#seeProgressButton {
+#seeExerciseProgressButton {
     background-color: #869F77;
     width: 140px;
     height: 24px;
@@ -170,9 +164,10 @@ export default {
     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.25)
 }
 
-#seeProgressButton:active {
+#seeExerciseProgressButton:active {
     color: #fff;
 }
+
 
 .overlay {
     position: fixed;

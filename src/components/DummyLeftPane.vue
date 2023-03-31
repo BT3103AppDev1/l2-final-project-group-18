@@ -1,31 +1,33 @@
 <template>
-  <div class="left-pane">
-    <h2>HealthBuddy</h2>
-    <ul>
-      <li>Dashboard</li>
-      <li>
-        <router-link to="/food">Food</router-link>
-      </li>
-      <li>
-        <router-link to="/exercise">Exercise</router-link>
-      </li>
-      <li>
-        <router-link to="/login">login</router-link>
-      </li>
-      <li>
-        <router-link to="/welcome">welcome</router-link>
-      </li>
-      <li>
-        <router-link to="/updateProfile">update profile</router-link>
-      </li>
-      <li>Leaderboard</li>
-      <li>Info cards</li>
-      <li><router-link to="/goals">Goals</router-link></li>
-      <li>
-        <router-link to="/signout">Sign out</router-link>
-      </li>
-    </ul>
-  </div>
+    <div class = "left-pane">
+        <h2>HealthBuddy</h2>
+        <ul>
+            <li>
+                <router-link to="/dashboard">Dashboard</router-link>
+            </li>
+            <li>
+                <router-link to="/food">Food</router-link>
+            </li>
+            <li>
+                <router-link to="/exercise">Exercise</router-link>
+            </li>
+            <li>
+                <router-link to="/login">login</router-link>
+            </li>
+            <li>
+                <router-link to="/welcome">welcome</router-link>
+            </li>
+            <li>
+                <router-link to="/updateProfile">update profile</router-link>
+            </li>
+            <li>Leaderboard</li>
+            <li>Info cards</li>
+            <li><router-link to = "/goals">Goals</router-link></li>
+            <li>
+                <router-link to="/signout">Sign out</router-link>
+            </li>
+        </ul>
+    </div>
 </template>
 
 <script>

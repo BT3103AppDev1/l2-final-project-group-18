@@ -28,7 +28,7 @@ import 'firebase/compat/auth'
 import * as firebaseui from 'firebaseui'
 import 'firebaseui/dist/firebaseui.css'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { auth, db } from '@/firebase.js';
 
 export default {
@@ -55,17 +55,25 @@ export default {
                 }
             };
             var profileDocRef = doc(db, 'users', user.uid);
-            setDoc(profileDocRef, profileInfo, { merge: false })
-                .then(() => {
-                    // this.$router.push('/');
-                    console.log("Profile info saved successfully");
-                })
-                .catch((error) => {
-                    console.log("Error saving profile info: ", error);
-                });
+            getDoc(profileDocRef).then((docSnapshot) => {
+                if (docSnapshot.exists()) {
+                    // Redirect to homepage if user already exists in database
+                    window.location.href = '/';
+                } else {
+                    // Redirect to welcome page if user is signing in for the first time
+                    setDoc(profileDocRef, profileInfo, { merge: false }).then(() => {
+                        window.location.href = '/welcome';
+                        console.log("Profile info saved successfully");
+                    }).catch((error) => {
+                        console.log("Error saving profile info: ", error);
+                    });
+                }
+            }).catch((error) => {
+                console.log("Error checking user profile: ", error);
+            });
             return false;
         }
-    }
+        }   
     };
     ui.start("#firebaseui-auth-container", uiConfig)
   },
