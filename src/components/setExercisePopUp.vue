@@ -73,7 +73,7 @@ export default {
 
         async addExerciseGoal() {
             if (!this.targetMin) {
-                alert('Please fill in the weekly exercise target.')
+                alert('Please fill in the weekly exercise target and check the data you are keying in is of the correct type.')
                 return
             } 
 

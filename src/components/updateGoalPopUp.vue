@@ -100,7 +100,7 @@ export default {
 
         async updateGoalClick() {
             if (!this.weightGainOrLoss || !this.weightChangeInKg || !this.daysToCompleteGoal) {
-                alert('Please fill in all 3 weight goal information you want to update to.')
+                alert('Please fill in all 3 weight goal information you want to update to and check the data you are keying in is of the correct type.')
                 return
             }
 

@@ -99,7 +99,7 @@ export default {
 
         async addGoal() {
             if (!this.weightGainOrLoss || !this.weightChangeInKg || !this.daysToCompleteGoal) {
-                alert('Please fill in weight goal information for all 3 fields.')
+                alert('Please fill in weight goal information for all 3 fields and check the data you are keying in is of the correct type.')
                 return
             } 
 

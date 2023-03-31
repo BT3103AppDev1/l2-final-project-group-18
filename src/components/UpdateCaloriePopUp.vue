@@ -72,7 +72,7 @@ export default {
 
         async updateCalorieGoalClick() {
             if (!this.targetCalorie) {
-                alert('Please fill in the daily calorie intake target you want to update to.')
+                alert('Please fill in the daily calorie intake target you want to update to and check the data you are keying in is of the correct type.')
                 return
             } 
 
