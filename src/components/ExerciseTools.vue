@@ -73,7 +73,6 @@ export default {
       showCalculator: false,
     }
   },
-  methods: {},
 }
 </script>
 

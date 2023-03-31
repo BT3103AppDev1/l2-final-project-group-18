@@ -16,6 +16,7 @@
         />
       </h4>
     </div>
+
     <div class="calorie-checker-wrapper">
       <div class="calorie-checker-intro">
         <p>Check the calorie content of each serving of food!</p>
@@ -23,11 +24,21 @@
     </div>
 
     <div class="calorie-calculator-title">
-      <h4>Calorie Calculator</h4>
+      <h4>
+        <a class="popup-link" @click="($event) => (showCalculator = true)"
+          >Calorie Calculator
+        </a>
+        <FoodCalculator
+          :showCalculator="showCalculator"
+          @close="($event) => (showCalculator = false)"
+          class="food-calculator-overlay"
+        />
+      </h4>
     </div>
+
     <div class="calorie-calculator-wrapper">
       <div class="calorie-calculator-intro">
-        <p>Calculate your current weekly calories burnt!</p>
+        <p>Calculate your current daily calorie intake!</p>
       </div>
     </div>
   </div>
@@ -35,15 +46,18 @@
 
 <script>
 import FoodChecker from './FoodChecker.vue'
+import FoodCalculator from './FoodCalculator.vue'
 
 export default {
   name: 'Food-Tools',
   components: {
     FoodChecker,
+    FoodCalculator,
   },
   data() {
     return {
       showFoodChecker: false,
+      showCalculator: false,
     }
   },
 }
@@ -53,6 +67,11 @@ export default {
 .food-checker-overlay {
   position: absolute;
   z-index: 9999;
+}
+
+.food-calculator-overlay {
+  position: absolute;
+  z-index: 9999; /* Set the z-index value to a high number */
 }
 
 .food-tool-wrapper {
@@ -75,6 +94,12 @@ export default {
   line-height: 31px;
 
   color: #588061;
+}
+
+.popup-link:hover {
+  color: brown;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .calorie-checker-wrapper {

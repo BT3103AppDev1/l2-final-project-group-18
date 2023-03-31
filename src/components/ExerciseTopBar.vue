@@ -37,7 +37,7 @@ export default {
   computed: {
     ...mapState(['totalWeeklyExerciseTime']),
     progressWidth() {
-      const goalWidth = 980
+      const goalWidth = 940
       const progressPercentage =
         (this.totalWeeklyExerciseTime / this.weeklyExerciseTimeTarget) * 100
       const progressWidth =
@@ -82,7 +82,7 @@ export default {
 
 .topbar-achieve-text {
   position: absolute;
-  left: 20px;
+  left: 80px;
   font-family: 'Mulish';
   font-style: normal;
   font-weight: 700;
@@ -97,7 +97,7 @@ export default {
 .progress {
   position: absolute;
   top: 65px;
-  left: 20px;
+  left: 80px;
   height: 32px;
   background-color: #869f77;
   border-radius: 21px;
@@ -107,8 +107,8 @@ export default {
 .goal {
   position: absolute;
   top: 65px;
-  left: 20px;
-  width: 980px;
+  left: 80px;
+  width: 940px;
   height: 32px;
   background-color: #e8e8e8;
   border-radius: 21px;
