@@ -19,6 +19,12 @@
                 <p v-if="weightGainOrLoss === 'Weight Gain'">I want to gain {{ weightChangeInKg }} kg in {{ daysToCompleteGoal }} days</p>
                 <p v-if="weightGainOrLoss === 'Weight Loss'">I want to lose {{ weightChangeInKg }} kg in {{ daysToCompleteGoal }} days</p>
             </div>
+            <div id = "seeProgress">
+                <router-link to = "/dashboard">
+                    <button id = "seeProgressButton">SEE PROGRESS</button>
+                </router-link>
+                
+            </div>
         </div>
 
         <div v-if="showPopUp6" class="overlay">
@@ -121,7 +127,14 @@ export default {
     width: 80px;
     height: 24px;
     border-radius: 8px;
+    border: 0;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.25)
 }
+
+#updateButton:active {
+    color: #fff;
+}
+
 /* sheet */
 .divider {
     border: 1px solid #DFE0EB;
@@ -138,7 +151,29 @@ export default {
 }
 #no-goals-elem {
     color: #252733;
+    width: 50%;
 }
+
+#seeProgress {
+    padding-top: 11px;
+    width: 50%;
+    padding-right: 40px;
+}
+
+#seeProgressButton {
+    background-color: #869F77;
+    width: 140px;
+    height: 24px;
+    border-radius: 8px;
+    float: right;
+    border: 0;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.25)
+}
+
+#seeProgressButton:active {
+    color: #fff;
+}
+
 .overlay {
     position: fixed;
     top: 13%;

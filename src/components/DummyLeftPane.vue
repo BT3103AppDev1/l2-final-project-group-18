@@ -2,7 +2,9 @@
     <div class = "left-pane">
         <h2>HealthBuddy</h2>
         <ul>
-            <li>Dashboard</li>
+            <li>
+                <router-link to="/dashboard">Dashboard</router-link>
+            </li>
             <li>
                 <router-link to="/food">Food</router-link>
             </li>
