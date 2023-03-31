@@ -73,7 +73,7 @@ export default {
 
         async addCalorieGoal() {
             if (!this.targetCalorie) {
-                alert('Please fill in the daily calorie intake target.')
+                alert('Please fill in the daily calorie intake target and check the data you are keying in is of the correct type.')
                 return
             } 
 

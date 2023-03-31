@@ -72,7 +72,7 @@ export default {
 
         async updateExerciseGoalClick() {
             if (!this.targetMin) {
-                alert('Please fill in the weekly exercise target you want to update to.')
+                alert('Please fill in the weekly exercise target you want to update to and check the data you are keying in is of the correct type.')
                 return
             } 
 
