@@ -1,6 +1,6 @@
 <template>
     <div class="title">
-        <p>Hello, Winnie!</p>
+        <p>{{ greeting }}</p>
         <p>Welcome to your personal health tracker</p>
     </div>
 
@@ -47,25 +47,44 @@
 
 
 <script>
-import { doc, setDoc } from 'firebase/firestore'
+import { doc, setDoc, getDoc } from 'firebase/firestore'
 import { auth, db } from '@/firebase.js';
 
 export default {
     name: "profileComponent",
-data() {
+    data() {
     return {
       gender: null,
       height: null,
       weight: null,
+      username: null,
     }
   },
-  async created() {
-    // Get the current user's UID
+
+  async mounted() {
     const user = auth.currentUser;
     if (user) {
-      this.uid = user.uid;
+      const profileDocRef = doc(db, 'users', user.uid);
+      const profileDoc = await getDoc(profileDocRef);
+      if (profileDoc.exists()) {
+        const profileData = profileDoc.data();
+        if (profileData.profile_info) {
+          this.username = profileData.profile_info.username;
+        }
+      }
     }
   },
+
+  computed: {
+    greeting() {
+      if (this.username) {
+        return `Hello, ${this.username}!`;
+      } else {
+        return 'Loading...';
+      }
+    },
+  },
+  
   methods: {
     async saveProfile() {
       // Check if all input fields are filled
