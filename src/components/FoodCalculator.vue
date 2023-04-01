@@ -53,6 +53,7 @@ import {
   deleteDoc,
 } from 'firebase/firestore'
 import firebaseApp from '../firebase.js'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { eventBus } from '@/eventBus.js'
 import { mapActions, mapState } from 'vuex'
 
@@ -67,6 +68,7 @@ export default {
 
   data() {
     return {
+      user: false,
       showCalculatorAdder: false,
       dailyFood: [],
     }
@@ -85,6 +87,12 @@ export default {
   },
 
   async created() {
+    const auth = getAuth()
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.user = user
+      }
+    })
     // Listen for the 'foodAdded' event and call the 'fetchFood' method
     eventBus.on('foodAdded', this.fetchDailyFood)
     await this.fetchDailyFood()
@@ -101,7 +109,7 @@ export default {
     },
 
     async handleDelete(foodId) {
-      const userRef = doc(db, 'users', 'UZwy1hqjve1VIUsgIrhy')
+      const userRef = doc(db, 'users', this.user.id)
       const foodTrackingRef = collection(userRef, 'foodTracking')
       const foodRef = doc(foodTrackingRef, foodId)
 
@@ -111,7 +119,7 @@ export default {
     },
 
     async fetchDailyFood() {
-      const userRef = doc(db, 'users', 'UZwy1hqjve1VIUsgIrhy')
+      const userRef = doc(db, 'users', this.user.id)
       const foodTrackingRef = collection(userRef, 'foodTracking')
       const foodSnapshot = await getDocs(foodTrackingRef)
       const foodTypes = foodSnapshot.docs.map((doc) => {

@@ -22,6 +22,7 @@
 import { mapState } from 'vuex'
 import { getFirestore, doc, getDoc } from 'firebase/firestore'
 import firebaseApp from '../firebase.js'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
 const db = getFirestore(firebaseApp)
 
@@ -30,6 +31,7 @@ export default {
 
   data() {
     return {
+      user: false,
       dailyCaloriesTarget: 0,
     }
   },
@@ -47,6 +49,12 @@ export default {
   },
 
   async created() {
+    const auth = getAuth()
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.user = user
+      }
+    })
     await this.fetchDailyCaloriesTarget()
   },
 
@@ -55,7 +63,7 @@ export default {
       const dailyCaloriesTargetRef = doc(
         db,
         'users',
-        'UZwy1hqjve1VIUsgIrhy',
+        this.user.id,
         'goalInfo',
         'dailyCalorie'
       )

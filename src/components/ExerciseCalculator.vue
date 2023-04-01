@@ -58,7 +58,8 @@ import {
 } from 'firebase/firestore'
 import firebaseApp from '../firebase.js'
 import { eventBus } from '@/eventBus.js'
-import { mapActions, mapState } from 'vuex'
+import { mapActions } from 'vuex'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
 const db = getFirestore(firebaseApp)
 
@@ -71,6 +72,7 @@ export default {
 
   data() {
     return {
+      user: false,
       totalCaloriesBurnt: 0,
       showCalculatorAdder: false,
       weeklyExercises: [],
@@ -86,6 +88,12 @@ export default {
   },
 
   async created() {
+    const auth = getAuth()
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.user = user
+      }
+    })
     // Listen for the 'exerciseAdded' event and call the 'fetchExercises' method
     eventBus.on('exerciseAdded', this.fetchWeeklyExercises)
     await this.fetchWeeklyExercises()
@@ -102,7 +110,7 @@ export default {
     },
 
     async handleDelete(exerciseId) {
-      const userRef = doc(db, 'users', 'UZwy1hqjve1VIUsgIrhy')
+      const userRef = doc(db, 'users', this.user.id)
       const sportTrackingRef = collection(userRef, 'sportTracking')
       const exerciseRef = doc(sportTrackingRef, exerciseId)
 
@@ -113,7 +121,7 @@ export default {
     },
 
     async fetchWeeklyExercises() {
-      const userRef = doc(db, 'users', 'UZwy1hqjve1VIUsgIrhy')
+      const userRef = doc(db, 'users', this.user.id)
       const sportTrackingRef = collection(userRef, 'sportTracking')
       const exercisesSnapshot = await getDocs(sportTrackingRef)
       const exercises = exercisesSnapshot.docs.map((doc) => {
