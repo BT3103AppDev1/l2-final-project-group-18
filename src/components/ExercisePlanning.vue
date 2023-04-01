@@ -48,11 +48,7 @@ export default {
             calendarOptions: {
                 plugins: [ dayGridPlugin ],
                 initialView: 'dayGridMonth',
-                events: [
-                    // { title: 'event1', start: '2023-04-01' },
-                    // { title: 'event2', start: '2023-04-05', end: '2023-04-07' },
-                    // { title: 'event3', start: '2023-04-09T12:30:00', allDay: false }
-                ],
+                events: [],
                 eventColor: "#CAA542",
                 contentHeight: "440px"
             }
@@ -65,14 +61,6 @@ export default {
             required: true
         }
     },
-    // created() {
-    //     // this.fetchExercisePlanData();
-    //     onAuthStateChanged(getAuth(), (user) => {
-    //         if (user) {
-    //             this.fetchExercisePlanData(user.uid);
-    //         }
-    //     })
-    // },
     mounted() {
         const user = getAuth().currentUser;
 
@@ -97,49 +85,12 @@ export default {
                 })
             })
             console.log(events);
-            this.events = events;
-
-            // this.events = await Promise.all(snapshot.docs.map((doc) => {
-            //     const data = doc.data();
-            //     console.log(data);
-            //     const title = await this.getExerciseName(data.exerciseName);
-            //     console.log(title);
-            //     const start = new Date(data.date + 'T' + data.timeStart);
-            //     console.log(start);
-            //     const end = new Date(start.getTime() + data.duration * 60000);
-            //     console.log(end);
-
-            //     return {
-            //         title: title,
-            //         start: start,
-            //         end: end
-            //     };
-            // }));
-
-
+            this.calendarOptions.events = events;
         })
     },
 
 
     methods: {
-        async fetchExercisePlanData(uid) {
-            const exerciseData = [];
-
-            const exercisePlanRef = query(
-                doc(db, "users", uid, "exercisePlanning")
-            );
-
-            const listener = onSnapshot(exercisePlanRef, (querySnapshot) => {
-                exerciseData.length = 0; // clear existing data
-                querySnapshot.forEach(async (doc) => {
-                    const data = doc.data();
-                    const exerciseName = await this.getExerciseName(data.exerciseName);
-                    const startTime = new Date(data.date + 'T' + data.timeStart);
-                    const duration = data.duration
-                })
-            })
-            
-        },
 
         async getExerciseName(exerciseId) {
             const docRef = doc(db, "exerciseCalorie", exerciseId);
