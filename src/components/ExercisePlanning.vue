@@ -8,6 +8,12 @@
             <div class = "plan-header">
                 <p>Current Plannings: </p>
             </div>
+            <div class = "calendar-wrapper">
+                <FullCalendar :options="calendarOptions" />
+                <!-- I saw the FullCalendar code in github and it doesn't support props defaultView and plugins. 
+                    Instead it uses prop with name "options" -->
+                <!-- inside Options, it require plugins and initialView, otherwise report viewType not found error. -->
+            </div>
         </div>
 
         <div class = "add-button-wrapper">
@@ -19,17 +25,33 @@
 
 <script>
 
+import FullCalendar from "@fullcalendar/vue3";
+import dayGridPlugin from "@fullcalendar/daygrid";
 import AddNewPlan from './AddNewPlan.vue';
 
 export default {
     name: 'Exercise-Planner',
     components: {
-        AddNewPlan
+        AddNewPlan,
+        FullCalendar
     },
     data() {
         return {
-            showPlanAdd: false
+            exercisePlanData: [],
+            showPlanAdd: false,
+            calendarOptions: {
+                plugins: [ dayGridPlugin ],
+                initialView: 'dayGridMonth',
+                events: [
+                    { title: 'event1', start: '2023-04-01' },
+                    { title: 'event2', start: '2023-04-05', end: '2023-04-07' },
+                    { title: 'event3', start: '2023-04-09T12:30:00', allDay: false }
+                ],
+                eventColor: "#CAA542",
+                contentHeight: "440px"
+            }
         }
+        
     },
     props: {
         showPlanner: {
@@ -37,9 +59,23 @@ export default {
             required: true
         }
     },
+    created() {
+        this.fetchExercisePlanData();
+    },
+    // mounted() {
+    //     FullCalendar.use(dayGridPlugin); // Add the dayGridPlugin as a plugin
+    // },
     methods: {
+        async fetchExercisePlanData() {
+            this.exercisePlanData = [];
+        },
         closePlanner() {
             this.$emit('close');
+        }
+    },
+    computed: {
+        calendarEvents() {
+            return this.exercisePlanData;
         }
     }
 }
@@ -58,6 +94,15 @@ export default {
     background: #FAF4E1;
     border: 5px solid #9F978B;
     border-radius: 20px;
+}
+
+.calendar-wrapper {
+    /* max-height: 400px; */
+    font-size: 14px;
+    /* overflow-y: scroll; */
+    margin: 15px;
+
+    z-index: 10;
 }
 
 .back-button {

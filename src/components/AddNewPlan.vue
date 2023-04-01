@@ -47,6 +47,8 @@ export default {
     background: #FAF4E1;
     border: 5px solid #9F978B;
     border-radius: 20px;
+
+    z-index: 9999;
 }
 
 .add-new-text {
