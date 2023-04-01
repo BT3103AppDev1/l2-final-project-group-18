@@ -3,6 +3,24 @@
         <div class = "add-new-text">
             <p>Enter your exercise planning here: </p>
         </div>
+        <div>
+            <label>Exercise Type: </label>
+            <input type = "text" v-model = "type">
+
+            <label>Duration: </label>
+            <input type = "text" v-model = "duration">
+
+            <label>Date: </label>
+            <input type = "date" v-model = "date">
+
+            <label>Time Start: </label>
+            <input type = "time" v-model = "timeStart">
+
+            <label>Time End: </label>
+            <input type = "time" v-model = "timeEnd">
+
+            <button @click = "addExercisePlanning">Add</button>
+        </div>
 
         <p><a class = "back-link" @click = "closeAdd">Back</a></p>
     </div>
@@ -10,11 +28,21 @@
 
 <script>
 
+import firebaseApp from '../firebase.js'
+import { getFirestore, doc, getDoc, addDoc } from 'firebase/firestore'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
+
+const db = getFirestore(firebaseApp)
+
 export default {
     name: 'PlanExercise',
     data() {
         return {
-
+            type: '',
+            duration: '',
+            date: '',
+            timeStart: '',
+            timeEnd: ''
         }
     },
     props: {
@@ -24,6 +52,25 @@ export default {
         }
     },
     methods: {
+        async addExercisePlanning() {
+            const auth = getAuth();
+            const user = auth.currentUser;
+            if (!user) {
+                console.error("The user is not yet signed in");
+            }
+
+            const exercisePlanning = {
+                exerciseName: this.type,
+                duration: this.duration,
+                date: this.date,
+                timeStart: this.timeStart,
+                timeEnd: this.timeEnd
+            };
+
+            const userRef = doc(db, "users", user.uid, "exercisePlanning")
+            await addDoc(userRef, exercisePlanning);
+
+        },
         closeAdd() {
             this.$emit('close');
         }
