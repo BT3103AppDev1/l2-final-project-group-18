@@ -46,10 +46,16 @@
       </div>
     </div>
 
+    <div class = "exercise-planning-title">
+      <h4>
+        <a class = "popup-link" @click = "showPlanner = true">Exercise Planning</a>
+        <ExercisePlanning :showPlanner = "showPlanner"
+        @close = "showPlanner = false"
+        class = "exercise-planner-overlay" />
+      </h4>
+    </div>
+
     <div class="exercise-planning-wrapper">
-      <div class="exercise-planning-title">
-        <h4>Exercise Planning</h4>
-      </div>
       <div class="exercise-planning-intro">
         <p>Plan your personal fitness activities!</p>
       </div>
@@ -60,17 +66,20 @@
 <script>
 import ExerciseChecker from './ExerciseChecker.vue'
 import ExerciseCalculator from './ExerciseCalculator.vue'
+import ExercisePlanning from './ExercisePlanning.vue'
 
 export default {
   name: 'Exercise-Tools',
   components: {
     ExerciseChecker,
     ExerciseCalculator,
+    ExercisePlanning
   },
   data() {
     return {
       showChecker: false,
       showCalculator: false,
+      showPlanner: false
     }
   },
 }
@@ -85,6 +94,11 @@ export default {
 .exercise-calculator-overlay {
   position: absolute;
   z-index: 9999; /* Set the z-index value to a high number */
+}
+
+.exercise-planner-overlay {
+  position: absolute;
+  z-index: 9999;
 }
 
 .exercise-tool-wrapper {
@@ -230,14 +244,17 @@ export default {
 
 .exercise-planning-title {
   position: absolute;
-  top: -20px;
-  left: 30px;
+  top: 60px;
+  left: 670px;
+  width: 300px;
 
   font-family: 'Mulish';
   font-style: normal;
   font-weight: 700;
   font-size: 23px;
   line-height: 31px;
+
+  z-index: 10;
 
   color: #9a6f56;
 }
