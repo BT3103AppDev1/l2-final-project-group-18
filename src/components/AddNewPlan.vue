@@ -102,6 +102,9 @@ export default {
             this.date = null;
             this.timeStart = null;
 
+            this.$emit('strategy');
+            this.$emit('close');
+
         },
         closeAdd() {
             this.$emit('close');

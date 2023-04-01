@@ -51,6 +51,7 @@
         <a class = "popup-link" @click = "showPlanner = true">Exercise Planning</a>
         <ExercisePlanning :showPlanner = "showPlanner"
         @close = "showPlanner = false"
+        @open = "setShowPlanner"
         class = "exercise-planner-overlay" />
       </h4>
     </div>
@@ -82,6 +83,14 @@ export default {
       showPlanner: false
     }
   },
+  methods: {
+      setShowPlanner() {
+      this.showPlanner = false;
+      setTimeout(() => {
+        this.showPlanner = true;
+      }, 200); 
+    }
+  }
 }
 </script>
 

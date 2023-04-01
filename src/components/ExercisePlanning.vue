@@ -18,7 +18,9 @@
 
         <div class = "add-button-wrapper">
             <button id = "add-button" @click = "showPlanAdd = true">Add New Plan</button>
-            <AddNewPlan :showPlanAdd = "showPlanAdd" @close = "showPlanAdd = false" />
+            <AddNewPlan :showPlanAdd = "showPlanAdd" 
+            @close = "showPlanAdd = false"
+            @strategy = "closePopups" />
         </div>
     </div>
 </template>
@@ -81,7 +83,8 @@ export default {
                 this.getExerciseName(data.exerciseName).then((title) => {
                     const start = new Date(data.date + 'T' + data.timeStart);
                     const end = new Date(start.getTime() + data.duration * 60000);
-                    events.push({title, start, end});
+                    const allDay = false;
+                    events.push({title, start, end, allDay});
                 })
             })
             console.log(events);
@@ -106,6 +109,13 @@ export default {
 
         closePlanner() {
             this.$emit('close');
+        },
+
+        closePopups() {
+            this.$emit('open');
+            // setTimeout(() => {
+            //     this.$emit('open');
+            // }, 100);
         }
     },
     computed: {
