@@ -11,6 +11,9 @@
             <li>
                 <router-link to="/exercise">Exercise</router-link>
             </li>
+            <li>
+                <router-link to="/profile">Profile</router-link>
+            </li>
             <!-- <li>
                 <router-link to="/login">login</router-link>
             </li> -->

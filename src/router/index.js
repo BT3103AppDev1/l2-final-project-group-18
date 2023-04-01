@@ -11,6 +11,7 @@ import welcome from "../views/WelcomePage.vue";
 import updateProfile from "../views/UpdateProfilePage.vue";
 import GoalsPage from "../views/GoalsPage.vue";
 import DashboardView from "../views/DashboardView.vue";
+import profile from "../views/ProfileView.vue";
 
 
 
@@ -21,6 +22,11 @@ const router = createRouter({
       path: '/home',
       name: 'home',
       component: HomeView,
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: profile,
     },
     {
 
