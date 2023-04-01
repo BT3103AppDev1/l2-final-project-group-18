@@ -4,20 +4,32 @@
             <p>Enter your exercise planning here: </p>
         </div>
         <div>
-            <label>Exercise Type: </label>
-            <input type = "text" v-model = "type">
+            <div>
+                <label>Exercise Type: </label>
+                <select v-model = "selectedExercise">
+                    <option v-for = "exercise in exercises" 
+                    :key = "exercise.id" :value = "exercise.id">
+                        {{ exercise.name }}
+                    </option>
+                </select>
+            </div>
 
-            <label>Duration: </label>
-            <input type = "text" v-model = "duration">
+            <div>
+                <label>Duration: </label>
+                <input type = "text" v-model = "duration">
+            </div>
 
-            <label>Date: </label>
-            <input type = "date" v-model = "date">
+            <div>
+                <label>Date: </label>
+                <input type = "date" v-model = "date">
+            </div>
 
-            <label>Time Start: </label>
-            <input type = "time" v-model = "timeStart">
+            <div>
+                <label>Time Start: </label>
+                <input type = "time" v-model = "timeStart">
+            </div>
 
-            <label>Time End: </label>
-            <input type = "time" v-model = "timeEnd">
+            <!-- timeEnd -->
 
             <button @click = "addExercisePlanning">Add</button>
         </div>
@@ -29,7 +41,7 @@
 <script>
 
 import firebaseApp from '../firebase.js'
-import { getFirestore, doc, getDoc, addDoc } from 'firebase/firestore'
+import { getFirestore, doc, setDoc, collection, addDoc, onSnapshot } from 'firebase/firestore'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
 const db = getFirestore(firebaseApp)
@@ -42,7 +54,7 @@ export default {
             duration: '',
             date: '',
             timeStart: '',
-            timeEnd: ''
+            exercises: []
         }
     },
     props: {
@@ -50,6 +62,19 @@ export default {
             type: Boolean,
             required: true
         }
+    },
+    created() {
+        const exerciseRef = collection(db, "exerciseCalorie");
+        onSnapshot(exerciseRef, (snapshot) => {
+            const exercises = [];
+            snapshot.forEach((doc) => {
+                exercises.push({
+                    id: doc.id,
+                    name: doc.data().name
+                });
+            });
+            this.exercises = exercises;
+        });
     },
     methods: {
         async addExercisePlanning() {
@@ -60,15 +85,22 @@ export default {
             }
 
             const exercisePlanning = {
-                exerciseName: this.type,
+                exerciseName: this.selectedExercise,
+                // This is storing the ID of the exercise record
+                // Later can do const exerciseDocRef = doc(db, "exerciseCalorie", this.selectedExercise);
+                // given this is a valid ID, can retrieve exerciseDocRef.name
                 duration: this.duration,
                 date: this.date,
                 timeStart: this.timeStart,
-                timeEnd: this.timeEnd
             };
 
-            const userRef = doc(db, "users", user.uid, "exercisePlanning")
-            await addDoc(userRef, exercisePlanning);
+            const userRef = doc(db, "users", user.uid, "exercisePlanning", new Date().toISOString());
+            await setDoc(userRef, exercisePlanning);
+
+            this.selectedExercise = null;
+            this.duration = null;
+            this.date = null;
+            this.timeStart = null;
 
         },
         closeAdd() {
