@@ -49,6 +49,7 @@
 <script>
 import { doc, setDoc, getDoc } from 'firebase/firestore'
 import { auth, db } from '@/firebase.js';
+import { onAuthStateChanged } from 'firebase/auth'
 
 export default {
     name: "profileComponent",
@@ -58,21 +59,25 @@ export default {
       height: null,
       weight: null,
       username: null,
+      uid: null
     }
   },
 
-  async mounted() {
-    const user = auth.currentUser;
-    if (user) {
-      const profileDocRef = doc(db, 'users', user.uid);
-      const profileDoc = await getDoc(profileDocRef);
-      if (profileDoc.exists()) {
-        const profileData = profileDoc.data();
-        if (profileData.profile_info) {
-          this.username = profileData.profile_info.username;
-        }
+  mounted() {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const profileDocRef = doc(db, 'users', user.uid);
+        getDoc(profileDocRef).then((profileDoc) => {
+          if (profileDoc.exists()) {
+            const profileData = profileDoc.data();
+            if (profileData.profile_info) {
+              this.username = profileData.profile_info.username;
+              this.uid = user.uid;
+            }
+          }
+        });
       }
-    }
+    });
   },
 
   computed: {
@@ -104,7 +109,7 @@ export default {
       await setDoc(profileDocRef, data, { merge: true });
 
       alert('Profile saved successfully!');
-      this.$router.push('/');
+      this.$router.push('/home');
     }
   }
 };

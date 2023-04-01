@@ -76,7 +76,7 @@ export default {
   },
     methods: {
     home() {
-      this.$router.push('/')
+      this.$router.push('/home')
     },
     async updateProfile() {
         const user = auth.currentUser;
@@ -88,7 +88,7 @@ export default {
             'healthStats.weight': this.weight
             });
             alert('Profile updated successfully!');
-            this.$router.push('/');
+            this.$router.push('/home');
         }         
     }
     }
