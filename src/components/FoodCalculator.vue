@@ -1,27 +1,21 @@
 <template>
-  <div v-if="showCalculator" class="exercise-calculator">
-    <!-- This item only rendered if showCalculator = true -->
-
+  <div v-if="showCalculator" class="food-calculator">
     <div class="back-button">
       <p><a class="back-link" @click="closeCalculator">Back</a></p>
     </div>
 
-    <div class="exercise-summary-text">
-      <p>Current Weekly Activities</p>
+    <div class="food-summary-text">
+      <p>Current Food Intake:</p>
     </div>
 
-    <div class="exercise-container">
-      <div
-        v-for="exercise in weeklyExercises"
-        :key="exercise.id"
-        class="exercise-block"
-      >
+    <div class="food-container">
+      <div v-for="food in dailyFood" :key="food.id" class="food-block">
         <div class="text-wrapper">
-          <p id="sport">{{ exercise.name }}</p>
-          <p id="duration">{{ exercise.duration }} min</p>
+          <p id="food">{{ food.name }}</p>
+          <p id="servings">x {{ food.servings }}</p>
         </div>
         <button
-          @click="(event) => handleDelete(exercise.userSportId)"
+          @click="(event) => handleDelete(food.userFoodId)"
           class="delete-icon"
         >
           &times;
@@ -31,23 +25,25 @@
 
     <div class="add-button-wrapper">
       <button id="add-button" @click="($event) => (showCalculatorAdder = true)">
-        Add New Activity
+        Add New Food
       </button>
 
-      <ExerciseCalculatorAdder
+      <FoodCalculatorAdder
         :showCalculatorAdder="showCalculatorAdder"
         @close="($event) => (showCalculatorAdder = false)"
       />
     </div>
 
     <div class="calories-summary-text">
-      <p>Current total calories burnt: {{ totalCaloriesBurnt }} calories</p>
+      <p>
+        Current total calories intake: {{ totalDailyCaloriesIntake }} calories
+      </p>
     </div>
   </div>
 </template>
 
 <script>
-import ExerciseCalculatorAdder from './ExerciseCalculatorAdder.vue'
+import FoodCalculatorAdder from './FoodCalculatorAdder.vue'
 import {
   getFirestore,
   getDocs,
@@ -63,18 +59,21 @@ import { mapActions, mapState } from 'vuex'
 const db = getFirestore(firebaseApp)
 
 export default {
-  name: 'Exercise-Calculator',
+  name: 'Food-Calculator',
 
   components: {
-    ExerciseCalculatorAdder,
+    FoodCalculatorAdder,
   },
 
   data() {
     return {
-      totalCaloriesBurnt: 0,
       showCalculatorAdder: false,
-      weeklyExercises: [],
+      dailyFood: [],
     }
+  },
+
+  computed: {
+    ...mapState(['totalDailyCaloriesIntake']),
   },
 
   props: {
@@ -86,14 +85,14 @@ export default {
   },
 
   async created() {
-    // Listen for the 'exerciseAdded' event and call the 'fetchExercises' method
-    eventBus.on('exerciseAdded', this.fetchWeeklyExercises)
-    await this.fetchWeeklyExercises()
+    // Listen for the 'foodAdded' event and call the 'fetchFood' method
+    eventBus.on('foodAdded', this.fetchDailyFood)
+    await this.fetchDailyFood()
   },
 
   beforeDestroy() {
     // Remove the event listener when the component is destroyed
-    eventBus.off('exerciseAdded', this.fetchWeeklyExercises)
+    eventBus.off('foodAdded', this.fetchDailyFood)
   },
 
   methods: {
@@ -101,73 +100,61 @@ export default {
       this.$emit('close')
     },
 
-    async handleDelete(exerciseId) {
+    async handleDelete(foodId) {
       const userRef = doc(db, 'users', 'UZwy1hqjve1VIUsgIrhy')
-      const sportTrackingRef = collection(userRef, 'sportTracking')
-      const exerciseRef = doc(sportTrackingRef, exerciseId)
+      const foodTrackingRef = collection(userRef, 'foodTracking')
+      const foodRef = doc(foodTrackingRef, foodId)
 
       // Delete the document from Firestore
-      await deleteDoc(exerciseRef)
-      console.log(exerciseId)
-      await this.fetchWeeklyExercises()
+      await deleteDoc(foodRef)
+      await this.fetchDailyFood()
     },
 
-    async fetchWeeklyExercises() {
+    async fetchDailyFood() {
       const userRef = doc(db, 'users', 'UZwy1hqjve1VIUsgIrhy')
-      const sportTrackingRef = collection(userRef, 'sportTracking')
-      const exercisesSnapshot = await getDocs(sportTrackingRef)
-      const exercises = exercisesSnapshot.docs.map((doc) => {
+      const foodTrackingRef = collection(userRef, 'foodTracking')
+      const foodSnapshot = await getDocs(foodTrackingRef)
+      const foodTypes = foodSnapshot.docs.map((doc) => {
         return { id: doc.id, data: doc.data() }
       })
 
-      const newExercises = []
+      const newFood = []
 
-      for (const exercise of exercises) {
-        const exerciseTypeRef = exercise.data.type
-        const exerciseTypeSnapshot = await getDoc(exerciseTypeRef)
-        newExercises.push({
-          id: exerciseTypeSnapshot.id,
-          name: exerciseTypeSnapshot.data().name,
-          duration: exercise.data.duration,
-          userSportId: exercise.id,
+      for (const food of foodTypes) {
+        const foodTypeRef = food.data.type
+        const foodTypeSnapshot = await getDoc(foodTypeRef)
+        newFood.push({
+          id: foodTypeSnapshot.id,
+          name: foodTypeSnapshot.data().name,
+          servings: food.data.servings,
+          userFoodId: food.id,
         })
       }
-      this.weeklyExercises = newExercises
-      await this.calculateTotalCaloriesBurnt()
-      await this.calculateTotalWeeklyExerciseTime()
+      this.dailyFood = newFood
+      await this.calculateTotalCaloriesIntake()
     },
 
-    async calculateTotalCaloriesBurnt() {
-      let totalCaloriesBurnt = 0
+    async calculateTotalCaloriesIntake() {
+      let totalCaloriesIntake = 0
 
-      for (const exercise of this.weeklyExercises) {
-        const exerciseTypeRef = doc(db, 'exerciseCalorie', exercise.id)
-        const exerciseTypeSnapshot = await getDoc(exerciseTypeRef)
-        const caloriesBurntPerMinute =
-          exerciseTypeSnapshot.data().caloriesBurntPerMinute
-        totalCaloriesBurnt += exercise.duration * caloriesBurntPerMinute
+      for (const food of this.dailyFood) {
+        const foodTypeRef = doc(db, 'foodCalorie', food.id)
+        const foodTypeSnapshot = await getDoc(foodTypeRef)
+        const caloriesIntakePer100g =
+          foodTypeSnapshot.data().caloriesIntakePer100g
+        totalCaloriesIntake += food.servings * caloriesIntakePer100g
       }
 
-      this.totalCaloriesBurnt = totalCaloriesBurnt.toFixed(2)
+      this.updateTotalDailyCaloriesIntake(totalCaloriesIntake.toFixed(2))
     },
 
-    async calculateTotalWeeklyExerciseTime() {
-      let totalWeeklyExerciseTime = 0
-
-      for (const exercise of this.weeklyExercises) {
-        totalWeeklyExerciseTime += exercise.duration
-      }
-
-      this.updateTotalWeeklyExerciseTime(totalWeeklyExerciseTime)
-    },
-
-    ...mapActions(['updateTotalWeeklyExerciseTime']),
+    ...mapActions(['updateTotalDailyCaloriesIntake']),
   },
 }
 </script>
 
 <style scoped>
-.exercise-calculator {
+.food-calculator {
   position: absolute;
   top: -100px;
   left: -100px;
@@ -196,7 +183,7 @@ export default {
   text-decoration: underline;
 }
 
-.exercise-summary-text {
+.food-summary-text {
   position: absolute;
   width: 673px;
   height: 43px;
@@ -215,7 +202,7 @@ export default {
   color: #746652;
 }
 
-.exercise-container {
+.food-container {
   position: absolute;
   display: flex;
   flex-wrap: wrap; /* This will allow the items to wrap to the next row */
@@ -225,7 +212,7 @@ export default {
   left: 28px; /* Adjust the gap between the blocks as needed */
 }
 
-.exercise-block {
+.food-block {
   position: relative;
   width: 170px;
   height: 58px;
@@ -262,7 +249,7 @@ export default {
   align-items: center;
 }
 
-.text-wrapper #sport {
+.text-wrapper #food {
   width: 89px;
   padding-left: 35px;
   font-family: 'Lato';
@@ -271,7 +258,7 @@ export default {
   color: #a08666;
 }
 
-.exercise-block #duration {
+.food-block #servings {
   width: 87px;
   font-family: 'Lato';
   font-style: normal;
@@ -305,7 +292,7 @@ export default {
   position: absolute;
   width: 642px;
   height: 44px;
-  left: 94px;
+  left: 85px;
   top: 445px;
 
   font-family: 'Mulish';

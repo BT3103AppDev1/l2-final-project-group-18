@@ -1,32 +1,32 @@
 <template>
-    <div v-if = "showPopUp2" class = "setExerciseGoal">
+    <div v-if = "showPopUp4" class = "updateCalorieGoal">
 
-        <div class = "topExerciseRow">
-            <div id = "right-elem-e">
-                <button @click = "closePopUp2" class = "close-icon-e">x</button>
+        <div class = "topCalorieRow">
+            <div id = "right-elem-c">
+                <button @click = "closePopUp4" class = "close-icon-c">x</button>
             </div>
         </div>
 
         <div id = "title">
-            <h1>Set Goal</h1>
+            <h1>Update Goal</h1>
         </div>
         
-        <div class = "allExerciseRows">
+        <div class = "allCalorieRows">
 
-            <div class = "thirdExerciseRow">
-                <div class = "left-text2-e">
-                    <label>Weekly exercise target:</label>
+            <div class = "thirdCalorieRow">
+                <div class = "left-text2-c">
+                    <label>Daily calorie intake target:</label>
                 </div>
-                <div class = "middle-input-e">
-                    <input type="number" v-model="targetMin" placeholder=0 min = 0>
+                <div class = "middle-input-c">
+                    <input type="number" v-model="targetCalorie" placeholder=0 min = 0>
                 </div>
-                <div class = "right-text-e">
-                    <p>min</p>
+                <div class = "right-text-c">
+                    <p>calories</p>
                 </div>
             </div>
 
         </div>
-        <button id = "addExerciseGoalButton" @click="addExerciseGoal">SET</button>
+        <button id = "updateCalorieGoalButton" @click="updateCalorieGoalClick">UPDATE</button>
 
     </div>
 </template>
@@ -41,20 +41,19 @@ import {
 } from 'firebase/firestore'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
-
 const db = getFirestore(firebaseApp)
 
 export default {
-    name: 'SetExercisePopUp',
+    name: 'UpdateCaloriePopUp',
     props: {
-        showPopUp2: {
+        showPopUp4: {
             type: Boolean,
             required: true
         },
     },
     data() {
         return {
-            targetMin: 0,
+            targetCalorie: 0,
             userID: '',
         };
     },
@@ -67,33 +66,33 @@ export default {
         })
     },
     methods: {
-        closePopUp2() {
+        closePopUp4() {
             this.$emit('close')
         },
 
-        async addExerciseGoal() {
-            if (!this.targetMin) {
-                alert('Please fill in the weekly exercise target and check the data you are keying in is of the correct type.')
+        async updateCalorieGoalClick() {
+            if (!this.targetCalorie) {
+                alert('Please fill in the daily calorie intake target you want to update to and check the data you are keying in is of the correct type.')
                 return
             } 
 
             const userRef = doc(db, 'users', this.userID)
             const goalInfoCollection = collection(userRef, 'goalInfo')
-            const goalInfoDoc = doc(goalInfoCollection, 'weeklyExercise')
+            const goalInfoDoc = doc(goalInfoCollection, 'dailyCalorie')
 
             const docRef = await setDoc(goalInfoDoc, {
-                targetMin: this.targetMin
+                targetCalorie: this.targetCalorie
             })
-            this.closePopUp2()
+            this.closePopUp4()
             location.reload()
-        }
+        },
 
     }
 }
 </script>
 
 <style scoped>
-.setExerciseGoal {
+.updateCalorieGoal {
     position: fixed;
     width: 700px;
     height: 350px;
@@ -102,7 +101,7 @@ export default {
     border-radius: 20px;
 }
 
-.close-icon-e {
+.close-icon-c {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -112,12 +111,12 @@ export default {
   border: 0px;
 }
 
-.close-icon-e:hover {
+.close-icon-c:hover {
     color: #9F978B;
 }
 
 
-.topExerciseRow {
+.topCalorieRow {
     width: 100%;
     display: flex;
 
@@ -133,19 +132,19 @@ export default {
     font-family: 'Mulish', sans-serif;
 }
 
-#right-elem-e {
+#right-elem-c {
     padding-top: 11px;
     color: #746652;
 }
 
-.allExerciseRows {
+.allCalorieRows {
     width: 100%;
     font-family: 'Mulish', sans-serif;
     padding-top: 10px;
 }
 
 
-.thirdExerciseRow {
+.thirdCalorieRow {
     width: 100%;
     display: flex;
     font-family: 'Mulish', sans-serif;
@@ -154,14 +153,14 @@ export default {
 
 }
 
-.left-text2-e {
+.left-text2-c {
     padding-left: 8%;
     font-weight: 50;
     font-size: 20px;
     padding-top: 5px;
 }
 
-.middle-input-e {
+.middle-input-c {
     margin-left: 25px;
 }
 
@@ -178,13 +177,13 @@ input {
 
 }
 
-.right-text-e {
+.right-text-c {
     margin-left: 20px;
     font-weight: 50;
     font-size: 20px;
 }
 
-#addExerciseGoalButton {
+#updateCalorieGoalButton {
     background-color: #FCB64E;
     width: 200px;
     height: 50px;

@@ -2,34 +2,125 @@
     <div class = "current-goal-wrapper">
         
         <h1>Current Goals</h1>
-        <div class = "first">
+
+        <div class = "first" v-if= "hasWeightData">
+            <cardUpdateGoal goalTitleU="Update weight gain/ weight loss goal"></cardUpdateGoal>
+        </div>
+        <div class = "first" v-else>
             <cardSetGoal goalTitle="Set weight gain/ weight loss goal"></cardSetGoal>
         </div>
-        <div class = "second">
-            <cardSetGoal goalTitle="Set weekly exercise goal"></cardSetGoal>
+
+        <div class = "second" v-if="hasExerciseData">
+            <cardUpdateExerciseGoal goalTitleUE="Update weekly exercise goal"></cardUpdateExerciseGoal>
         </div>
-        <div class = "third">
-            <cardSetGoal goalTitle="Set daily calorie intake goal"></cardSetGoal>
+        <div class="second" v-else>
+            <cardSetExerciseGoal goalTitleE="Set weekly exercise goal"></cardSetExerciseGoal>
         </div>
-        <div class = "fourth">
-            <cardUpdateGoal goalTitle="Update weight gain/ weight loss goal"></cardUpdateGoal>
+
+        <div class="third" v-if="hasCalorieData">
+            <cardUpdateCalorieGoal goalTitleUC="Update daily calorie intake goal"></cardUpdateCalorieGoal>
+        </div>
+        <div class="third" v-else>
+            <cardSetCalorieGoal goalTitleC="Set daily calorie intake goal"></cardSetCalorieGoal>
         </div>
         
-
-
     </div>
 
 </template>
 
 <script>
 import cardSetGoal from '../components/cardSetGoal.vue';
-import cardUpdateGoal from '../components/cardUpdateGoal.vue';
+import cardSetExerciseGoal from './cardSetExerciseGoal.vue';
+import cardSetCalorieGoal from './cardSetCalorieGoal.vue';
+import cardUpdateCalorieGoal from './cardUpdateCalorieGoal.vue';
+import cardUpdateExerciseGoal from './cardUpdateExerciseGoal.vue';
+import cardUpdateGoal from './cardUpdateGoal.vue';
+
+
+import firebaseApp from '../firebase.js'
+import {
+  collection,
+  doc,
+  getDoc,
+  getFirestore,
+} from 'firebase/firestore'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
+
+
+const db = getFirestore(firebaseApp)
 
 export default {
     name: "SetGoalComponent",
     components: {
         cardSetGoal,
-        cardUpdateGoal
+        cardSetExerciseGoal,
+        cardSetCalorieGoal,
+        cardUpdateCalorieGoal,
+        cardUpdateExerciseGoal,
+        cardUpdateGoal,
+    },
+    data() {
+        return {
+            targetMin: null,
+            targetCalorie: null,
+            daysToCompleteGoal: null,
+            weightChangeInKg: null,
+            weightGainOrLoss: null,
+            userID: '',
+        }
+    },
+    created() { 
+        const auth = getAuth()
+        onAuthStateChanged(auth, (user) => {
+        if (user) {
+            this.userID = user.uid
+            this.getWeightData();
+            this.getExerciseData();
+            this.getCalorieData();
+        }
+        })
+    },
+    methods: {
+        async getExerciseData() {
+            const userRef = doc(db, 'users', this.userID)
+            const goalInfoCollection = collection(userRef, 'goalInfo')
+            const goalInfoSnapshot = await getDoc(doc(goalInfoCollection, 'weeklyExercise'))
+
+            if (goalInfoSnapshot.exists()) { 
+                this.targetMin = goalInfoSnapshot.data().targetMin;
+            }
+        },
+        async getCalorieData() {
+            const userRef = doc(db, 'users', this.userID)
+            const goalInfoCollection = collection(userRef, 'goalInfo')
+            const goalInfoSnapshot = await getDoc(doc(goalInfoCollection, 'dailyCalorie'))
+
+            if (goalInfoSnapshot.exists()) { 
+                this.targetCalorie = goalInfoSnapshot.data().targetCalorie;
+            }
+        },
+        async getWeightData() {
+            const userRef = doc(db, 'users', this.userID)
+            const goalInfoCollection = collection(userRef, 'goalInfo')
+            const goalInfoSnapshot = await getDoc(doc(goalInfoCollection, 'weightGoals'))
+            
+            if (goalInfoSnapshot.exists()) {
+                this.daysToCompleteGoal = goalInfoSnapshot.data().daysToCompleteGoal;
+                this.weightChangeInKg = goalInfoSnapshot.data().weightChangeInKg;
+                this.weightGainOrLoss = goalInfoSnapshot.data().weightGainOrLoss;
+            }
+        },
+    },
+    computed: {
+        hasExerciseData() {
+            return this.targetMin !== null && this.targetMin !== 0;
+        },
+        hasCalorieData() {
+            return this.targetCalorie !== null && this.targetCalorie !== 0;
+        },
+        hasWeightData() {
+            return this.weightChangeInKg !== null && this.weightChangeInKg !== 0;
+        }
     }
 }
 </script>
@@ -70,10 +161,6 @@ h1 {
     top: 300px;
 }
 
-.fourth {
-    position: absolute;
-    top: 450px;
-}
 
 </style>
 
