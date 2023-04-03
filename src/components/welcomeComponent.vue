@@ -1,13 +1,26 @@
 <template>
     <div class="title">
         <p>{{ greeting }}</p>
-        <p>Update your personal health tracker</p>
+        <p>Welcome to your personal health tracker</p>
     </div>
 
     <div class="subtitle">
-        <p>Start updating your height and weight</p>
+        <p>Give us some basic information to get started</p>
     </div>
 
+    <div>
+    <div class="gender-selection">
+      <div class="gender-option" :class="{ active: gender === 'male' }" @click="gender = 'male'">
+        <img src="../assets/male icon.png">
+        <p>Male</p>
+      </div>
+      <div class="gender-option" :class="{ active: gender === 'female' }" @click="gender = 'female'">
+        <img src="../assets/female icon.png" >
+        <p>Female</p>
+      </div>
+    </div>
+  </div>
+  
     <div class="container1">
         <p id="height-label">Height:</p>
         <div class = "height-field">
@@ -25,44 +38,46 @@
     </div>
 
     <div class = "confirm-button-wrapper">
-            <button id = "confirm-button" @click = "updateProfile">Confirm</button>
+            <button id = "confirm-button" @click = "saveProfile">Confirm</button>
     </div>
-
-    <div class = "cancel-button-wrapper">
-            <button id = "cancel-button" @click = "home">Cancel</button>
-    </div>
-
     <img class = "image" src="../assets/welcome.png" alt="image here">
+    
     
 </template>
 
 
 <script>
-import { doc, updateDoc, getDoc } from 'firebase/firestore'
+import { doc, setDoc, getDoc } from 'firebase/firestore'
 import { auth, db } from '@/firebase.js';
+import { onAuthStateChanged } from 'firebase/auth'
 
 export default {
-    name: "updateProfileComponent",
+    name: "welcomeComponent",
     data() {
     return {
+      gender: null,
       height: null,
       weight: null,
       username: null,
+      uid: null
     }
   },
 
-  async mounted() {
-    const user = auth.currentUser;
-    if (user) {
-      const profileDocRef = doc(db, 'users', user.uid);
-      const profileDoc = await getDoc(profileDocRef);
-      if (profileDoc.exists()) {
-        const profileData = profileDoc.data();
-        if (profileData.profile_info) {
-          this.username = profileData.profile_info.username;
-        }
+  mounted() {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const profileDocRef = doc(db, 'users', user.uid);
+        getDoc(profileDocRef).then((profileDoc) => {
+          if (profileDoc.exists()) {
+            const profileData = profileDoc.data();
+            if (profileData.profile_info) {
+              this.username = profileData.profile_info.username;
+              this.uid = user.uid;
+            }
+          }
+        });
       }
-    }
+    });
   },
 
   computed: {
@@ -74,27 +89,30 @@ export default {
       }
     },
   },
-    methods: {
-    home() {
-      this.$router.push('/home')
-    },
-    async updateProfile() {
-        const user = auth.currentUser;
-        if (user) {
-            this.uid = user.uid;
-            const healthStatsRef = doc(db, 'users', this.uid);
-            await updateDoc(healthStatsRef, {
-            'healthStats.height': this.height,
-            'healthStats.weight': this.weight
-            });
-            alert('Profile updated successfully!');
-            this.$router.push('/home');
-        }         
-    }
-    }
-}
   
+  methods: {
+    async saveProfile() {
+      // Check if all input fields are filled
+      if (!this.gender || !this.height || !this.weight) {
+        alert('Please fill in all fields.');
+        return;
+      }
 
+      const profileDocRef = doc(db, 'users', this.uid);
+      const data = {       
+        healthStats: {
+          gender: this.gender,
+          height: this.height,
+          weight: this.weight,
+        }
+      };
+      await setDoc(profileDocRef, data, { merge: true });
+
+      alert('Profile saved successfully!');
+      this.$router.push('/home');
+    }
+  }
+};
 </script>
 
 
@@ -291,7 +309,7 @@ input {
 
 .confirm-button-wrapper {
     position: absolute;
-    left: 800px;
+    left: 1000px;
     top: 580px;
 
     width: 700px;
@@ -313,27 +331,28 @@ input {
     border-radius: 30px;
 }
 
-.cancel-button-wrapper {
-    position: absolute;
-    left: 1000px;
-    top: 580px;
-
-    width: 700px;
-    height: 50px;
+.gender-selection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20%;
+  position: absolute;
+  right: 180px;
+  top: 200px;
 }
 
-.cancel-button-wrapper #cancel-button {
+.gender-option {
+  margin-right: 15px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-    width: 168.3px;
-    height: 44.59px;
-    
-    font-family: 'Mulish';
-    font-style: normal;
-    font-size: 20px;
-    text-align: center;
-    color: #746652;
-
-    background: #DDD8BA;
-    border-radius: 30px;
+.gender-option.active img {
+    border: 10px solid #DDD8BA;
+    box-shadow: 0px 0px 20px #DDD8BA;
+    border-radius: 20px;
 }
 </style>

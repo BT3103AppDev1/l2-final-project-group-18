@@ -33,6 +33,7 @@ export default {
     return {
       user: false,
       weeklyExerciseTimeTarget: 0,
+      userID: '',
     }
   },
 
@@ -48,22 +49,23 @@ export default {
     },
   },
 
-  async created() {
-    const auth = getAuth()
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        this.user = user
-      }
-    })
-    await this.fetchWeeklyExerciseTimeTarget()
-  },
 
+created() {
+  const auth = getAuth()
+    onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      this.user = user
+      await this.fetchWeeklyExerciseTimeTarget()
+    }
+    })
+  },
+  
   methods: {
     async fetchWeeklyExerciseTimeTarget() {
       const weeklyExerciseTimeTargetRef = doc(
         db,
         'users',
-        this.user.id,
+        this.user.uid,
         'goalInfo',
         'weeklyExercise'
       )

@@ -12,14 +12,17 @@
                 <router-link to="/exercise">Exercise</router-link>
             </li>
             <li>
+                <router-link to="/profile">Profile</router-link>
+            </li>
+            <!-- <li>
                 <router-link to="/login">login</router-link>
-            </li>
-            <li>
+            </li> -->
+            <!-- <li>
                 <router-link to="/welcome">welcome</router-link>
-            </li>
-            <li>
+            </li> -->
+            <!-- <li>
                 <router-link to="/updateProfile">update profile</router-link>
-            </li>
+            </li> -->
             <li>Leaderboard</li>
             <li>Info cards</li>
             <li><router-link to = "/goals">Goals</router-link></li>

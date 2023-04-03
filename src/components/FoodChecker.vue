@@ -27,8 +27,8 @@
                 </div>
                 <div v-else style = "overflow-y: scroll; max-height: 350px;" class = "check-item">
                     <FoodCheckerItem v-for = "(result, index) in searchFoodResults"
-                    :key = "index" :foodName = "result.foodName"
-                    :calorieFoodPerMinute = "result.caloriePerServing" />
+                    :key = "index" :foodName = "result.name"
+                    :calorieFoodPerMinute = "result.caloriesIntakePer100g" />
                 </div>
             </div>
 
@@ -74,11 +74,11 @@ export default {
     },
     methods: {
         async searchFood() {
-            const foodRef = collection(db, "foodCalorieDatabase");
+            const foodRef = collection(db, "foodCalorie");
             const q = query(
                 foodRef,
-                where("foodName", ">=", this.searchFoodQuery),
-                where("foodName", "<=", this.searchFoodQuery + "\uf8ff")
+                where("name", ">=", this.searchFoodQuery),
+                where("name", "<=", this.searchFoodQuery + "\uf8ff")
             );
             try {
                 const querySnapshot = await getDocs(q);

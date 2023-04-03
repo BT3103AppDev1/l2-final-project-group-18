@@ -58,7 +58,7 @@ export default {
             getDoc(profileDocRef).then((docSnapshot) => {
                 if (docSnapshot.exists()) {
                     // Redirect to homepage if user already exists in database
-                    window.location.href = '/';
+                    window.location.href = '/home';
                 } else {
                     // Redirect to welcome page if user is signing in for the first time
                     setDoc(profileDocRef, profileInfo, { merge: false }).then(() => {
@@ -94,7 +94,7 @@ export default {
       try {
         const auth = getAuth();
         await signInWithEmailAndPassword(auth, this.email, this.password);
-        this.$router.push('/');
+        this.$router.push('/home');
       } catch (error) {
         this.error = error.message;
       }
