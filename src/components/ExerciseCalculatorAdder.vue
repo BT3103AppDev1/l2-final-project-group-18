@@ -77,15 +77,14 @@ export default {
     }
   },
 
-  mounted() {
+  async created() {
     const auth = getAuth()
     onAuthStateChanged(auth, (user) => {
       if (user) {
         this.user = user
       }
     })
-    console.log(this.user)
-    this.fetchExerciseTypes()
+    await this.fetchExerciseTypes()
   },
 
   props: {
@@ -118,7 +117,7 @@ export default {
         duration: parseInt(this.selectedExerciseTime, 10),
       }
 
-      const userRef = doc(db, 'users', this.user.id)
+      const userRef = doc(db, 'users', this.user.uid)
       const sportTrackingRef = collection(userRef, 'sportTracking')
 
       await addDoc(sportTrackingRef, newExercise)

@@ -41,7 +41,9 @@
     </div>
 
     <div class="calories-summary-text">
-      <p>Current total calories burnt: {{ totalCaloriesBurnt }} calories</p>
+      <p>
+        Current total calories burnt: {{ totalWeeklyCaloriesBurnt }} calories
+      </p>
     </div>
   </div>
 </template>
@@ -58,7 +60,7 @@ import {
 } from 'firebase/firestore'
 import firebaseApp from '../firebase.js'
 import { eventBus } from '@/eventBus.js'
-import { mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
 const db = getFirestore(firebaseApp)
@@ -73,10 +75,13 @@ export default {
   data() {
     return {
       user: false,
-      totalCaloriesBurnt: 0,
       showCalculatorAdder: false,
       weeklyExercises: [],
     }
+  },
+
+  computed: {
+    ...mapState(['totalWeeklyCaloriesBurnt']),
   },
 
   props: {
@@ -87,21 +92,23 @@ export default {
     },
   },
 
-  async created() {
+  created() {
     const auth = getAuth()
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
         this.user = user
+        await this.fetchWeeklyExercises()
+        // Listen for the 'exerciseAdded' event and call the 'fetchExercises' method
+        eventBus.on('exerciseAdded', this.fetchWeeklyExercises)
       }
     })
-    // Listen for the 'exerciseAdded' event and call the 'fetchExercises' method
-    eventBus.on('exerciseAdded', this.fetchWeeklyExercises)
-    await this.fetchWeeklyExercises()
   },
 
   beforeDestroy() {
     // Remove the event listener when the component is destroyed
-    eventBus.off('exerciseAdded', this.fetchWeeklyExercises)
+    if (!this.user) {
+      eventBus.off('exerciseAdded', this.fetchWeeklyExercises)
+    }
   },
 
   methods: {
@@ -110,7 +117,7 @@ export default {
     },
 
     async handleDelete(exerciseId) {
-      const userRef = doc(db, 'users', this.user.id)
+      const userRef = doc(db, 'users', this.user.uid)
       const sportTrackingRef = collection(userRef, 'sportTracking')
       const exerciseRef = doc(sportTrackingRef, exerciseId)
 
@@ -121,7 +128,7 @@ export default {
     },
 
     async fetchWeeklyExercises() {
-      const userRef = doc(db, 'users', this.user.id)
+      const userRef = doc(db, 'users', this.user.uid)
       const sportTrackingRef = collection(userRef, 'sportTracking')
       const exercisesSnapshot = await getDocs(sportTrackingRef)
       const exercises = exercisesSnapshot.docs.map((doc) => {
@@ -156,7 +163,7 @@ export default {
         totalCaloriesBurnt += exercise.duration * caloriesBurntPerMinute
       }
 
-      this.totalCaloriesBurnt = totalCaloriesBurnt.toFixed(2)
+      this.updateTotalWeeklyCaloriesBurnt(totalCaloriesBurnt.toFixed(2))
     },
 
     async calculateTotalWeeklyExerciseTime() {
@@ -169,7 +176,10 @@ export default {
       this.updateTotalWeeklyExerciseTime(totalWeeklyExerciseTime)
     },
 
-    ...mapActions(['updateTotalWeeklyExerciseTime']),
+    ...mapActions([
+      'updateTotalWeeklyExerciseTime',
+      'updateTotalWeeklyCaloriesBurnt',
+    ]),
   },
 }
 </script>

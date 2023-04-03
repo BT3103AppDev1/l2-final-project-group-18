@@ -86,21 +86,23 @@ export default {
     },
   },
 
-  async created() {
+  created() {
     const auth = getAuth()
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
         this.user = user
+        await this.fetchDailyFood()
+        // Listen for the 'foodAdded' event and call the 'fetchFood' method
+        eventBus.on('foodAdded', this.fetchDailyFood)
       }
     })
-    // Listen for the 'foodAdded' event and call the 'fetchFood' method
-    eventBus.on('foodAdded', this.fetchDailyFood)
-    await this.fetchDailyFood()
   },
 
   beforeDestroy() {
-    // Remove the event listener when the component is destroyed
-    eventBus.off('foodAdded', this.fetchDailyFood)
+    if (!this.user) {
+      // Remove the event listener when the component is destroyed
+      eventBus.off('foodAdded', this.fetchDailyFood)
+    }
   },
 
   methods: {
@@ -109,7 +111,7 @@ export default {
     },
 
     async handleDelete(foodId) {
-      const userRef = doc(db, 'users', this.user.id)
+      const userRef = doc(db, 'users', this.user.uid)
       const foodTrackingRef = collection(userRef, 'foodTracking')
       const foodRef = doc(foodTrackingRef, foodId)
 
@@ -119,7 +121,7 @@ export default {
     },
 
     async fetchDailyFood() {
-      const userRef = doc(db, 'users', this.user.id)
+      const userRef = doc(db, 'users', this.user.uid)
       const foodTrackingRef = collection(userRef, 'foodTracking')
       const foodSnapshot = await getDocs(foodTrackingRef)
       const foodTypes = foodSnapshot.docs.map((doc) => {
