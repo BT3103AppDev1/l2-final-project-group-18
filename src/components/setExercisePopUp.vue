@@ -39,6 +39,8 @@ import {
   setDoc,
   getFirestore,
 } from 'firebase/firestore'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
+
 
 const db = getFirestore(firebaseApp)
 
@@ -53,7 +55,16 @@ export default {
     data() {
         return {
             targetMin: 0,
+            userID: '',
         };
+    },
+    created() {
+        const auth = getAuth()
+        onAuthStateChanged(auth, (user) => {
+        if (user) {
+            this.userID = user.uid
+        }
+        })
     },
     methods: {
         closePopUp2() {
@@ -62,11 +73,11 @@ export default {
 
         async addExerciseGoal() {
             if (!this.targetMin) {
-                alert('Please fill in the weekly exercise target.')
+                alert('Please fill in the weekly exercise target and check the data you are keying in is of the correct type.')
                 return
             } 
 
-            const userRef = doc(db, 'users', 'UZwy1hqjve1VIUsgIrhy')
+            const userRef = doc(db, 'users', this.userID)
             const goalInfoCollection = collection(userRef, 'goalInfo')
             const goalInfoDoc = doc(goalInfoCollection, 'weeklyExercise')
 

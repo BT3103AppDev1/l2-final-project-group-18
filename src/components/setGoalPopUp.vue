@@ -64,6 +64,7 @@ import {
   setDoc,
   getFirestore,
 } from 'firebase/firestore'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
 const db = getFirestore(firebaseApp)
 
@@ -79,8 +80,17 @@ export default {
         return {
             weightGainOrLoss: '',
             weightChangeInKg: 0,
-            daysToCompleteGoal: 0
+            daysToCompleteGoal: 0,
+            userID: '',
         };
+    },
+    created() {
+        const auth = getAuth()
+        onAuthStateChanged(auth, (user) => {
+        if (user) {
+            this.userID = user.uid
+        }
+        })
     },
     methods: {
         closePopUp() {
@@ -89,11 +99,11 @@ export default {
 
         async addGoal() {
             if (!this.weightGainOrLoss || !this.weightChangeInKg || !this.daysToCompleteGoal) {
-                alert('Please fill in weight goal information for all 3 fields.')
+                alert('Please fill in weight goal information for all 3 fields and check the data you are keying in is of the correct type.')
                 return
             } 
 
-            const userRef = doc(db, 'users', 'UZwy1hqjve1VIUsgIrhy')
+            const userRef = doc(db, 'users', this.userID)
             const goalInfoCollection = collection(userRef, 'goalInfo')
             const goalInfoDoc = doc(goalInfoCollection, 'weightGoals')
 

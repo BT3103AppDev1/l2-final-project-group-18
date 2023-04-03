@@ -33,6 +33,7 @@ export default {
     return {
       user: false,
       dailyCaloriesTarget: 0,
+      userID: '',
     }
   },
 
@@ -48,14 +49,14 @@ export default {
     },
   },
 
-  async created() {
+  created() {
     const auth = getAuth()
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
         this.user = user
+        await this.fetchDailyCaloriesTarget()
       }
     })
-    await this.fetchDailyCaloriesTarget()
   },
 
   methods: {
@@ -63,7 +64,7 @@ export default {
       const dailyCaloriesTargetRef = doc(
         db,
         'users',
-        this.user.id,
+        this.user.uid,
         'goalInfo',
         'dailyCalorie'
       )

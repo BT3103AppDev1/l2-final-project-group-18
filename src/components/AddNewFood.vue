@@ -49,10 +49,10 @@ export default {
 
             try {
                 const docRef = await addDoc(collection(
-                    db, "foodCalorieDatabase"
+                    db, "foodCalorie"
                 ), {
-                    foodName: this.foodType,
-                    caloriePerServing: parseFloat(this.caloriesMin)
+                    name: this.foodType,
+                    caloriesIntakePer100g: parseFloat(this.caloriesMin)
                 });
                 const docSnap = await getDoc(docRef);
                 console.log("Added document data:", docSnap.data());
