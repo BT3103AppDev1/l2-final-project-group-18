@@ -31,6 +31,7 @@ export default {
 
   data() {
     return {
+      user: false,
       weeklyExerciseTimeTarget: 0,
       userID: '',
     }
@@ -48,12 +49,13 @@ export default {
     },
   },
 
+
 created() {
   const auth = getAuth()
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
     if (user) {
-      this.userID = user.uid
-      this.fetchWeeklyExerciseTimeTarget()
+      this.user = user
+      await this.fetchWeeklyExerciseTimeTarget()
     }
     })
   },
@@ -63,7 +65,7 @@ created() {
       const weeklyExerciseTimeTargetRef = doc(
         db,
         'users',
-        this.userID,
+        this.user.uid,
         'goalInfo',
         'weeklyExercise'
       )

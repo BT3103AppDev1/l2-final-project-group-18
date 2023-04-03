@@ -113,7 +113,7 @@ export default {
         servings: parseInt(this.selectedNumOfServings, 10),
       }
 
-      const userRef = doc(db, 'users', 'UZwy1hqjve1VIUsgIrhy')
+      const userRef = doc(db, 'users', this.user.id)
       const foodTrackingRef = collection(userRef, 'foodTracking')
 
       await addDoc(foodTrackingRef, newFood)
