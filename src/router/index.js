@@ -11,6 +11,7 @@ import welcome from "../views/WelcomePage.vue";
 import updateProfile from "../views/UpdateProfilePage.vue";
 import GoalsPage from "../views/GoalsPage.vue";
 import DashboardView from "../views/DashboardView.vue";
+import profile from "../views/ProfileView.vue";
 
 
 
@@ -18,9 +19,14 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
+      path: '/home',
       name: 'home',
       component: HomeView,
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: profile,
     },
     {
 
@@ -44,7 +50,7 @@ const router = createRouter({
       component: GoalsPage,
     },
     {
-      path: '/login',
+      path: '/',
       name: 'login',
       component: login,
     },

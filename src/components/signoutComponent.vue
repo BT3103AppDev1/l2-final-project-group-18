@@ -34,7 +34,7 @@ export default {
       try {
         await signOut(auth);
         console.log("signed out successfully");
-        this.$router.push('/login');
+        this.$router.push('/');
       } catch (error) {
         console.error(error);
       }

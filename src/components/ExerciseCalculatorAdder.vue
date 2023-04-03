@@ -84,6 +84,7 @@ export default {
         this.user = user
       }
     })
+    console.log(this.user)
     this.fetchExerciseTypes()
   },
 
@@ -117,7 +118,7 @@ export default {
         duration: parseInt(this.selectedExerciseTime, 10),
       }
 
-      const userRef = doc(db, 'users', 'UZwy1hqjve1VIUsgIrhy')
+      const userRef = doc(db, 'users', this.user.id)
       const sportTrackingRef = collection(userRef, 'sportTracking')
 
       await addDoc(sportTrackingRef, newExercise)
