@@ -4,32 +4,58 @@
             <p><a class = "back-link" @click="closePlanner">Back</a></p>
         </div>
 
-        <div>
-            <div class = "plan-header">
-                <p>Current Plannings: </p>
+        <div class = "plan-header">
+            <div>
+                <p style="margin-left: 10px;">Current Plannings: </p>
+            </div>
+            <div class = "calendar-wrapper">
+                <FullCalendar :options="calendarOptions" id = "calendar" />
+                <!-- I saw the FullCalendar code in github and it doesn't support props defaultView and plugins. 
+                    Instead it uses prop with name "options" -->
+                <!-- inside Options, it require plugins and initialView, otherwise report viewType not found error. -->
             </div>
         </div>
 
         <div class = "add-button-wrapper">
             <button id = "add-button" @click = "showPlanAdd = true">Add New Plan</button>
-            <AddNewPlan :showPlanAdd = "showPlanAdd" @close = "showPlanAdd = false" />
+            <AddNewPlan :showPlanAdd = "showPlanAdd" 
+            @close = "showPlanAdd = false"
+            @strategy = "closePopups" />
         </div>
     </div>
 </template>
 
 <script>
 
+import FullCalendar from "@fullcalendar/vue3";
+import dayGridPlugin from "@fullcalendar/daygrid";
 import AddNewPlan from './AddNewPlan.vue';
+
+import firebaseApp from '../firebase.js'
+import { getFirestore, doc, collection, getDoc, onSnapshot, query } from 'firebase/firestore'
+import { getAuth } from 'firebase/auth'
+
+const db = getFirestore(firebaseApp)
 
 export default {
     name: 'Exercise-Planner',
     components: {
-        AddNewPlan
+        AddNewPlan,
+        FullCalendar
     },
     data() {
         return {
-            showPlanAdd: false
+            exercisePlanData: [],
+            showPlanAdd: false,
+            calendarOptions: {
+                plugins: [ dayGridPlugin ],
+                initialView: 'dayGridMonth',
+                events: [],
+                eventColor: "#CAA542",
+                contentHeight: "440px"
+            }
         }
+        
     },
     props: {
         showPlanner: {
@@ -37,9 +63,64 @@ export default {
             required: true
         }
     },
+    mounted() {
+        const user = getAuth().currentUser;
+
+        if (!user) {
+            console.error('The user is not yet signed in')
+            return;
+        }
+
+        const exercisePlanRef = 
+            collection(db, "users", user.uid, "exercisePlanning");
+        const q = query(exercisePlanRef);
+        console.log(q);
+
+        onSnapshot(q, (snapshot) => {
+            const events = [];
+            snapshot.docs.forEach((doc) => {
+                const data = doc.data();
+                this.getExerciseName(data.exerciseName).then((title) => {
+                    const start = new Date(data.date + 'T' + data.timeStart);
+                    const end = new Date(start.getTime() + data.duration * 60000);
+                    const allDay = false;
+                    events.push({title, start, end, allDay});
+                })
+            })
+            console.log(events);
+            this.calendarOptions.events = events;
+        })
+    },
+
+
     methods: {
+
+        async getExerciseName(exerciseId) {
+            const docRef = doc(db, "exerciseCalorie", exerciseId);
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+                return data.name;
+            } else {
+                console.log("No such document!");
+                return null;
+            }
+        },
+
         closePlanner() {
             this.$emit('close');
+        },
+
+        closePopups() {
+            this.$emit('open');
+            // setTimeout(() => {
+            //     this.$emit('open');
+            // }, 100);
+        }
+    },
+    computed: {
+        calendarEvents() {
+            return this.exercisePlanData;
         }
     }
 }
@@ -60,10 +141,19 @@ export default {
     border-radius: 20px;
 }
 
+.calendar-wrapper {
+    /* max-height: 400px; */
+    font-size: 14px;
+    /* overflow-y: scroll; */
+    margin: 15px;
+
+    z-index: 10;
+}
+
 .back-button {
     position: absolute;
     top: 10px;
-    right: 10px;
+    right: 20px;
 
     font-family: 'Mulish';
     font-style: normal;
@@ -76,6 +166,11 @@ export default {
     cursor: pointer;
     text-decoration: underline;
 }
+
+/* .plan-header {
+    position: relative;
+    left: 10px;
+} */
 
 .add-button-wrapper {
     position: absolute;

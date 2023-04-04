@@ -8,11 +8,7 @@
         <a class="popup-link" @click="($event) => (showChecker = true)"
           >Calorie Checker</a
         >
-        <ExerciseChecker
-          :showChecker="showChecker"
-          @close="($event) => (showChecker = false)"
-          class="exercise-checker-overlay"
-        />
+        
         <!-- Mainly for adjusting z-index -->
         <!-- You must declare showChecker property before you can use it -->
       </h4>
@@ -30,11 +26,7 @@
         <a class="popup-link" @click="($event) => (showCalculator = true)"
           >Calorie Calculator</a
         >
-        <ExerciseCalculator
-          :showCalculator="showCalculator"
-          @close="($event) => (showCalculator = false)"
-          class="exercise-calculator-overlay"
-        />
+        
         <!-- Mainly for adjusting z-index -->
         <!-- You must declare showChecker property before you can use it -->
       </h4>
@@ -48,12 +40,23 @@
 
     <div class="exercise-planning-title">
       <h4>
-        <a class="popup-link" @click="showPlanner = true">Exercise Planning</a>
-        <ExercisePlanning
-          :showPlanner="showPlanner"
-          @close="showPlanner = false"
-          class="exercise-planner-overlay"
+        <a class = "popup-link" @click = "showPlanner = true">Exercise Planning</a>
+        <ExerciseChecker
+          :showChecker="showChecker"
+          @close="($event) => (showChecker = false)"
+          class="exercise-checker-overlay"
         />
+
+        <ExerciseCalculator
+          :showCalculator="showCalculator"
+          @close="($event) => (showCalculator = false)"
+          class="exercise-calculator-overlay"
+        />
+
+        <ExercisePlanning :showPlanner = "showPlanner"
+        @close = "showPlanner = false"
+        @open = "setShowPlanner"
+        class = "exercise-planner-overlay" />
       </h4>
     </div>
 
@@ -84,6 +87,14 @@ export default {
       showPlanner: false,
     }
   },
+  methods: {
+      setShowPlanner() {
+      this.showPlanner = false;
+      setTimeout(() => {
+        this.showPlanner = true;
+      }, 200); 
+    }
+  }
 }
 </script>
 
@@ -206,7 +217,7 @@ export default {
   font-size: 23px;
   line-height: 31px;
 
-  z-index: 9; /* Make the title display on top of the background */
+  z-index: 10; /* Make the title display on top of the background */
 
   color: #9a6f56;
 }
