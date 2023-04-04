@@ -67,14 +67,14 @@ export default {
     }
   },
 
-  mounted() {
+  async created() {
     const auth = getAuth()
     onAuthStateChanged(auth, (user) => {
       if (user) {
         this.user = user
       }
     })
-    this.fetchFoodTypes()
+    await this.fetchFoodTypes()
   },
 
   props: {
@@ -107,11 +107,12 @@ export default {
         servings: parseInt(this.selectedNumOfServings, 10),
       }
 
-      const userRef = doc(db, 'users', this.user.id)
+      const userRef = doc(db, 'users', this.user.uid)
       const foodTrackingRef = collection(userRef, 'foodTracking')
 
       await addDoc(foodTrackingRef, newFood)
       eventBus.emit('foodAdded')
+
       this.showSuccessMessage = true
       this.selectedFoodType = ''
       this.selectedNumOfServings = ''

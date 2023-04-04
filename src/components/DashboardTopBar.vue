@@ -1,9 +1,7 @@
 <template>
   <div class="topbar-wrapper">
     <div class="topbar-achieve-text">
-      <h4>
-        Current Daily Calorie Intake: {{ totalDailyCaloriesIntake }} calories
-      </h4>
+      <h4>{{ daysLeftToAchieveGoal }} Days left to achieve Weight Gain goal</h4>
     </div>
 
     <!-- Use a wrapper class to put one rectangle on top of another -->
@@ -13,13 +11,17 @@
     </div>
 
     <div class="topbar-goal-text">
-      <h4>Daily Calorie Target: {{ dailyCaloriesTarget }} calories</h4>
+      <p v-if="weightGainOrLoss === 'Weight Gain'">
+        Target Weight Gain {{ weightChangeGoal }} kg
+      </p>
+      <p v-if="weightGainOrLoss === 'Weight Loss'">
+        Target Weight Loss {{ weightChangeGoal }} kg
+      </p>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import { getFirestore, doc, getDoc } from 'firebase/firestore'
 import firebaseApp from '../firebase.js'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
@@ -27,24 +29,37 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth'
 const db = getFirestore(firebaseApp)
 
 export default {
-  name: 'TopBar-Food',
+  name: 'TopBar-Exercise',
 
   data() {
     return {
       user: false,
-      dailyCaloriesTarget: 0,
+      goalStartDate: null,
+      daysToAchieveGoal: 0,
+      weightGainOrLoss: '',
+      weightChangeGoal: 0,
     }
   },
 
   computed: {
-    ...mapState(['totalDailyCaloriesIntake']),
-    progressWidth() {
-      const goalWidth = 940
-      const progressPercentage =
-        (this.totalDailyCaloriesIntake / this.dailyCaloriesTarget) * 100
-      const progressWidth =
-        (Math.min(progressPercentage, 100) / 100) * goalWidth
-      return progressWidth + 'px'
+    // progressWidth() {
+    //   const goalWidth = 940
+    //   const progressPercentage =
+    //     (this.totalWeeklyExerciseTime / this.weeklyExerciseTimeTarget) * 100
+    //   const progressWidth =
+    //     (Math.min(progressPercentage, 100) / 100) * goalWidth
+    //   return progressWidth + 'px'
+    // },
+    daysLeftToAchieveGoal() {
+      if (!this.goalStartDate || !this.daysToAchieveGoal) {
+        return '-'
+      }
+
+      const currentDate = new Date()
+      const timeDifference = currentDate - this.goalStartDate
+      const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24))
+
+      return Math.max(0, this.daysToAchieveGoal - daysDifference)
     },
   },
 
@@ -53,23 +68,26 @@ export default {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         this.user = user
-        await this.fetchDailyCaloriesTarget()
+        await this.fetchGoalInfo()
       }
     })
   },
 
   methods: {
-    async fetchDailyCaloriesTarget() {
-      const dailyCaloriesTargetRef = doc(
+    async fetchGoalInfo() {
+      const weightGoalRef = doc(
         db,
         'users',
         this.user.uid,
         'goalInfo',
-        'dailyCalorie'
+        'weightGoals'
       )
-      const dailyCaloriesTargetSnapshot = await getDoc(dailyCaloriesTargetRef)
-      this.dailyCaloriesTarget =
-        dailyCaloriesTargetSnapshot.data().targetCalorie
+      const weightGoalSnapshot = await getDoc(weightGoalRef)
+
+      this.goalStartDate = weightGoalSnapshot.data().goalSetAt.toDate()
+      this.daysToAchieveGoal = weightGoalSnapshot.data().daysToCompleteGoal
+      this.weightChangeGoal = weightGoalSnapshot.data().weightChangeInKg
+      this.weightGainOrLoss = weightGoalSnapshot.data().weightGainOrLoss
     },
   },
 }
