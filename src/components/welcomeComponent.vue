@@ -47,9 +47,11 @@
 
 
 <script>
-import { doc, setDoc, getDoc } from 'firebase/firestore'
+import { doc, setDoc, getDoc, getFirestore, collection, getDocs, writeBatch  } from 'firebase/firestore'
 import { auth, db } from '@/firebase.js';
-import { onAuthStateChanged } from 'firebase/auth'
+import { onAuthStateChanged, getAuth } from 'firebase/auth'
+
+// const db = getFirestore(firebaseApp);
 
 export default {
     name: "welcomeComponent",
@@ -64,8 +66,42 @@ export default {
   },
 
   mounted() {
+    const currentUser = getAuth().currentUser;
+    console.log("This is fished");
+
+    // firstly, try to create the calorie statis
+    const calorieStatsRef = 
+        collection(doc(getFirestore(), "users", currentUser.uid), "calorieStats");
+    console.log("This step is finished");
+    getDocs(calorieStatsRef).then((snapshot) => {
+      if (snapshot.size > 0) {
+        console.log("calorieStats already exists");
+      } else {
+        console.log("calorieStats collection does not exist");
+
+        const batch = writeBatch(db);
+        const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+        daysOfWeek.forEach((day) => {
+          const docRef = doc(calorieStatsRef, day);
+          batch.set(docRef, { calorie: 0 });
+        });
+
+        batch.commit().then(() => {
+          console.log("calorieStats collection and documents created successfully");
+        }).catch((error) => {
+          console.log("Error creating calorieStats collection and documents:", error);
+        });   
+      }
+    }).catch((error) => {
+      console.log("Error getting document:", error);
+    });
+
+
     onAuthStateChanged(auth, (user) => {
       if (user) {
+        // if user is logged in, this should be their first time doing so
+
+        // then, do the profile information etc
         const profileDocRef = doc(db, 'users', user.uid);
         getDoc(profileDocRef).then((profileDoc) => {
           if (profileDoc.exists()) {
