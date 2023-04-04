@@ -28,78 +28,134 @@ import 'firebase/compat/auth'
 import * as firebaseui from 'firebaseui'
 import 'firebaseui/dist/firebaseui.css'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, getFirestore, updateDoc, collection, getDocs } from "firebase/firestore";
 import { auth, db } from '@/firebase.js';
+
+import { ref } from 'vue';
+import { async } from '@firebase/util';
 
 export default {
     name: "login",
   
     mounted() {
-    var ui = firebaseui.auth.AuthUI.getInstance();
-    if (!ui) {
-        ui = new firebaseui.auth.AuthUI(firebase.auth());
-    }
-    var uiConfig = {
-        signInSuccessUrl: '/',
-        signInOptions: [
-            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        ],
-        callbacks: {
-        signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-            var user = authResult.user;
-            var profileInfo = {
-                profile_info: {
-                    email: user.email,
-                    username: user.displayName,
-                    password: '' 
-                }
-            };
-            var profileDocRef = doc(db, 'users', user.uid);
-            getDoc(profileDocRef).then((docSnapshot) => {
-                if (docSnapshot.exists()) {
-                    // Redirect to homepage if user already exists in database
-                    window.location.href = '/home';
-                } else {
-                    // Redirect to welcome page if user is signing in for the first time
-                    setDoc(profileDocRef, profileInfo, { merge: false }).then(() => {
-                        window.location.href = '/welcome';
-                        console.log("Profile info saved successfully");
-                    }).catch((error) => {
-                        console.log("Error saving profile info: ", error);
-                    });
-                }
-            }).catch((error) => {
-                console.log("Error checking user profile: ", error);
-            });
-            return false;
+        var ui = firebaseui.auth.AuthUI.getInstance();
+        if (!ui) {
+            ui = new firebaseui.auth.AuthUI(firebase.auth());
         }
-        }   
-    };
-    ui.start("#firebaseui-auth-container", uiConfig)
-  },
+        var uiConfig = {
+            signInSuccessUrl: '/',
+            signInOptions: [
+                firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            ],
+            callbacks: {
+                signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+                    var user = authResult.user;
+                    var profileInfo = {
+                        profile_info: {
+                            email: user.email,
+                            username: user.displayName,
+                            password: '' 
+                        }
+                    };
+                    var profileDocRef = doc(db, 'users', user.uid);
+                    console.log(profileDocRef);
+                    getDoc(profileDocRef).then((docSnapshot) => {
+                        if (docSnapshot.exists()) {
+                            // Redirect to homepage if user already exists in database
+                            window.location.href = '/home';
+                        } else {
+                            // Redirect to welcome page if user is signing in for the first time
+                            setDoc(profileDocRef, profileInfo, { merge: false }).then(() => {
+                                window.location.href = '/welcome';
+                                console.log("Profile info saved successfully");
+                            }).catch((error) => {
+                                console.log("Error saving profile info: ", error);
+                            });
+                        }
+                    }).catch((error) => {
+                        console.log("Error checking user profile: ", error);
+                    });
+                    return false;
+                }
+            }   
+            };
+        ui.start("#firebaseui-auth-container", uiConfig)
+    },
 
-  data() {
-    return {
-      email: '',
-      password: '',
-      error: null,
-    };
-  },
-  methods: {
-    signup() {
-      this.$router.push('/signup')
-    },
-    
-    async signin() {
-      try {
+    created() {
         const auth = getAuth();
-        await signInWithEmailAndPassword(auth, this.email, this.password);
-        this.$router.push('/home');
-      } catch (error) {
-        this.error = error.message;
-      }
+        auth.onAuthStateChanged(async (user) => {
+            console.log("Changed");
+            if (user) {
+                console.log(getAuth().currentUser.uid);
+                // for variables being defined first time, must have 'const' or 'var'!
+                const userDocRef = doc(getFirestore(), 'users', getAuth().currentUser.uid);
+                const lastLoginTime = new Date().toISOString();
+                console.log(lastLoginTime);
+
+                // Need to retrieve previousLogin, if today is Monday but previous is not,
+                // then need to do something
+                const docSnapshot = await getDoc(userDocRef);
+                const previousLoginTime = docSnapshot.data().lastLogin;
+
+                if (previousLoginTime) {
+                    const previousLoginDate = new Date(previousLoginTime);
+                    // const dummyDate = new Date("2023-04-03T06:26:06.613Z");
+                    if (previousLoginDate.getDay() == 0 && new Date().getDay() == 1) {
+                    // if (previousLoginDate.getDay() == 0 && dummyDate.getDay() == 1) {
+                        // only check for the ONE special circumstance:
+                        // last login is Sunday, this login is Monday
+                        // i.e. reset respective field at first login on Monday
+
+                        const calorieStatsRef = collection(
+                            doc(getFirestore(), "users", 
+                            getAuth().currentUser.uid), "calorieStats");
+                        console.log("Get collection");
+
+                        getDocs(calorieStatsRef).then((snapshot) => {
+                            snapshot.forEach((doc) => {
+                                updateDoc(doc.ref, {calorie: 0})
+                            }).catch((error) => {
+                                console.log("Error in update", error)
+                            });
+                        });
+
+                    }
+                }
+
+                // then, update the new login time
+                await setDoc(userDocRef, { lastLogin: lastLoginTime }, {merge: true}).then(() => {
+                    console.log("set");
+                }).catch((error) => {
+                    console.log("Error recording login time: ", error);
+                })
+            }
+        })
     },
-  },
+
+    data() {
+        return {
+        email: '',
+        password: '',
+        error: null,
+        };
+    },
+    methods: {
+        signup() {
+        this.$router.push('/signup')
+        },
+        
+        async signin() {
+            try {
+                const auth = getAuth();
+                await signInWithEmailAndPassword(auth, this.email, this.password);
+                                
+                this.$router.push('/home');
+            } catch (error) {
+                this.error = error.message;
+            }
+        },
+    },
 
 }
 </script>
