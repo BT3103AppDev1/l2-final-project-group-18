@@ -61,7 +61,11 @@ export default {
                     console.log("calorieStats collection and documents created successfully");
                 }).catch((error) => {
                     console.log("Error creating calorieStats collection and documents:", error);
-                });   
+                });
+
+                for (const day of daysOfWeek) {
+                    this.calorieStats[day] = 0;
+                }
             }
         }).catch((error) => {
             console.log("Error getting document:", error);
