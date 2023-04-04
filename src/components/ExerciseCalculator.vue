@@ -178,7 +178,7 @@ export default {
 .exercise-calculator {
   position: absolute;
   top: -100px;
-  left: -100px;
+  left: -400px;
 
   width: 600px;
   height: 500px;

@@ -1,7 +1,7 @@
 <template>
     <div class = "barchart-wrapper">
-        <h3>Weekly food calorie intake</h3>
-        <h5>Total intake</h5>
+        <h3 style="display: inline-block;">Weekly food calorie intake</h3>
+        <h5 style="display: inline-block;" class = "total-num">Total intake : {{ totalCalorie }}</h5>
         <column-chart
             :data="calorieData"
             :library="{
@@ -33,8 +33,7 @@ export default {
 
     data() {
         return {
-            calorieStats: reactive({}),
-            totalCalorie: 0
+            calorieStats: reactive({})
         }
     },
     mounted() {
@@ -84,6 +83,10 @@ export default {
                 data[day] = this.calorieStats[day];
             });
             return data;
+        },
+        totalCalorie() {
+            return Object.values(this.calorieStats)
+                .reduce((acc, val) => acc + val, 0);
         }
     }
 }
@@ -96,6 +99,23 @@ export default {
     position: absolute;
     top: 50px;
     right: 100px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-size: 16px;
+    color: #746652;
+
+    background-color: #FDF9F3;
+    padding: 20px;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    /* border: 5px sold #628558; */
+}
+
+.total-num {
+    position: relative;
+    left: 240px;
+    padding: 4px;
+    background-color: #FFDFDD;
 }
 
 </style>
