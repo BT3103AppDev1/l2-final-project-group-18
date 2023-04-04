@@ -2,11 +2,16 @@
     <div class = "barchart-wrapper">
         <h3>Weekly food calorie intake</h3>
         <h5>Total intake</h5>
-        <column-chart :data="calorieData" 
-        :library="{legend: 
-            {display: false}, 
-            scales: {yAxes: [{ticks: {beginAtZero: true}}]}}"
-        /> 
+        <column-chart
+            :data="calorieData"
+            :library="{
+                legend: { display: false },
+                // maintainAspectRatio: false
+            }"
+            width = "560px"
+            height = "330px"            
+            :colors="['#628558']"
+        />
     </div>
 </template>
 
@@ -29,7 +34,7 @@ export default {
     data() {
         return {
             calorieStats: reactive({}),
-            chartData: {'Monday': 2, 'Tuesday': 5, 'Wednesday': 2, 'Thursday': 4, 'Friday': 6}
+            totalCalorie: 0
         }
     },
     mounted() {
@@ -89,8 +94,8 @@ export default {
 
 .barchart-wrapper {
     position: absolute;
-    top: 20px;
-    left: 400px;
+    top: 50px;
+    right: 100px;
 }
 
 </style>
