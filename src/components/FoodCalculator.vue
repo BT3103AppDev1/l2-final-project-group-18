@@ -50,6 +50,7 @@ import {
   collection,
   doc,
   getDoc,
+  setDoc,
   deleteDoc,
 } from 'firebase/firestore'
 import firebaseApp from '../firebase.js'
@@ -71,6 +72,15 @@ export default {
       user: false,
       showCalculatorAdder: false,
       dailyFood: [],
+      dayNames: [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+      ],
     }
   },
 
@@ -156,6 +166,21 @@ export default {
       }
 
       this.updateTotalDailyCaloriesIntake(totalCaloriesIntake.toFixed(2))
+
+      // update the daily calories stats collection
+      const today = new Date()
+
+      const currentDayName = this.dayNames[today.getDay()]
+
+      const userRef = doc(db, 'users', this.user.uid)
+      const dailyCalorieStatsDocRef = doc(
+        userRef,
+        'calorieStats',
+        currentDayName
+      )
+      await setDoc(dailyCalorieStatsDocRef, {
+        calorie: totalCaloriesIntake,
+      })
     },
 
     ...mapActions(['updateTotalDailyCaloriesIntake']),

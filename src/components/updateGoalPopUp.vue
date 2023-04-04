@@ -67,7 +67,6 @@ import firebaseApp from '../firebase.js'
 import {
   collection,
   doc,
-  setDoc,
   updateDoc,
   getFirestore,
   serverTimestamp,
@@ -122,10 +121,10 @@ export default {
       const goalInfoDoc = doc(goalInfoCollection, 'weightGoals')
 
       const docRef = await updateDoc(goalInfoDoc, {
-        goalSetAt: serverTimestamp(),
         daysToCompleteGoal: this.daysToCompleteGoal,
         weightChangeInKg: this.weightChangeInKg,
         weightGainOrLoss: this.weightGainOrLoss,
+        goalSetAt: serverTimestamp(),
       })
       this.closePopUp6()
       location.reload()

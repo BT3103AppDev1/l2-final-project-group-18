@@ -33,7 +33,6 @@ export default {
     return {
       user: false,
       dailyCaloriesTarget: 0,
-      userID: '',
     }
   },
 
