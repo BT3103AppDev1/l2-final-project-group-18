@@ -4,12 +4,12 @@
             <p><a class = "back-link" @click="closePlanner">Back</a></p>
         </div>
 
-        <div>
-            <div class = "plan-header">
-                <p>Current Plannings: </p>
+        <div class = "plan-header">
+            <div>
+                <p style="margin-left: 10px;">Current Plannings: </p>
             </div>
             <div class = "calendar-wrapper">
-                <FullCalendar :options="calendarOptions" />
+                <FullCalendar :options="calendarOptions" id = "calendar" />
                 <!-- I saw the FullCalendar code in github and it doesn't support props defaultView and plugins. 
                     Instead it uses prop with name "options" -->
                 <!-- inside Options, it require plugins and initialView, otherwise report viewType not found error. -->
@@ -153,7 +153,7 @@ export default {
 .back-button {
     position: absolute;
     top: 10px;
-    right: 10px;
+    right: 20px;
 
     font-family: 'Mulish';
     font-style: normal;
@@ -166,6 +166,11 @@ export default {
     cursor: pointer;
     text-decoration: underline;
 }
+
+/* .plan-header {
+    position: relative;
+    left: 10px;
+} */
 
 .add-button-wrapper {
     position: absolute;
