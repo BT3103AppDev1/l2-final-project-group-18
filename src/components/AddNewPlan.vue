@@ -3,10 +3,10 @@
         <div class = "add-new-text">
             <p>Enter your exercise planning here: </p>
         </div>
-        <div>
-            <div>
+        <div class = "add-new-input">
+            <div class = "form-group">
                 <label>Exercise Type: </label>
-                <select v-model = "selectedExercise">
+                <select class = "plan-input" v-model = "selectedExercise">
                     <option v-for = "exercise in exercises" 
                     :key = "exercise.id" :value = "exercise.id">
                         {{ exercise.name }}
@@ -14,24 +14,24 @@
                 </select>
             </div>
 
-            <div>
+            <div class = "form-group">
                 <label>Duration: </label>
-                <input type = "text" v-model = "duration">
+                <input class = "plan-input" type = "text" v-model = "duration">
             </div>
 
-            <div>
+            <div class = "form-group">
                 <label>Date: </label>
-                <input type = "date" v-model = "date">
+                <input class = "plan-input" type = "date" v-model = "date">
             </div>
 
-            <div>
+            <div class = "form-group">
                 <label>Time Start: </label>
-                <input type = "time" v-model = "timeStart">
+                <input class = "plan-input" type = "time" v-model = "timeStart">
             </div>
 
             <!-- timeEnd -->
 
-            <button @click = "addExercisePlanning">Add</button>
+            <button class = "add-plan-button" @click = "addExercisePlanning">Add</button>
         </div>
 
         <p><a class = "back-link" @click = "closeAdd">Back</a></p>
@@ -142,6 +142,61 @@ export default {
     font-style: normal;
     font-size: 20px;
     color: #746652;
+}
+
+.add-new-input {
+    position: relative;
+    /* left: 25px; */
+    right: 80px;
+    text-align: right;
+}
+
+.plan-input {
+    position: relative;
+    
+    width: 380px;
+    height: 25px;
+
+    margin: 3px;
+
+    /* color: #C0C0C0; */
+
+    background: #ECECEC;
+    border: 1px solid #C1C1C1;
+    border-radius: 20px;
+}
+
+input::-webkit-calendar-picker-indicator,
+input::-webkit-datetime-edit-fields-wrapper {
+    filter: invert(0.6);
+}
+/* Make the small calendar and clock gray */
+
+/* .form-group {
+    display: flex;
+    align-items: center;
+}
+
+.form-group label {
+    flex: 1;
+    text-align: right;
+} */
+
+.add-plan-button {
+    position: relative;
+    left: -100px;
+    top: 10px;
+    width: 280px;
+    height: 40px;
+
+    font-family: 'Mulish';
+    font-style: normal;
+    font-size: 20px;
+    text-align: center;
+    color: #746652;
+
+    background: #FCB64E;
+    border-radius: 30px;
 }
 
 .back-link {

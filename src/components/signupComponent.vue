@@ -28,7 +28,7 @@
 <script>
 import { ref } from 'vue';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { collection, doc, setDoc, getDocs } from "firebase/firestore";
+import { collection, doc, setDoc, getDocs, getFirestore, writeBatch } from "firebase/firestore";
 import { auth, db } from '@/firebase.js';
 
 export default {
@@ -52,6 +52,33 @@ export default {
         };
         await setDoc(profileDocRef, { profile_info: profileData });
         console.log('User signed up successfully!');
+
+        const calorieStatsRef = 
+          collection(doc(getFirestore(), "users", user.uid), "calorieStats");
+        console.log("This step is finished");
+        getDocs(calorieStatsRef).then((snapshot) => {
+          if (snapshot.size > 0) {
+            console.log("calorieStats already exists");
+          } else {
+            console.log("calorieStats collection does not exist");
+
+            const batch = writeBatch(db);
+            const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+            daysOfWeek.forEach((day) => {
+              const docRef = doc(calorieStatsRef, day);
+              batch.set(docRef, { calorie: 0 });
+            });
+
+            batch.commit().then(() => {
+              console.log("calorieStats collection and documents created successfully");
+            }).catch((error) => {
+              console.log("Error creating calorieStats collection and documents:", error);
+            });   
+          }
+        }).catch((error) => {
+          console.log("Error getting document:", error);
+        });
+
         this.$router.push('/welcome')
       } catch (error) {
         console.error(error);
