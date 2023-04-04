@@ -149,6 +149,8 @@ export default {
   background: #faf4e1;
   border: 5px solid #9f978b;
   border-radius: 20px;
+
+  z-index: 10
 }
 
 .back-button {

@@ -47,13 +47,7 @@
 
 <script>
 import firebaseApp from '../firebase.js'
-import {
-  collection,
-  doc,
-  addDoc,
-  getDocs,
-  getFirestore,
-} from 'firebase/firestore'
+import { collection, doc, addDoc, getDocs, getFirestore } from 'firebase/firestore'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { eventBus } from '@/eventBus.js'
 

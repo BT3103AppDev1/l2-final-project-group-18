@@ -111,13 +111,14 @@ export default {
 .exercise-checker {
     position: absolute;
     top: -100px;
-    left: 160px;
+    left: -450px;
 
     width: 800px;
     height: 670px;
     background: #FAF4E1;
     border: 5px solid #9F978B;
     border-radius: 20px;
+    
 }
 
 .back-button {
