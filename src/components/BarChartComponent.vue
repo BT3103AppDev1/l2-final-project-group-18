@@ -97,7 +97,7 @@ export default {
 
 .barchart-wrapper {
     position: absolute;
-    top: 50px;
+    top: 120px;
     right: 100px;
 
     font-family: 'Mulish';

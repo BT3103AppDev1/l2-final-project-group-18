@@ -18,6 +18,9 @@
     </div>
 
     <div class="calorie-checker-wrapper">
+      <div class = "calorie-checker-image">
+        <img src = "../../public/Salad.png">
+      </div>
       <div class="calorie-checker-intro">
         <p>Check the calorie content of each serving of food!</p>
       </div>
@@ -37,6 +40,9 @@
     </div>
 
     <div class="calorie-calculator-wrapper">
+      <div class = "calorie-calculator-image">
+        <img src = "../../public/Burger.png">
+      </div>
       <div class="calorie-calculator-intro">
         <p>Calculate your current daily calorie intake!</p>
       </div>
@@ -45,6 +51,15 @@
 </template>
 
 <script>
+import {
+  getFirestore,
+  getDocs,
+  collection,
+  doc,
+  writeBatch
+} from 'firebase/firestore'
+import { getAuth } from 'firebase/auth'
+
 import FoodChecker from './FoodChecker.vue'
 import FoodCalculator from './FoodCalculator.vue'
 
@@ -60,6 +75,41 @@ export default {
       showCalculator: false,
     }
   },
+  mounted() {
+    const currentUser = getAuth().currentUser;
+        console.log("Get current user");
+
+        const calorieStatsRef = 
+            collection(doc(getFirestore(), "users", currentUser.uid), "calorieStats");
+        console.log("Get collection");
+
+        getDocs(calorieStatsRef).then((snapshot) => {
+            if (snapshot.size > 0) {
+                console.log("calorieStats already exists");
+            } else {
+                console.log("calorieStats collection does not exist");
+
+                const batch = writeBatch(getFirestore());
+                const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+                daysOfWeek.forEach((day) => {
+                    const docRef = doc(calorieStatsRef, day);
+                    batch.set(docRef, { calorie: 0 });
+                });
+
+                batch.commit().then(() => {
+                    console.log("calorieStats collection and documents created successfully");
+                }).catch((error) => {
+                    console.log("Error creating calorieStats collection and documents:", error);
+                });
+
+                for (const day of daysOfWeek) {
+                    this.calorieStats[day] = 0;
+                }
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
+  }
 }
 </script>
 
@@ -131,6 +181,15 @@ export default {
 
   color: #9a6f56;
 }
+
+.calorie-checker-image {
+  position: absolute;
+  width: 100px;
+  height: 80px;
+  top: 20px;
+  left: 15px;
+}
+
 .calorie-checker-intro {
   position: absolute;
   width: 100px;
@@ -179,6 +238,14 @@ export default {
   z-index: 9; /* Make the title display on top of the background */
 
   color: #9a6f56;
+}
+
+.calorie-calculator-image {
+  position: absolute;
+  width: 100px;
+  height: 80px;
+  top: 70px;
+  left: 40px;
 }
 
 .calorie-calculator-intro {
