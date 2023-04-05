@@ -50,6 +50,7 @@ import {
   collection,
   doc,
   getDoc,
+  setDoc,
   deleteDoc,
 } from 'firebase/firestore'
 import firebaseApp from '../firebase.js'
@@ -71,6 +72,15 @@ export default {
       user: false,
       showCalculatorAdder: false,
       dailyFood: [],
+      dayNames: [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+      ],
     }
   },
 
@@ -86,21 +96,23 @@ export default {
     },
   },
 
-  async created() {
+  created() {
     const auth = getAuth()
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
         this.user = user
+        await this.fetchDailyFood()
+        // Listen for the 'foodAdded' event and call the 'fetchFood' method
+        eventBus.on('foodAdded', this.fetchDailyFood)
       }
     })
-    // Listen for the 'foodAdded' event and call the 'fetchFood' method
-    eventBus.on('foodAdded', this.fetchDailyFood)
-    await this.fetchDailyFood()
   },
 
   beforeDestroy() {
-    // Remove the event listener when the component is destroyed
-    eventBus.off('foodAdded', this.fetchDailyFood)
+    if (!this.user) {
+      // Remove the event listener when the component is destroyed
+      eventBus.off('foodAdded', this.fetchDailyFood)
+    }
   },
 
   methods: {
@@ -109,7 +121,7 @@ export default {
     },
 
     async handleDelete(foodId) {
-      const userRef = doc(db, 'users', this.user.id)
+      const userRef = doc(db, 'users', this.user.uid)
       const foodTrackingRef = collection(userRef, 'foodTracking')
       const foodRef = doc(foodTrackingRef, foodId)
 
@@ -119,7 +131,7 @@ export default {
     },
 
     async fetchDailyFood() {
-      const userRef = doc(db, 'users', this.user.id)
+      const userRef = doc(db, 'users', this.user.uid)
       const foodTrackingRef = collection(userRef, 'foodTracking')
       const foodSnapshot = await getDocs(foodTrackingRef)
       const foodTypes = foodSnapshot.docs.map((doc) => {
@@ -154,6 +166,21 @@ export default {
       }
 
       this.updateTotalDailyCaloriesIntake(totalCaloriesIntake.toFixed(2))
+
+      // update the daily calories stats collection
+      const today = new Date()
+
+      const currentDayName = this.dayNames[today.getDay()]
+
+      const userRef = doc(db, 'users', this.user.uid)
+      const dailyCalorieStatsDocRef = doc(
+        userRef,
+        'calorieStats',
+        currentDayName
+      )
+      await setDoc(dailyCalorieStatsDocRef, {
+        calorie: totalCaloriesIntake,
+      })
     },
 
     ...mapActions(['updateTotalDailyCaloriesIntake']),

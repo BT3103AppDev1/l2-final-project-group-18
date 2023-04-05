@@ -38,7 +38,7 @@
       </div>
     </div>
 
-    <div class = "exercise-planning-title">
+    <div class="exercise-planning-title">
       <h4>
         <a class = "popup-link" @click = "showPlanner = true">Exercise Planning</a>
         <ExerciseChecker
@@ -78,13 +78,13 @@ export default {
   components: {
     ExerciseChecker,
     ExerciseCalculator,
-    ExercisePlanning
+    ExercisePlanning,
   },
   data() {
     return {
       showChecker: false,
       showCalculator: false,
-      showPlanner: false
+      showPlanner: false,
     }
   },
   methods: {
@@ -267,7 +267,7 @@ export default {
   font-size: 23px;
   line-height: 31px;
 
-  z-index: 10;
+  z-index: 8;
 
   color: #9a6f56;
 }
