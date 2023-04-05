@@ -108,6 +108,10 @@ input {
     left: 650px;
     top: 200px;
 
+    padding-left: 20px;
+    font-family: 'Mulish';
+    font-size: 18px;
+
     border-radius: 40px;
 
     background: #FFFEFE;
@@ -121,6 +125,9 @@ input {
     font-family: 'Mulish';
     font-size: 16px;
     color: #B5B7B9;
+
+    position: relative;
+    left: -15px;
 }
 
 .image {
@@ -313,6 +320,12 @@ input {
     border-radius: 30px;
 }
 
+.confirm-button-wrapper #confirm-button:hover {
+    cursor: pointer;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+
 .cancel-button-wrapper {
     position: absolute;
     left: 1000px;
@@ -336,4 +349,10 @@ input {
     background: #DDD8BA;
     border-radius: 30px;
 }
+
+.cancel-button-wrapper #cancel-button:hover {
+    cursor: pointer;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+}
+
 </style>

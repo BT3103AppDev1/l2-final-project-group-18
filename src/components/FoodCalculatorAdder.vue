@@ -132,7 +132,7 @@ export default {
 <style scoped>
 .food-adder {
   position: absolute;
-  top: -400px;
+  top: -350px;
   left: -30px;
 
   width: 500px;
@@ -186,7 +186,7 @@ export default {
   font-family: 'Mulish';
   font-style: normal;
   font-weight: 700;
-  font-size: 17px;
+  font-size: 20px;
   line-height: 22px;
   /* or 110% */
   display: flex;
@@ -204,6 +204,9 @@ export default {
   left: 170px;
   top: 92px;
 
+  font-size: 15px;
+  color: #7D7D7D;
+
   background: #ececec;
   border: 1px solid #c1c1c1;
   border-radius: 20px;
@@ -219,7 +222,7 @@ export default {
   font-family: 'Mulish';
   font-style: normal;
   font-weight: 700;
-  font-size: 17px;
+  font-size: 20px;
   line-height: 22px;
   /* or 110% */
   display: flex;
@@ -236,6 +239,9 @@ export default {
   height: 35px;
   left: 170px;
   top: 170px;
+
+  font-size: 15px;
+  color: #7D7D7D;
 
   background: #ececec;
   border: 1px solid #c1c1c1;

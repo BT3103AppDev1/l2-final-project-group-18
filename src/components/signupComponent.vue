@@ -86,7 +86,7 @@ export default {
     },
 
     login() {
-        this.$router.push('/login')
+        this.$router.push('/')
     }
   },
 };
@@ -101,7 +101,7 @@ export default {
     left: 600px;
     /* top: 79px; */
 
-    font-family: 'DM Sans';
+    font-family: 'Mulish';
     font-style: normal;
     font-weight: 600;
     font-size: 30px;
@@ -131,8 +131,12 @@ input {
     position: absolute;
     width: 335px;
     height: 48px;
-    left: 650px;
+    left: 580px;
     top: 200px;
+
+    padding-left: 20px;
+    font-family: 'Mulish';
+    font-size: 18px;
 
     border-radius: 40px;
 
@@ -147,6 +151,9 @@ input {
     font-family: 'Mulish';
     font-size: 16px;
     color: #B5B7B9;
+
+    position: relative;
+    left: -15px;
 }
 
 .passwordInputBox {
@@ -158,7 +165,7 @@ input {
     position: absolute;
     width: 300.99px;
     height: 50px;
-    left: 370px;
+    left: 340px;
     top: 200px;
 
     transform: rotate(-0.27deg);
@@ -173,7 +180,7 @@ input {
     left: 270px;
     top: 220px;
 
-    font-family: 'Poppins';
+    font-family: 'Mulish';
     font-style: normal;
     font-weight: bold;
     font-size: 20px;
@@ -195,10 +202,10 @@ input {
     position: absolute;
     width: 502.31px;
     height: 10px;
-    left: 320px;
+    left: 310px;
     top: 275px;
 
-    font-family: 'Poppins';
+    font-family: 'Mulish';
     font-style: normal;
     font-weight: 400;
     font-size: 20px;
@@ -209,4 +216,11 @@ input {
 
     transform: matrix(1, 0, 0, 1, 0, 0);
 }
+
+.loginLink:hover {
+  color: #E56A48;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 </style>

@@ -123,6 +123,10 @@ input {
   border-radius: 40px;
   background: #FFFEFE;
   border: 1.50794px solid #000000;
+
+  padding-left: 20px;
+  font-family: 'Mulish';
+  font-size: 18px;
   
   transform: matrix(1, 0, 0, 1, 0, 0);
 }
@@ -131,6 +135,9 @@ input {
   font-family: 'Mulish';
   font-size: 16px;
   color: #B5B7B9;
+
+  position: relative;
+  left: -15px;
 }
 .image {
   display: block;
@@ -290,6 +297,13 @@ input {
   background: #DDD8BA;
   border-radius: 30px;
 }
+
+.confirm-button-wrapper #confirm-button:hover {
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+
 .gender-selection {
 display: flex;
 justify-content: center;
