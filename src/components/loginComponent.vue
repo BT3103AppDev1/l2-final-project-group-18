@@ -166,7 +166,7 @@ export default {
     border-radius: 40px;
     width: 953.85px;
     height: 118px;
-    left: 330px;
+    left: 280px;
     top: 560px;
 }
 
@@ -176,7 +176,7 @@ export default {
     height: 118px;
     left: 550px;
 
-    font-family: 'DM Sans';
+    font-family: 'Mulish';
     font-style: normal;
     font-weight: 600;
     font-size: 30px;
@@ -199,8 +199,12 @@ input {
     position: absolute;
     width: 335px;
     height: 48px;
-    left: 650px;
+    left: 580px;
     top: 200px;
+
+    padding-left: 20px;
+    font-family: 'Mulish';
+    font-size: 18px;
 
     border-radius: 40px;
 
@@ -215,6 +219,8 @@ input {
     font-family: 'Mulish';
     font-size: 16px;
     color: #B5B7B9;
+    position: relative;
+    left: -15px;
 }
 
 .passwordInputBox {
@@ -230,7 +236,7 @@ input {
     position: absolute;
     width: 300.99px;
     height: 50px;
-    left: 370px;
+    left: 320px;
     top: 200px;
 
     transform: rotate(-0.27deg);
@@ -246,7 +252,7 @@ input {
     left: 300px;
     top: 200px;
 
-    font-family: 'Poppins';
+    font-family: 'Mulish';
     font-style: normal;
     font-weight: bold;
     font-size: 20px;
@@ -267,10 +273,10 @@ input {
     position: absolute;
     width: 502.31px;
     height: 10px;
-    left: 340px;
+    left: 320px;
     top: 250px;
 
-    font-family: 'Poppins';
+    font-family: 'Mulish';
     font-style: normal;
     font-weight: 400;
     font-size: 20px;
@@ -281,4 +287,11 @@ input {
 
     transform: matrix(1, 0, 0, 1, 0, 0);
 }
+
+.newUserRegisterLink:hover {
+    color: #E56A48;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 </style>

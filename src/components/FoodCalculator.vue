@@ -255,7 +255,7 @@ export default {
   justify-content: center;
   align-items: center;
   background: #ddd8ba;
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .delete-icon {

@@ -113,11 +113,17 @@ export default {
     color: #000000;
     background: #DDD8BA;
     border: 1.5px solid #000000;
-    box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.25);
+    /* box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.25); */
     border-radius: 31.5px;
     box-sizing: border-box;
     transform: matrix(1, 0, 0, 1, 0, 0);
 }
+
+.button #btn:hover {
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
 .container #exercise-card {
     position: absolute;
     width: 317.2px;
