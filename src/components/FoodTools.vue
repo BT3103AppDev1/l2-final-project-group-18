@@ -18,6 +18,9 @@
     </div>
 
     <div class="calorie-checker-wrapper">
+      <div class = "calorie-checker-image">
+        <img src = "../../public/Salad.png">
+      </div>
       <div class="calorie-checker-intro">
         <p>Check the calorie content of each serving of food!</p>
       </div>
@@ -37,6 +40,9 @@
     </div>
 
     <div class="calorie-calculator-wrapper">
+      <div class = "calorie-calculator-image">
+        <img src = "../../public/Burger.png">
+      </div>
       <div class="calorie-calculator-intro">
         <p>Calculate your current daily calorie intake!</p>
       </div>
@@ -175,6 +181,15 @@ export default {
 
   color: #9a6f56;
 }
+
+.calorie-checker-image {
+  position: absolute;
+  width: 100px;
+  height: 80px;
+  top: 20px;
+  left: 15px;
+}
+
 .calorie-checker-intro {
   position: absolute;
   width: 100px;
@@ -223,6 +238,14 @@ export default {
   z-index: 9; /* Make the title display on top of the background */
 
   color: #9a6f56;
+}
+
+.calorie-calculator-image {
+  position: absolute;
+  width: 100px;
+  height: 80px;
+  top: 70px;
+  left: 40px;
 }
 
 .calorie-calculator-intro {

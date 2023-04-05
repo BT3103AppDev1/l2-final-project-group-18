@@ -16,6 +16,9 @@
 
     <div class="calorie-checker-wrapper">
       <!-- Originally title is put here, later move outside to ensure correct display of ExerciseChecker -->
+      <div class = "calorie-checker-image">
+        <img src = "../../public/locate1.png">
+      </div>
       <div class="calorie-checker-intro">
         <p>Check the calorie burnt per minute for different types of sports!</p>
       </div>
@@ -33,6 +36,9 @@
     </div>
 
     <div class="calorie-calculator-wrapper">
+      <div class = "calorie-calculator-image">
+        <img src = "../../public/football.png">
+      </div>
       <div class="calorie-calculator-intro">
         <p>Calculate your current weekly calories burnt!</p>
       </div>
@@ -61,6 +67,9 @@
     </div>
 
     <div class="exercise-planning-wrapper">
+      <div class = "exercise-planning-image">
+        <img src = "../../public/stopwatch.png">
+      </div>
       <div class="exercise-planning-intro">
         <p>Plan your personal fitness activities!</p>
       </div>
@@ -172,6 +181,14 @@ export default {
   text-decoration: underline;
 }
 
+.calorie-checker-image {
+  position: absolute;
+  width: 100px;
+  height: 80px;
+  top: 10px;
+  left: 10px;
+}
+
 .calorie-checker-intro {
   position: absolute;
   width: 100px;
@@ -217,9 +234,17 @@ export default {
   font-size: 23px;
   line-height: 31px;
 
-  z-index: 10; /* Make the title display on top of the background */
+  z-index: 1; /* Make the title display on top of the background */
 
   color: #9a6f56;
+}
+
+.calorie-calculator-image {
+  position: absolute;
+  width: 100px;
+  height: 80px;
+  top: 35px;
+  left: 5px;
 }
 
 .calorie-calculator-intro {
@@ -270,6 +295,14 @@ export default {
   z-index: 8;
 
   color: #9a6f56;
+}
+
+.exercise-planning-image {
+  position: absolute;
+  width: 100px;
+  height: 80px;
+  top: 35px;
+  left: 5px;
 }
 
 .exercise-planning-intro {
