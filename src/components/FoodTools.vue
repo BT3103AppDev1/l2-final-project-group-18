@@ -45,6 +45,15 @@
 </template>
 
 <script>
+import {
+  getFirestore,
+  getDocs,
+  collection,
+  doc,
+  writeBatch
+} from 'firebase/firestore'
+import { getAuth } from 'firebase/auth'
+
 import FoodChecker from './FoodChecker.vue'
 import FoodCalculator from './FoodCalculator.vue'
 
@@ -60,6 +69,41 @@ export default {
       showCalculator: false,
     }
   },
+  mounted() {
+    const currentUser = getAuth().currentUser;
+        console.log("Get current user");
+
+        const calorieStatsRef = 
+            collection(doc(getFirestore(), "users", currentUser.uid), "calorieStats");
+        console.log("Get collection");
+
+        getDocs(calorieStatsRef).then((snapshot) => {
+            if (snapshot.size > 0) {
+                console.log("calorieStats already exists");
+            } else {
+                console.log("calorieStats collection does not exist");
+
+                const batch = writeBatch(getFirestore());
+                const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+                daysOfWeek.forEach((day) => {
+                    const docRef = doc(calorieStatsRef, day);
+                    batch.set(docRef, { calorie: 0 });
+                });
+
+                batch.commit().then(() => {
+                    console.log("calorieStats collection and documents created successfully");
+                }).catch((error) => {
+                    console.log("Error creating calorieStats collection and documents:", error);
+                });
+
+                for (const day of daysOfWeek) {
+                    this.calorieStats[day] = 0;
+                }
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
+  }
 }
 </script>
 
