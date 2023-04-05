@@ -28,7 +28,7 @@
 <script>
 import { ref } from 'vue';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { collection, doc, setDoc, getDocs, getFirestore, writeBatch } from "firebase/firestore";
+import { collection, doc, setDoc, getDocs, getFirestore, writeBatch, query, where } from "firebase/firestore";
 import { auth, db } from '@/firebase.js';
 
 export default {
@@ -41,6 +41,35 @@ export default {
   },
   methods: {
     async register() {
+      // check if user has put in all required fields
+      if (!this.username || !this.email || !this.password) {
+        alert('Please fill in all the required fields.');
+        return;
+      }
+
+      // check if password is too weak
+      if (this.password.length < 6) {
+        alert('Please set a strong password with at least 6 characters.');
+        return;
+      }
+
+      // check if username already exists
+      const usersRef = collection(db, "users");
+      const usernameQuery = query(usersRef, where("profile_info.username", "==", this.username));
+      const usernameSnapshot = await getDocs(usernameQuery);
+      if (!usernameSnapshot.empty) {
+        alert("Username already exists. Please choose a different username.");
+        return;
+      }
+
+      // check if email already exists
+      const emailQuery = query(usersRef, where("profile_info.email", "==", this.email));
+      const emailSnapshot = await getDocs(emailQuery);
+      if (!emailSnapshot.empty) {
+        alert("Email already exists. Please use a different email.");
+        return;
+      }
+
       try {
         const userCredential = await createUserWithEmailAndPassword(auth, this.email, this.password);
         const user = userCredential.user;
