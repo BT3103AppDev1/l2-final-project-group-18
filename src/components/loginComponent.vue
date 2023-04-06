@@ -152,7 +152,14 @@ export default {
                                 
                 this.$router.push('/home');
             } catch (error) {
-                this.error = error.message;
+                if (error.code === 'auth/wrong-password') {
+                    alert('Incorrect password. Please try again.');
+                } else if (error.code === 'auth/user-not-found') {
+                    alert('Email account not registered. Please sign up a new account.');
+                } else {
+                    console.log(error);
+                    this.error = error.message;
+                }
             }
         },
     },
