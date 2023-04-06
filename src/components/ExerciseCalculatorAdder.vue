@@ -56,7 +56,9 @@ import {
   doc,
   addDoc,
   getDocs,
+  getDoc,
   getFirestore,
+  updateDoc,
 } from 'firebase/firestore'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { eventBus } from '@/eventBus.js'
@@ -120,7 +122,44 @@ export default {
       const userRef = doc(db, 'users', this.user.uid)
       const sportTrackingRef = collection(userRef, 'sportTracking')
 
+      // let flagNew = true;
+
+      // const sportTrackingSnapshot = await getDocs(sportTrackingRef)
+      // const newDocSnap = await getDoc(newExercise.type);
+      // const newDocID = newDocSnap.id;
+      // console.log("newdoc.ref ", newDocID)
+
+      // const sportTrackingStore = sportTrackingSnapshot.docs.map(async (doc) => {
+      //   const oldDocRef = doc.data().type;
+      //   const oldDocSnap = await getDoc(oldDocRef);
+      //   const oldDocID = oldDocSnap.id;
+      //   console.log("olddoc.ref ", oldDocID)
+      //   const oldExerciseDuration = doc.data().duration;
+      //   if (oldDocID == newDocID) {
+      //     return { type: oldDocRef, currDocID: doc.id, exerciseID: oldDocID, duration: oldExerciseDuration, same: true }
+      //   } else {
+      //     return { type: oldDocRef, currDocID: doc.id,  exerciseID: oldDocID, duration: oldExerciseDuration, same: false }
+      //   }
+      // })
+
+      // for (const exercise of sportTrackingStore) {
+      //   if (exercise.same) {
+      //     const newDuration = exercise.duration + newExercise.duration
+      //     const toUpdateRef = doc(sportTrackingRef, (await exercise).currDocID)
+      //     await updateDoc(toUpdateRef, {
+      //       type: exercise.type,
+      //       duration: newDuration
+      //     });
+      //     flagNew = false;
+      //     break;
+      //   }
+      // };
+      // console.log("falgnew ", flagNew)
+
+      // if (flagNew) {
+      console.log("creating new document whyy")
       await addDoc(sportTrackingRef, newExercise)
+      // }
       eventBus.emit('exerciseAdded')
       this.showSuccessMessage = true
       this.selectedExerciseType = ''
