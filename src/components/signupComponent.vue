@@ -79,6 +79,13 @@ export default {
           console.log("Error getting document:", error);
         });
 
+        const sportStatsRef = collection(doc(getFirestore(), "users", user.uid), "sportStats");
+        const dummyDocRef = doc(sportStatsRef, "dummy")
+        await setDoc(dummyDocRef, {
+          caloriesBurntPerMinute: 0,
+        })
+         
+
         this.$router.push('/welcome')
       } catch (error) {
         console.error(error);
