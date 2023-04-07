@@ -29,7 +29,7 @@
     </div>
 
     <div class = "cancel-button-wrapper">
-            <button id = "cancel-button" @click = "home">Cancel</button>
+            <button id = "cancel-button" @click = "profile">Cancel</button>
     </div>
 
     <img class = "image" src="../assets/welcome.png" alt="image here">
@@ -75,10 +75,19 @@ export default {
     },
   },
     methods: {
-    home() {
-      this.$router.push('/home')
+    profile() {
+      this.$router.push('/profile')
     },
     async updateProfile() {
+        if (
+            !this.height ||
+            !this.weight
+        ) {
+            alert(
+            'Please fill in your height and weight.'
+            )
+            return
+        }
         const user = auth.currentUser;
         if (user) {
             this.uid = user.uid;
@@ -88,7 +97,7 @@ export default {
             'healthStats.weight': this.weight
             });
             alert('Profile updated successfully!');
-            this.$router.push('/home');
+            this.$router.push('/profile');
         }         
     }
     }

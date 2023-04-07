@@ -92,7 +92,7 @@ methods: {
   async saveProfile() {
     // Check if all input fields are filled
     if (!this.gender || !this.height || !this.weight) {
-      alert('Please fill in all fields.');
+      alert('Please fill in your gender, height and weight.');
       return;
     }
     const profileDocRef = doc(db, 'users', this.uid);
@@ -105,7 +105,7 @@ methods: {
     };
     await setDoc(profileDocRef, data, { merge: true });
     alert('Profile saved successfully!');
-    this.$router.push('/home');
+    this.$router.push('/profile');
   }
 }
 };
@@ -320,6 +320,10 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
+}
+img {
+  height: 150px;
+  width: 150px;
 }
 .gender-option.active img {
   border: 10px solid #DDD8BA;
