@@ -49,8 +49,8 @@ export default {
   margin-top: 20px;
   margin-bottom: 20px;
   position: absolute;
-  bottom: 20px;
-  left: 335px;
+  top: 560px;
+  left: 400px;
 }
 
 .statistic-block {
