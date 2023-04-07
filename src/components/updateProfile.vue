@@ -50,7 +50,6 @@
 <script>
 import { doc, updateDoc, getDoc } from 'firebase/firestore'
 import { auth, db } from '@/firebase.js'
-import { mapActions } from 'vuex'
 
 export default {
   name: 'updateProfileComponent',
@@ -93,14 +92,7 @@ export default {
       const user = auth.currentUser
       if (user) {
         this.uid = user.uid
-
-        // fetch the previous weight data of the user
         const userRef = doc(db, 'users', this.uid)
-        const userSnapshot = await getDoc(userRef)
-        const healthStats = userSnapshot.data().healthStats
-        const prevWeight = healthStats.weight
-        this.updatePreviousWeight(prevWeight)
-
         // update the health stats
         await updateDoc(userRef, {
           'healthStats.height': this.height,
@@ -110,7 +102,6 @@ export default {
         this.$router.push('/home')
       }
     },
-    ...mapActions(['updatePreviousWeight']),
   },
 }
 </script>
