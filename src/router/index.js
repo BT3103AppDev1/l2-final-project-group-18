@@ -12,7 +12,7 @@ import updateProfile from "../views/UpdateProfilePage.vue";
 import GoalsPage from "../views/GoalsPage.vue";
 import DashboardView from "../views/DashboardView.vue";
 import profile from "../views/ProfileView.vue";
-import InfoCard from "../views/InfoCard.vue";
+import infoCard from "../views/infoCard.vue";
 
 
 const router = createRouter({
@@ -76,8 +76,8 @@ const router = createRouter({
     },
     {
       path: '/infoCard',
-      name: 'info card',
-      component: InfoCard,
+      name: 'infoCard',
+      component: infoCard,
     },
   ],
 })
