@@ -74,7 +74,7 @@ import {
   serverTimestamp,
 } from 'firebase/firestore'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
-import { mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 const db = getFirestore(firebaseApp)
 
@@ -85,6 +85,9 @@ export default {
       type: Boolean,
       required: true,
     },
+  },
+  computed: {
+    ...mapState(['previousWeight']),
   },
   data() {
     return {
@@ -127,7 +130,9 @@ export default {
       const userSnapshot = await getDoc(userRef)
       const healthStats = userSnapshot.data().healthStats
       const prevWeight = healthStats.weight
+      console.log(prevWeight)
       this.updatePreviousWeight(prevWeight)
+      console.log(this.previousWeight)
 
       const docRef = await setDoc(goalInfoDoc, {
         daysToCompleteGoal: this.daysToCompleteGoal,

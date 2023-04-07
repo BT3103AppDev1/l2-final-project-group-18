@@ -68,6 +68,8 @@ export default {
         currWeightChange = Math.max(0, this.previousWeight - this.currWeight)
       }
       this.currWeightChange = currWeightChange
+      console.log(this.previousWeight)
+      console.log(this.currWeight)
       const progressPercentage =
         (currWeightChange / this.weightChangeGoal) * 100
       const progressWidth =
@@ -99,6 +101,7 @@ export default {
         await this.fetchCurrWeight()
       }
     })
+    console.log(this.previousWeight)
   },
 
   methods: {
