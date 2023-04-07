@@ -16,7 +16,7 @@
 
     <div class="infoCard">
       <h1>Info Card 2</h1>
-      <h2>Exercise Tips</h2>
+      <p>Exercise Tips</p>
       <button @click="goToLink2">Explore</button>
     </div>
 
