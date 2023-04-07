@@ -117,9 +117,10 @@ export default {
     justify-content: center;
 
     top: 120px;
-    left: 200px;
+    left: 290px;  
     width: 440px;
     height: 440px;
+    
     margin-bottom: 20px;
     background-color: #FDE9EA;
     border-radius: 8px;
