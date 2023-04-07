@@ -25,6 +25,7 @@
 import { getFirestore, doc, getDoc } from 'firebase/firestore'
 import firebaseApp from '../firebase.js'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { mapState } from 'vuex'
 
 const db = getFirestore(firebaseApp)
 
@@ -38,18 +39,26 @@ export default {
       daysToAchieveGoal: 0,
       weightGainOrLoss: '',
       weightChangeGoal: 0,
+      currWeight: 0,
     }
   },
 
   computed: {
-    // progressWidth() {
-    //   const goalWidth = 940
-    //   const progressPercentage =
-    //     (this.totalWeeklyExerciseTime / this.weeklyExerciseTimeTarget) * 100
-    //   const progressWidth =
-    //     (Math.min(progressPercentage, 100) / 100) * goalWidth
-    //   return progressWidth + 'px'
-    // },
+    progressWidth() {
+      const goalWidth = 940
+      let currWeightChange = 0
+      if (this.weightGainOrLoss == 'Weight Gain') {
+        currWeightChange = Math.max(0, this.currWeight - this.previousWeight)
+      } else {
+        currWeightChange = Math.max(0, this.previousWeight - this.currWeight)
+      }
+      const progressPercentage =
+        (currWeightChange / this.weightChangeGoal) * 100
+      const progressWidth =
+        (Math.min(progressPercentage, 100) / 100) * goalWidth
+      return progressWidth + 'px'
+    },
+
     daysLeftToAchieveGoal() {
       if (!this.goalStartDate || !this.daysToAchieveGoal) {
         return '-'
@@ -61,6 +70,8 @@ export default {
 
       return Math.max(0, this.daysToAchieveGoal - daysDifference)
     },
+
+    ...mapState(['previousWeight']),
   },
 
   created() {
@@ -69,6 +80,7 @@ export default {
       if (user) {
         this.user = user
         await this.fetchGoalInfo()
+        await this.fetchCurrWeight()
       }
     })
   },
@@ -88,6 +100,13 @@ export default {
       this.daysToAchieveGoal = weightGoalSnapshot.data().daysToCompleteGoal
       this.weightChangeGoal = weightGoalSnapshot.data().weightChangeInKg
       this.weightGainOrLoss = weightGoalSnapshot.data().weightGainOrLoss
+    },
+
+    async fetchCurrWeight() {
+      const userRef = doc(db, 'users', this.user.uid)
+      const userSnapshot = await getDoc(userRef)
+      const currWeight = userSnapshot.data().healthStats.weight
+      this.currWeight = currWeight
     },
   },
 }
