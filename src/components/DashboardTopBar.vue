@@ -1,7 +1,12 @@
 <template>
   <div class="topbar-wrapper">
     <div class="topbar-achieve-text">
-      <h4>{{ daysLeftToAchieveGoal }} Days left to achieve Weight Gain goal</h4>
+      <h4 v-if="weightGainOrLoss === 'Weight Gain'">
+        {{ daysLeftToAchieveGoal }} Days left to achieve Weight Gain goal
+      </h4>
+      <h4 v-if="weightGainOrLoss === 'Weight Loss'">
+        {{ daysLeftToAchieveGoal }} Days left to achieve Weight Loss goal
+      </h4>
     </div>
 
     <!-- Use a wrapper class to put one rectangle on top of another -->
@@ -16,6 +21,15 @@
       </p>
       <p v-if="weightGainOrLoss === 'Weight Loss'">
         Target Weight Loss {{ weightChangeGoal }} kg
+      </p>
+    </div>
+
+    <div class="topbar-curr-change-text" :style="{ left: progressWidth }">
+      <p v-if="weightGainOrLoss === 'Weight Gain'">
+        Current Weight Gain {{ currWeightChange }} kg
+      </p>
+      <p v-if="weightGainOrLoss === 'Weight Loss'">
+        Current Weight Loss {{ currWeightChange }} kg
       </p>
     </div>
   </div>
@@ -40,6 +54,7 @@ export default {
       weightGainOrLoss: '',
       weightChangeGoal: 0,
       currWeight: 0,
+      currWeightChange: 0,
     }
   },
 
@@ -52,6 +67,7 @@ export default {
       } else {
         currWeightChange = Math.max(0, this.previousWeight - this.currWeight)
       }
+      this.currWeightChange = currWeightChange
       const progressPercentage =
         (currWeightChange / this.weightChangeGoal) * 100
       const progressWidth =
@@ -158,6 +174,20 @@ export default {
 }
 
 .topbar-goal-text {
+  position: absolute;
+  top: 22px;
+  right: 130px;
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 19px;
+  letter-spacing: 0.4px;
+
+  color: #c5c7cd;
+}
+
+.topbar-curr-change-text {
   position: absolute;
   top: 90px;
   right: 130px;
