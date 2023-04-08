@@ -1,5 +1,5 @@
 <template>
-  <DummyTopBar/>
+  <!-- <DummyTopBar/> -->
   <DummyLeftPane/>
 </template>
 

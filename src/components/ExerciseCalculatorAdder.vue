@@ -114,9 +114,16 @@ export default {
         return
       }
 
+      const typeRef = doc(db, 'exerciseCalorie', this.selectedExerciseType);
+      const typeSnapshot = await getDoc(typeRef)
+
+
+      console.log("this.selectedExerciseType", typeSnapshot.data().name)
+      console.log("this.selectedExerciseType", this.selectedExerciseType)
       const newExercise = {
-        type: doc(db, 'exerciseCalorie', this.selectedExerciseType),
+        type: typeRef,
         duration: parseInt(this.selectedExerciseTime, 10),
+        name: typeSnapshot.data().name,
       }
 
       const userRef = doc(db, 'users', this.user.uid)

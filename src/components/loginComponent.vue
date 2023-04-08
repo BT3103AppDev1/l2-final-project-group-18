@@ -120,15 +120,15 @@ export default {
                             });
                         });
 
-                        const sportStatsRef = collection(
-                            doc(getFirestore(), "users", 
-                            getAuth().currentUser.uid), "sportStats");
+                        // const sportStatsRef = collection(
+                        //     doc(getFirestore(), "users", 
+                        //     getAuth().currentUser.uid), "sportStats");
 
-                        getDocs(sportStatsRef).then((snapshot) => {
-                            snapshot.forEach((doc) => {
-                                updateDoc(doc.ref, {caloriesBurntPerMinute: 0})
-                            })
-                        });
+                        // getDocs(sportStatsRef).then((snapshot) => {
+                        //     snapshot.forEach((doc) => {
+                        //         updateDoc(doc.ref, {caloriesBurntPerMinute: 0})
+                        //     })
+                        // });
 
                     }
                 }
@@ -183,7 +183,7 @@ export default {
     border-radius: 40px;
     width: 953.85px;
     height: 118px;
-    left: 280px;
+    left: 295px;
     top: 560px;
 }
 
@@ -191,7 +191,7 @@ export default {
     position: absolute;
     width: 953.85px;
     height: 118px;
-    left: 550px;
+    left: 530px;
 
     font-family: 'Mulish';
     font-style: normal;
@@ -290,7 +290,7 @@ input {
     position: absolute;
     width: 502.31px;
     height: 10px;
-    left: 320px;
+    left: 315px;
     top: 250px;
 
     font-family: 'Mulish';
