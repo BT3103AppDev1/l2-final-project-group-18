@@ -4,24 +4,24 @@
         <h1 id = "title">Current Goals</h1>
 
         <div class = "first" v-if= "hasWeightData">
-            <cardUpdateGoal goalTitleU="Update weight gain/ weight loss goal"></cardUpdateGoal>
+            <CardUpdateGoal goalTitleU="Update weight gain/ weight loss goal"></CardUpdateGoal>
         </div>
         <div class = "first" v-else>
-            <cardSetGoal goalTitle="Set weight gain/ weight loss goal"></cardSetGoal>
+            <CardSetGoal goalTitle="Set weight gain/ weight loss goal"></CardSetGoal>
         </div>
 
         <div class = "second" v-if="hasExerciseData">
-            <cardUpdateExerciseGoal goalTitleUE="Update weekly exercise goal"></cardUpdateExerciseGoal>
+            <CardUpdateExerciseGoal goalTitleUE="Update weekly exercise goal"></CardUpdateExerciseGoal>
         </div>
         <div class="second" v-else>
-            <cardSetExerciseGoal goalTitleE="Set weekly exercise goal"></cardSetExerciseGoal>
+            <CardSetExerciseGoal goalTitleE="Set weekly exercise goal"></CardSetExerciseGoal>
         </div>
 
         <div class="third" v-if="hasCalorieData">
-            <cardUpdateCalorieGoal goalTitleUC="Update daily calorie intake goal"></cardUpdateCalorieGoal>
+            <CardUpdateCalorieGoal goalTitleUC="Update daily calorie intake goal"></CardUpdateCalorieGoal>
         </div>
         <div class="third" v-else>
-            <cardSetCalorieGoal goalTitleC="Set daily calorie intake goal"></cardSetCalorieGoal>
+            <CardSetCalorieGoal goalTitleC="Set daily calorie intake goal"></CardSetCalorieGoal>
         </div>
         
     </div>
@@ -29,12 +29,12 @@
 </template>
 
 <script>
-import cardSetGoal from '../components/cardSetGoal.vue';
-import cardSetExerciseGoal from './cardSetExerciseGoal.vue';
-import cardSetCalorieGoal from './cardSetCalorieGoal.vue';
-import cardUpdateCalorieGoal from './cardUpdateCalorieGoal.vue';
-import cardUpdateExerciseGoal from './cardUpdateExerciseGoal.vue';
-import cardUpdateGoal from './cardUpdateGoal.vue';
+import CardSetGoal from '../components/CardSetGoal.vue';
+import CardSetExerciseGoal from './CardSetExerciseGoal.vue';
+import CardSetCalorieGoal from './CardSetCalorieGoal.vue';
+import CardUpdateCalorieGoal from './CardUpdateCalorieGoal.vue';
+import CardUpdateExerciseGoal from './CardUpdateExerciseGoal.vue';
+import CardUpdateGoal from './CardUpdateGoal.vue';
 
 
 import firebaseApp from '../firebase.js'
@@ -52,12 +52,12 @@ const db = getFirestore(firebaseApp)
 export default {
     name: "SetGoalComponent",
     components: {
-        cardSetGoal,
-        cardSetExerciseGoal,
-        cardSetCalorieGoal,
-        cardUpdateCalorieGoal,
-        cardUpdateExerciseGoal,
-        cardUpdateGoal,
+        CardSetGoal,
+        CardSetExerciseGoal,
+        CardSetCalorieGoal,
+        CardUpdateCalorieGoal,
+        CardUpdateExerciseGoal,
+        CardUpdateGoal,
     },
     data() {
         return {

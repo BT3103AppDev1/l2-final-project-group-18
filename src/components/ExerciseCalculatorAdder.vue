@@ -114,12 +114,11 @@ export default {
         return
       }
 
-      const typeRef = doc(db, 'exerciseCalorie', this.selectedExerciseType);
+      const typeRef = doc(db, 'exerciseCalorie', this.selectedExerciseType)
       const typeSnapshot = await getDoc(typeRef)
 
-
-      console.log("this.selectedExerciseType", typeSnapshot.data().name)
-      console.log("this.selectedExerciseType", this.selectedExerciseType)
+      console.log('this.selectedExerciseType', typeSnapshot.data().name)
+      console.log('this.selectedExerciseType', this.selectedExerciseType)
       const newExercise = {
         type: typeRef,
         duration: parseInt(this.selectedExerciseTime, 10),
@@ -129,7 +128,9 @@ export default {
       const userRef = doc(db, 'users', this.user.uid)
       const sportTrackingRef = collection(userRef, 'sportTracking')
 
-      console.log("creating new document whyy")
+
+
+
       await addDoc(sportTrackingRef, newExercise)
       // }
       eventBus.emit('exerciseAdded')
@@ -161,7 +162,7 @@ export default {
   border: 5px solid #9f978b;
   border-radius: 20px;
 
-  z-index: 10
+  z-index: 10;
 }
 
 .back-button {
@@ -226,10 +227,10 @@ export default {
   left: 170px;
   top: 92px;
 
-  font-size: 15px;
-  color: #7D7D7D;
+  font-size: 13px;
+  color: #746652;
 
-  background: #ececec;
+  background: #ddd8ba;
   border: 1px solid #c1c1c1;
   border-radius: 20px;
 }
@@ -262,10 +263,10 @@ export default {
   left: 170px;
   top: 170px;
 
-  font-size: 15px;
-  color: #7D7D7D;
+  font-size: 13px;
+  color: #746652;
 
-  background: #ececec;
+  background: #ddd8ba;
   border: 1px solid #c1c1c1;
   border-radius: 20px;
 }
