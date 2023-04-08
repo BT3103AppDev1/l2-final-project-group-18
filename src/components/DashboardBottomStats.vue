@@ -49,7 +49,7 @@ export default {
   margin-top: 20px;
   margin-bottom: 20px;
   position: absolute;
-  top: 650px;
+  top: 580px;
   left: 400px;
 }
 
