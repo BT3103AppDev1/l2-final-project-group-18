@@ -20,6 +20,9 @@
         </div>
 
         <div id = "firebaseui-auth-container"></div>
+
+        <img src="@/assets/Skipping rope-bro.svg" alt="heart" class="icon" style="width: 500px; height: 500px; padding-left: 10px; padding-top: 100px;"/>
+        <!-- <img src="@/assets/Skipping rope-bro.svg" alt="heart" class="icon" style="width: 500px; height: 500px; padding-left: 10px; padding-top: 100px;"/> -->
 </template>
 
 <script>
@@ -62,7 +65,7 @@ export default {
                     getDoc(profileDocRef).then((docSnapshot) => {
                         if (docSnapshot.exists()) {
                             // Redirect to homepage if user already exists in database
-                            window.location.href = '/home';
+                            window.location.href = '/goals';
                         } else {
                             // Redirect to welcome page if user is signing in for the first time
                             setDoc(profileDocRef, profileInfo, { merge: false }).then(() => {
@@ -160,7 +163,7 @@ export default {
                 const auth = getAuth();
                 await signInWithEmailAndPassword(auth, this.email, this.password);
                                 
-                this.$router.push('/home');
+                this.$router.push('/goals');
             } catch (error) {
                 if (error.code === 'auth/wrong-password') {
                     alert('Incorrect password. Please try again.');
