@@ -46,6 +46,7 @@ import UpdateGoalPopUp from './updateGoalPopUp.vue'
 import firebaseApp from '../firebase.js'
 import { collection, doc, getDoc, getFirestore } from 'firebase/firestore'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { mapActions } from 'vuex'
 
 const db = getFirestore(firebaseApp)
 
@@ -85,11 +86,11 @@ export default {
       const goalInfoSnapshot = await getDoc(
         doc(goalInfoCollection, 'weightGoals')
       )
-
       this.daysToCompleteGoal = goalInfoSnapshot.data().daysToCompleteGoal
       this.weightChangeInKg = goalInfoSnapshot.data().weightChangeInKg
       this.weightGainOrLoss = goalInfoSnapshot.data().weightGainOrLoss
     },
+    ...mapActions(['updatePreviousWeight']),
   },
 }
 </script>

@@ -39,7 +39,6 @@
 import { getFirestore, doc, getDoc } from 'firebase/firestore'
 import firebaseApp from '../firebase.js'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
-import { mapState } from 'vuex'
 
 const db = getFirestore(firebaseApp)
 
@@ -55,6 +54,7 @@ export default {
       weightChangeGoal: 0,
       currWeight: 0,
       currWeightChange: 0,
+      weightForGoal: 0,
     }
   },
 
@@ -63,13 +63,12 @@ export default {
       const goalWidth = 940
       let currWeightChange = 0
       if (this.weightGainOrLoss == 'Weight Gain') {
-        currWeightChange = Math.max(0, this.currWeight - this.previousWeight)
+        currWeightChange = Math.max(0, this.currWeight - this.weightForGoal)
       } else {
-        currWeightChange = Math.max(0, this.previousWeight - this.currWeight)
+        currWeightChange = Math.max(0, this.weightForGoal - this.currWeight)
       }
       this.currWeightChange = currWeightChange
-      console.log(this.previousWeight)
-      console.log(this.currWeight)
+
       const progressPercentage =
         (currWeightChange / this.weightChangeGoal) * 100
       const progressWidth =
@@ -88,8 +87,6 @@ export default {
 
       return Math.max(0, this.daysToAchieveGoal - daysDifference)
     },
-
-    ...mapState(['previousWeight']),
   },
 
   created() {
@@ -98,10 +95,9 @@ export default {
       if (user) {
         this.user = user
         await this.fetchGoalInfo()
-        await this.fetchCurrWeight()
+        await this.fetchWeightStats()
       }
     })
-    console.log(this.previousWeight)
   },
 
   methods: {
@@ -121,11 +117,13 @@ export default {
       this.weightGainOrLoss = weightGoalSnapshot.data().weightGainOrLoss
     },
 
-    async fetchCurrWeight() {
+    async fetchWeightStats() {
       const userRef = doc(db, 'users', this.user.uid)
       const userSnapshot = await getDoc(userRef)
       const currWeight = userSnapshot.data().healthStats.weight
+      const weightForGoal = userSnapshot.data().healthStats.weightForGoal
       this.currWeight = currWeight
+      this.weightForGoal = weightForGoal
     },
   },
 }

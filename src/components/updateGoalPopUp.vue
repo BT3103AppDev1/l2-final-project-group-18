@@ -73,7 +73,6 @@ import {
   serverTimestamp,
 } from 'firebase/firestore'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
-import { mapState, mapActions } from 'vuex'
 
 const db = getFirestore(firebaseApp)
 
@@ -86,10 +85,6 @@ export default {
     },
   },
 
-  computed: {
-    ...mapState(['previousWeight']),
-  },
-
   data() {
     return {
       weightGainOrLoss: '',
@@ -98,6 +93,7 @@ export default {
       userID: '',
     }
   },
+
   created() {
     const auth = getAuth()
     onAuthStateChanged(auth, (user) => {
@@ -106,6 +102,7 @@ export default {
       }
     })
   },
+
   methods: {
     closePopUp6() {
       this.$emit('close')
@@ -134,16 +131,17 @@ export default {
         goalSetAt: serverTimestamp(),
       })
 
-      // fetch the current weight data of the user need to be stored
+      // update the weight data of the user for goal tracking purpose
       const userSnapshot = await getDoc(userRef)
       const healthStats = userSnapshot.data().healthStats
       const prevWeight = healthStats.weight
-      this.updatePreviousWeight(prevWeight)
+      await updateDoc(userRef, {
+        'healthStats.weightForGoal': prevWeight,
+      })
 
       this.closePopUp6()
       location.reload()
     },
-    ...mapActions(['updatePreviousWeight']),
   },
 }
 </script>
