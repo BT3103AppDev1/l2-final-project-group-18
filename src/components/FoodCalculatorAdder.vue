@@ -129,6 +129,7 @@ export default {
 }
 </script>
 
+
 <style scoped>
 .food-adder {
   position: absolute;
