@@ -173,6 +173,10 @@ input {
     background: #ECECEC;
     border: 1px solid #D6D6D6;
     border-radius: 54px;
+
+    padding-left: 20px;
+    font-family: 'Mulish';
+    font-size: 18px;
 }
 
 .query-input::placeholder {
@@ -180,6 +184,9 @@ input {
     font-family: 'Mulish';
     font-size: 16px;
     color: #B5B7B9;
+
+    position: relative;
+    left: -15px;
 }
 
 .query-button {

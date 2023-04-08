@@ -96,9 +96,12 @@ export default {
 <style scoped>
 
 .barchart-wrapper {
-    position: absolute;
-    top: 50px;
-    right: 100px;
+    position: fixed;
+    top: 120px;
+    left: 760px;
+    /* right: 50px; */
+    width: 600px;
+    height: 400px;
 
     font-family: 'Mulish';
     font-style: normal;

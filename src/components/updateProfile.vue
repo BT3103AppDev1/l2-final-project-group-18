@@ -44,7 +44,11 @@
     <button id="cancel-button" @click="home">Cancel</button>
   </div>
 
-  <img class="image" src="../assets/welcome.png" alt="image here" />
+    <div class = "cancel-button-wrapper">
+            <button id = "cancel-button" @click = "profile">Cancel</button>
+    </div>
+
+    <img class = "image" src="../assets/welcome.png" alt="image here">
 </template>
 
 <script>
@@ -84,25 +88,33 @@ export default {
       }
     },
   },
-  methods: {
-    home() {
-      this.$router.push('/home')
+    methods: {
+    profile() {
+      this.$router.push('/profile')
     },
     async updateProfile() {
-      const user = auth.currentUser
-      if (user) {
-        this.uid = user.uid
-        const userRef = doc(db, 'users', this.uid)
-        // update the health stats
-        await updateDoc(userRef, {
-          'healthStats.height': this.height,
-          'healthStats.weight': this.weight,
-        })
-        alert('Profile updated successfully!')
-        this.$router.push('/home')
-      }
-    },
-  },
+        if (
+            !this.height ||
+            !this.weight
+        ) {
+            alert(
+            'Please fill in your height and weight.'
+            )
+            return
+        }
+        const user = auth.currentUser;
+        if (user) {
+            this.uid = user.uid;
+            const healthStatsRef = doc(db, 'users', this.uid);
+            await updateDoc(healthStatsRef, {
+            'healthStats.height': this.height,
+            'healthStats.weight': this.weight
+            });
+            alert('Profile updated successfully!');
+            this.$router.push('/profile');
+        }         
+    }
+    }
 }
 </script>
 
@@ -118,17 +130,25 @@ input {
 
   border-radius: 40px;
 
-  background: #fffefe;
-  border: 1.50794px solid #000000;
+
+    padding-left: 20px;
+    font-family: 'Mulish';
+    font-size: 18px;
+
+    border-radius: 40px;
 
   transform: matrix(1, 0, 0, 1, 0, 0);
 }
 
 .query-input::placeholder {
-  text-indent: 30px;
-  font-family: 'Mulish';
-  font-size: 16px;
-  color: #b5b7b9;
+
+    text-indent: 30px;
+    font-family: 'Mulish';
+    font-size: 16px;
+    color: #B5B7B9;
+
+    position: relative;
+    left: -15px;
 }
 
 .image {
@@ -319,6 +339,12 @@ input {
   border-radius: 30px;
 }
 
+.confirm-button-wrapper #confirm-button:hover {
+    cursor: pointer;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+
 .cancel-button-wrapper {
   position: absolute;
   left: 1000px;
@@ -341,4 +367,12 @@ input {
   background: #ddd8ba;
   border-radius: 30px;
 }
+
+
+.cancel-button-wrapper #cancel-button:hover {
+    cursor: pointer;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+}
+
 </style>
+

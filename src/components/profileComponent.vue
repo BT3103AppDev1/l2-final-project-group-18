@@ -4,10 +4,40 @@
     </div>
 
     <div class = "container">
-        <div id = "weight-height-card"></div>
-        <div id = "exercise-card"></div>
-        <div id = "BMI-card"></div>
-        <div id = "calories-card"></div>
+      
+        <div id = "weight-height-card">
+          <div class="icon-title-container1">
+            <img src="@/assets/heart.svg" alt="heart" class="icon" />
+            <h2>Weight & Height</h2>
+          </div>
+          <div id = "weight">{{ weight }} kg</div>
+          <div id = "height">{{ height }} cm</div>
+        </div>
+
+        <div id = "exercise-card">
+          <div class="icon-title-container2">
+            <img src="@/assets/exercise_card.svg" alt="heart" class="icon" />
+            <h2>Exercise</h2>
+          </div>
+          <div id = "exerciseStats">{{ exerciseStats }} min</div>
+        </div>
+
+        <div id = "BMI-card">
+          <div class="icon-title-container3">
+            <img src="@/assets/bmi.svg" alt="heart" class="icon" />
+            <h2>BMI</h2>
+            <div id = "health" v-if="isBMIHealthy">[healthy]</div><div id = "health" v-else>[unhealthy]</div>
+          </div>
+          <div id = "bmi">{{ bmi }}</div>
+        </div>
+
+        <div id = "calories-card">
+          <div class="icon-title-container4">
+            <img src="@/assets/calories.svg" alt="heart" class="icon" />
+            <h2>Calories</h2>
+          </div>
+          <div id = "calorieStats">{{ calorieStats }} /day</div>
+        </div>
     </div>
 
     <div class = "button">
@@ -17,9 +47,10 @@
 </template>
 
 <script>
-import { doc, setDoc, getDoc } from 'firebase/firestore'
+import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { auth, db } from '@/firebase.js';
-import { onAuthStateChanged } from 'firebase/auth'
+import { onAuthStateChanged } from 'firebase/auth';
+
 
 export default {
     name: "profile",
@@ -27,7 +58,12 @@ export default {
     data() {
         return {
             username: null,
-            uid: null
+            uid: null,
+            weight: null,
+            height: null,
+            bmi: null,
+            exerciseStats: null,
+            calorieStats: null
         }
     },
     mounted() {
@@ -40,6 +76,26 @@ export default {
             if (profileData.profile_info) {
               this.username = profileData.profile_info.username;
               this.uid = user.uid;
+              const healthStats = profileData.healthStats || {};
+              this.weight = healthStats.weight || null;
+              this.height = healthStats.height || null;
+              this.calculateBMI();
+
+              const weeklyExerciseDocRef = doc(db, 'users', this.uid, 'goalInfo', 'weeklyExercise');
+              getDoc(weeklyExerciseDocRef).then((weeklyExerciseDoc) => {
+                if (weeklyExerciseDoc.exists()) {
+                  const weeklyExerciseData = weeklyExerciseDoc.data();
+                  this.exerciseStats = weeklyExerciseData.targetMin || null;
+                }
+              });
+
+              const dailyCalorieDocRef = doc(db, 'users', this.uid, 'goalInfo', 'dailyCalorie');
+              getDoc(dailyCalorieDocRef).then((dailyCalorieDoc) => {
+                if (dailyCalorieDoc.exists()) {
+                  const dailyCalorieData = dailyCalorieDoc.data();
+                  this.calorieStats = dailyCalorieData.targetCalorie || null;
+                }
+              });
             }
           }
         });
@@ -55,28 +111,144 @@ export default {
         return 'Loading...';
       }
     },
+
+    isBMIHealthy() {
+      if (this.bmi >= 18.5 && this.bmi <= 24.9) {
+        return true;
+      } else {
+        return false;
+      }
+    }
   },
+
     methods: {
-        updateProfile() {
-            this.$router.push('/updateProfile');
+      calculateBMI() {
+        if (this.weight && this.height) {
+          const heightInMeters = this.height / 100;
+          const bmi = this.weight / (heightInMeters * heightInMeters);
+          this.bmi = bmi.toFixed(1);
+        } else {
+          this.bmi = null;
         }
-    },
+      },
+
+      updateProfile() {
+          this.$router.push('/updateProfile');
+      }
+  },
 }
 </script>
 
 
 <style scoped>
+.container #bmi {
+  position: absolute;
+  width: 103.03px;
+  height: 98.22px;
+  left: 100px;
+  top: 60px;
+
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 91px;
+
+  color: #0DB1AD;
+
+  transform: rotate(0.34deg);
+}
+
+.icon-title-container3 #health {
+  width: 84px;
+  height: 26px;
+
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 26px;
+
+  color: #0DB1AD;
+
+  transform: rotate(0.34deg);
+
+  position: absolute;
+  top: 23px;
+  left: 115px;
+}
+
+.icon-title-container1 {
+  display: flex;
+  vertical-align: middle;
+  margin-left: 20px;
+}
+
+.icon-title-container2 {
+  display: flex;
+  vertical-align: middle;
+  margin-left: 25px;
+}
+
+.icon-title-container3 {
+  display: flex;
+  vertical-align: middle;
+  margin-left: 25px;
+}
+
+.icon-title-container4 {
+  display: flex;
+  vertical-align: middle;
+  margin-left: 25px;
+}
+
+.container #exerciseStats {
+  position: absolute;
+  width: 150px;
+  height: 98.22px;
+  left: 100px;
+  top: 60px;
+
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 91px;
+
+  color: #7042C9;
+
+  transform: rotate(0.34deg);
+}
+
+.container #calorieStats {
+  position: absolute;
+  width: 150px;
+  height: 98.22px;
+  left: 100px;
+  top: 60px;
+
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 91px;
+
+  color: #197BD2;
+
+  transform: rotate(0.34deg);
+}
+
 .title {
     position: absolute;
     width: 953.85px;
-    height: 118px;
-    left: 200px;
+    height: 100px;
+    left: 300px;
 
     font-family: 'DM Sans';
     font-style: normal;
     font-weight: 600;
     font-size: 35px;
-    line-height: 36px;
+    line-height: 30px;
 
     color: #061428;
 
@@ -86,6 +258,45 @@ export default {
 .container {
     position: absolute;
     display: flex;
+    left: 90px;
+    /* top: -5px; */
+}
+
+.container #weight {
+  position: absolute;
+  width: 150px;
+  height: 98.22px;
+  left: 100px;
+  top: 60px;
+
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 91px;
+
+  color: #D2416E;
+
+  transform: rotate(0.34deg);
+
+}
+
+.container #height {
+position: absolute;
+width: 150px;
+height: 98.22px;
+left: 100px;
+top: 100px;
+
+font-family: 'DM Sans';
+font-style: normal;
+font-weight: 500;
+font-size: 30px;
+line-height: 91px;
+
+color: #D2416E;
+
+transform: rotate(0.34deg);
 }
 
 .button {
@@ -113,11 +324,17 @@ export default {
     color: #000000;
     background: #DDD8BA;
     border: 1.5px solid #000000;
-    box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.25);
+    /* box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.25); */
     border-radius: 31.5px;
     box-sizing: border-box;
     transform: matrix(1, 0, 0, 1, 0, 0);
 }
+
+.button #btn:hover {
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
 .container #exercise-card {
     position: absolute;
     width: 317.2px;
@@ -125,8 +342,7 @@ export default {
     left: 587.55px;
     top: 165.12px;
 
-    background: #7042C9;
-    opacity: 0.1;
+    background: #ece7f5;
     border-radius: 40px;
     transform: rotate(0.34deg);
 }
@@ -138,8 +354,7 @@ export default {
     left: 232px;
     top: 163.12px;
 
-    background: #D2416E;
-    opacity: 0.1;
+    background: #f3dde4;
     border-radius: 40px;
     transform: rotate(0.34deg);
 }
@@ -151,8 +366,8 @@ export default {
     left: 227.55px;
     top: 453.12px;
 
-    background: #0DB1AD;
-    opacity: 0.1;
+    background: #dceded;
+    
     border-radius: 40px;
     transform: rotate(0.34deg);
 }
@@ -171,8 +386,6 @@ export default {
 
 .image {
     display: block;
-    /* width: 220px;
-    height: 330px; */
     position: absolute;
     top: 300px;
     left: 1100px;

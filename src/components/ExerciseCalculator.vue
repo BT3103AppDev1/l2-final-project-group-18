@@ -57,6 +57,8 @@ import {
   doc,
   getDoc,
   deleteDoc,
+  updateDoc,
+  setDoc,
 } from 'firebase/firestore'
 import firebaseApp from '../firebase.js'
 import { eventBus } from '@/eventBus.js'
@@ -155,12 +157,28 @@ export default {
     async calculateTotalCaloriesBurnt() {
       let totalCaloriesBurnt = 0
 
+      // // update sportStats collection
+      // const userRef = doc(db, 'users', this.user.uid)
+
       for (const exercise of this.weeklyExercises) {
+        // let eachExerciseCalBurnt = 0;
+
         const exerciseTypeRef = doc(db, 'exerciseCalorie', exercise.id)
         const exerciseTypeSnapshot = await getDoc(exerciseTypeRef)
         const caloriesBurntPerMinute =
           exerciseTypeSnapshot.data().caloriesBurntPerMinute
+
         totalCaloriesBurnt += exercise.duration * caloriesBurntPerMinute
+      //   eachExerciseCalBurnt = exercise.duration * caloriesBurntPerMinute
+
+      //   const sportStatsDocRef = doc(
+      //     userRef,
+      //     'sportStats',
+      //     exerciseTypeSnapshot.data().name
+      //   )
+      //   await setDoc(sportStatsDocRef, {
+      //     caloriesBurntPerMinute: eachExerciseCalBurnt,
+      //   })
       }
 
       this.updateTotalWeeklyCaloriesBurnt(totalCaloriesBurnt.toFixed(2))
@@ -251,7 +269,7 @@ export default {
   justify-content: center;
   align-items: center;
   background: #ddd8ba;
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .delete-icon {
