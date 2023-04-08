@@ -8,7 +8,7 @@
         <a class="popup-link" @click="($event) => (showChecker = true)"
           >Calorie Checker</a
         >
-        
+
         <!-- Mainly for adjusting z-index -->
         <!-- You must declare showChecker property before you can use it -->
       </h4>
@@ -29,7 +29,7 @@
         <a class="popup-link" @click="($event) => (showCalculator = true)"
           >Calorie Calculator</a
         >
-        
+
         <!-- Mainly for adjusting z-index -->
         <!-- You must declare showChecker property before you can use it -->
       </h4>
@@ -46,7 +46,7 @@
 
     <div class="exercise-planning-title">
       <h4>
-        <a class = "popup-link" @click = "showPlanner = true">Exercise Planning</a>
+        <a class="popup-link" @click="showPlanner = true">Exercise Planning</a>
         <ExerciseChecker
           :showChecker="showChecker"
           @close="($event) => (showChecker = false)"
@@ -59,10 +59,12 @@
           class="exercise-calculator-overlay"
         />
 
-        <ExercisePlanning :showPlanner = "showPlanner"
-        @close = "showPlanner = false"
-        @open = "setShowPlanner"
-        class = "exercise-planner-overlay" />
+        <ExercisePlanning
+          :showPlanner="showPlanner"
+          @close="showPlanner = false"
+          @open="setShowPlanner"
+          class="exercise-planner-overlay"
+        />
       </h4>
     </div>
 
@@ -97,13 +99,13 @@ export default {
     }
   },
   methods: {
-      setShowPlanner() {
-      this.showPlanner = false;
+    setShowPlanner() {
+      this.showPlanner = false
       setTimeout(() => {
-        this.showPlanner = true;
-      }, 200); 
-    }
-  }
+        this.showPlanner = true
+      }, 200)
+    },
+  },
 }
 </script>
 
