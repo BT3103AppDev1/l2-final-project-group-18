@@ -20,6 +20,9 @@
         </div>
 
         <div id = "firebaseui-auth-container"></div>
+
+        <img src="@/assets/Skipping rope-bro.svg" alt="heart" class="icon" style="width: 500px; height: 500px; padding-left: 10px; padding-top: 100px;"/>
+        <!-- <img src="@/assets/Skipping rope-bro.svg" alt="heart" class="icon" style="width: 500px; height: 500px; padding-left: 10px; padding-top: 100px;"/> -->
 </template>
 
 <script>
@@ -62,7 +65,7 @@ export default {
                     getDoc(profileDocRef).then((docSnapshot) => {
                         if (docSnapshot.exists()) {
                             // Redirect to homepage if user already exists in database
-                            window.location.href = '/home';
+                            window.location.href = '/goals';
                         } else {
                             // Redirect to welcome page if user is signing in for the first time
                             setDoc(profileDocRef, profileInfo, { merge: false }).then(() => {
@@ -96,34 +99,40 @@ export default {
                 // Need to retrieve previousLogin, if today is Monday but previous is not,
                 // then need to do something
                 const docSnapshot = await getDoc(userDocRef);
-                const previousLoginTime = docSnapshot.data().lastLogin;
+                if (docSnapshot.data().hasOwnProperty('lastLogin')) {
+                    const previousLoginTime = docSnapshot.data().lastLogin;
 
-                if (previousLoginTime) {
-                    const previousLoginDate = new Date(previousLoginTime);
-                    // const dummyDate = new Date("2023-04-03T06:26:06.613Z");
-                    if (previousLoginDate.getDay() == 0 && new Date().getDay() == 1) {
-                    // if (previousLoginDate.getDay() == 0 && dummyDate.getDay() == 1) {
-                        // only check for the ONE special circumstance:
-                        // last login is Sunday, this login is Monday
-                        // i.e. reset respective field at first login on Monday
+                    if (previousLoginTime) {
+                        const previousLoginDate = new Date(previousLoginTime);
+                        // const dummyDate = new Date("2023-04-03T06:26:06.613Z");
+                        if (previousLoginDate.getDay() == 0 && new Date(lastLoginTime).getDay() == 1) {
+                        // if (previousLoginDate.getDay() == 0 && dummyDate.getDay() == 1) {
+                            // only check for the ONE special circumstance:
+                            // last login is Sunday, this login is Monday
+                            // i.e. reset respective field at first login on Monday
 
-                        const calorieStatsRef = collection(
-                            doc(getFirestore(), "users", 
-                            getAuth().currentUser.uid), "calorieStats");
-                        console.log("Get collection");
+                            const calorieStatsRef = collection(
+                                doc(getFirestore(), "users", 
+                                getAuth().currentUser.uid), "calorieStats");
+                            console.log("Get collection");
 
-                        getDocs(calorieStatsRef).then((snapshot) => {
-                            snapshot.forEach((doc) => {
-                                updateDoc(doc.ref, {calorie: 0})
-                            }).catch((error) => {
-                                console.log("Error in update", error)
+                            getDocs(calorieStatsRef).then((snapshot) => {
+                                snapshot.forEach((doc) => {
+                                    updateDoc(doc.ref, {calorie: 0})
+                                }).catch((error) => {
+                                    console.log("Error in update", error)
+                                });
                             });
+
+                        }
+                    } else {
+                        updateDoc(userDocRef, {
+                            lastLogin: new Date().toISOString()
                         });
-
-
-
                     }
                 }
+
+                
 
                 // then, update the new login time
                 await setDoc(userDocRef, { lastLogin: lastLoginTime }, {merge: true}).then(() => {
@@ -152,7 +161,7 @@ export default {
                 const auth = getAuth();
                 await signInWithEmailAndPassword(auth, this.email, this.password);
                                 
-                this.$router.push('/home');
+                this.$router.push('/goals');
             } catch (error) {
                 if (error.code === 'auth/wrong-password') {
                     alert('Incorrect password. Please try again.');

@@ -244,7 +244,7 @@ export default {
     height: 100px;
     left: 300px;
 
-    font-family: 'DM Sans';
+    font-family: 'Mulish', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 35px;
