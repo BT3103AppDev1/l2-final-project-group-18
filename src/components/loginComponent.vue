@@ -1,68 +1,4 @@
 <template>
-  <div :style="{ backgroundColor: '#FAF4E1' }">
-    <div class="title">
-      <p>Sign in / Register a FREE account</p>
-    </div>
-
-    <div class="emailInputBox">
-      <input
-        class="query-input"
-        placeholder="Email"
-        type="email"
-        v-model="email"
-        required
-      />
-    </div>
-
-    <div class="passwordInputBox">
-      <input
-        class="query-input"
-        placeholder="Password"
-        type="password"
-        v-model="password"
-        required
-      />
-    </div>
-
-    <div class="signInButtonBox">
-      <button id="rectangle3" @click="signin()">Sign In</button>
-    </div>
-
-    <div class="newUserRegisterLink">
-      <p>
-        <a class="newUserRegisterLink" @click="signup"
-          >New user? Register with email</a
-        >
-      </p>
-    </div>
-
-    <div id="firebaseui-auth-container"></div>
-
-    <img
-      src="@/assets/Skipping rope-bro.svg"
-      alt="heart"
-      class="icon"
-      style="
-        width: 500px;
-        height: 500px;
-        padding-left: 10px;
-        padding-top: 100px;
-      "
-    />
-    <img
-      src="@/assets/Diet-cuate.svg"
-      alt="heart"
-      class="icon"
-      style="
-        width: 500px;
-        height: 500px;
-        padding-left: 450px;
-        padding-top: 100px;
-      "
-    />
-  </div>
-
-  =======
   <div class="full-page">
     <div class="title">
       <p>Sign in / Register a FREE account</p>
@@ -125,7 +61,6 @@
       "
     />
   </div>
-  >>>>>>> Alternative-Changyang's-branch
 </template>
 
 <script>
