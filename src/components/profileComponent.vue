@@ -249,17 +249,21 @@ export default {
 }
 
 .title {
-  position: absolute;
-  width: 953.85px;
-  height: 100px;
-  left: 300px;
-  font-family: 'Mulish', sans-serif;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 35px;
-  line-height: 30px;
-  color: #061428;
-  transform: rotate(0.07deg);
+
+    position: absolute;
+    width: 953.85px;
+    height: 100px;
+    left: 300px;
+
+    font-family: 'Mulish', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 35px;
+    line-height: 30px;
+
+    color: #061428;
+
+    transform: rotate(0.07deg);
 }
 
 .container {

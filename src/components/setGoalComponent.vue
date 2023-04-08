@@ -1,7 +1,7 @@
 <template>
     <div class = "current-goal-wrapper">
         
-        <h1>Current Goals</h1>
+        <h1 id = "title">Current Goals</h1>
 
         <div class = "first" v-if= "hasWeightData">
             <cardUpdateGoal goalTitleU="Update weight gain/ weight loss goal"></cardUpdateGoal>
@@ -147,7 +147,7 @@ h1 {
     font-family: 'Mulish', sans-serif;
     font-style: normal;
     font-weight: 700;
-    font-size: 50px;
+    font-size: 35px;
     line-height: 25px;
 }
 

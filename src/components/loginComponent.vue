@@ -1,41 +1,32 @@
 <template>
-  <div class="title">
-    <p>Sign in / Register a FREE account</p>
-  </div>
 
-  <div class="emailInputBox">
-    <input
-      class="query-input"
-      placeholder="Email"
-      type="email"
-      v-model="email"
-      required
-    />
-  </div>
+    <div :style="{ backgroundColor: '#FAF4E1' }">
+        <div class="title">
+        <p>Sign in / Register a FREE account</p>
+        </div>
 
-  <div class="passwordInputBox">
-    <input
-      class="query-input"
-      placeholder="Password"
-      type="password"
-      v-model="password"
-      required
-    />
-  </div>
+        <div class = "emailInputBox">
+            <input class = "query-input" placeholder="Email" type="email" v-model="email" required>
+        </div>
 
-  <div class="signInButtonBox">
-    <button id="rectangle3" @click="signin()">Sign In</button>
-  </div>
+        <div class = "passwordInputBox">
+            <input class = "query-input" placeholder="Password" type="password" v-model="password" required>
+        </div>
 
-  <div class="newUserRegisterLink">
-    <p>
-      <a class="newUserRegisterLink" @click="signup"
-        >New user? Register with email</a
-      >
-    </p>
-  </div>
+        <div class = "signInButtonBox">
+            <button id = "rectangle3" @click = "signin()">Sign In</button>
+        </div>
 
-  <div id="firebaseui-auth-container"></div>
+        <div class = "newUserRegisterLink">
+            <p><a class = "newUserRegisterLink" @click = "signup">New user? Register with email</a></p>
+        </div>
+
+        <div id = "firebaseui-auth-container"></div>
+
+        <img src="@/assets/Skipping rope-bro.svg" alt="heart" class="icon" style="width: 500px; height: 500px; padding-left: 10px; padding-top: 100px;"/>
+        <img src="@/assets/Diet-cuate.svg" alt="heart" class="icon" style="width: 500px; height: 500px; padding-left: 450px; padding-top: 100px;"/>
+    </div>
+
 </template>
 
 <script>
@@ -165,46 +156,135 @@ export default {
           }
         }
 
-        // then, update the new login time
-        await setDoc(userDocRef, { lastLogin: lastLoginTime }, { merge: true })
-          .then(() => {
-            console.log('set')
-          })
-          .catch((error) => {
-            console.log('Error recording login time: ', error)
-          })
-      }
-    })
-  },
-
-  data() {
-    return {
-      email: '',
-      password: '',
-      error: null,
-    }
-  },
-  methods: {
-    signup() {
-      this.$router.push('/signup')
+        var uiConfig = {
+            signInSuccessUrl: '/',
+            signInOptions: [
+                firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            ],
+            callbacks: {
+                signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+                    var user = authResult.user;
+                    var profileInfo = {
+                        profile_info: {
+                            email: user.email,
+                            username: user.displayName,
+                            password: '' 
+                        }
+                    };
+                    var profileDocRef = doc(db, 'users', user.uid);
+                    console.log(profileDocRef);
+                    getDoc(profileDocRef).then((docSnapshot) => {
+                        if (docSnapshot.exists()) {
+                            // Redirect to homepage if user already exists in database
+                            window.location.href = '/goals';
+                        } else {
+                            // Redirect to welcome page if user is signing in for the first time
+                            setDoc(profileDocRef, profileInfo, { merge: false }).then(() => {
+                                window.location.href = '/welcome';
+                                console.log("Profile info saved successfully");
+                            }).catch((error) => {
+                                console.log("Error saving profile info: ", error);
+                            });
+                        }
+                    }).catch((error) => {
+                        console.log("Error checking user profile: ", error);
+                    });
+                    return false;
+                }
+            }   
+            };
+        ui.start("#firebaseui-auth-container", uiConfig)
     },
 
-    async signin() {
-      try {
-        const auth = getAuth()
-        await signInWithEmailAndPassword(auth, this.email, this.password)
+    created() {
+        const auth = getAuth();
+        auth.onAuthStateChanged(async (user) => {
+            console.log("Changed");
+            if (user) {
+                console.log(getAuth().currentUser.uid);
+                // for variables being defined first time, must have 'const' or 'var'!
+                const userDocRef = doc(getFirestore(), 'users', getAuth().currentUser.uid);
+                const lastLoginTime = new Date().toISOString();
+                console.log(lastLoginTime);
 
-        this.$router.push('/home')
-      } catch (error) {
-        if (error.code === 'auth/wrong-password') {
-          alert('Incorrect password. Please try again.')
-        } else if (error.code === 'auth/user-not-found') {
-          alert('Email account not registered. Please sign up a new account.')
-        } else {
-          console.log(error)
-          this.error = error.message
-        }
-      }
+                // Need to retrieve previousLogin, if today is Monday but previous is not,
+                // then need to do something
+                const docSnapshot = await getDoc(userDocRef);
+                if (docSnapshot.data().hasOwnProperty('lastLogin')) {
+                    const previousLoginTime = docSnapshot.data().lastLogin;
+
+                    if (previousLoginTime) {
+                        const previousLoginDate = new Date(previousLoginTime);
+                        // const dummyDate = new Date("2023-04-03T06:26:06.613Z");
+                        if (previousLoginDate.getDay() == 0 && new Date(lastLoginTime).getDay() == 1) {
+                        // if (previousLoginDate.getDay() == 0 && dummyDate.getDay() == 1) {
+                            // only check for the ONE special circumstance:
+                            // last login is Sunday, this login is Monday
+                            // i.e. reset respective field at first login on Monday
+
+                            const calorieStatsRef = collection(
+                                doc(getFirestore(), "users", 
+                                getAuth().currentUser.uid), "calorieStats");
+                            console.log("Get collection");
+
+                            getDocs(calorieStatsRef).then((snapshot) => {
+                                snapshot.forEach((doc) => {
+                                    updateDoc(doc.ref, {calorie: 0})
+                                }).catch((error) => {
+                                    console.log("Error in update", error)
+                                });
+                            });
+
+                        }
+                    } else {
+                        updateDoc(userDocRef, {
+                            lastLogin: new Date().toISOString()
+                        });
+                    }
+                }
+
+                
+
+                // then, update the new login time
+                await setDoc(userDocRef, { lastLogin: lastLoginTime }, {merge: true}).then(() => {
+                    console.log("set");
+                }).catch((error) => {
+                    console.log("Error recording login time: ", error);
+                })
+            }
+        })
+    },
+
+    data() {
+        return {
+        email: '',
+        password: '',
+        error: null,
+        };
+    },
+    methods: {
+        signup() {
+        this.$router.push('/signup')
+        },
+        
+        async signin() {
+            try {
+                const auth = getAuth();
+                await signInWithEmailAndPassword(auth, this.email, this.password);
+                                
+                this.$router.push('/goals');
+            } catch (error) {
+                if (error.code === 'auth/wrong-password') {
+                    alert('Incorrect password. Please try again.');
+                } else if (error.code === 'auth/user-not-found') {
+                    alert('Email account not registered. Please sign up a new account.');
+                } else {
+                    console.log(error);
+                    this.error = error.message;
+                }
+            }
+        },
+
     },
   },
 }

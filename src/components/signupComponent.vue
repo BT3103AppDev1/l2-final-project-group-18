@@ -1,44 +1,34 @@
 <template>
-  <div class="title">
-    <p>Register a FREE account</p>
-  </div>
 
-  <div class="userNameBox">
-    <input
-      class="query-input"
-      placeholder="Username"
-      type="username"
-      v-model="username"
-    />
-  </div>
+  <div :style="{ backgroundColor: '#FAF4E1' }">
+        <div class = "title" >
+            <p>Register a FREE account</p>
+        </div>
 
-  <div class="emailInputBox">
-    <input
-      class="query-input"
-      placeholder="Email"
-      type="email"
-      v-model="email"
-    />
-  </div>
+          <div class = "userNameBox">
+              <input class = "query-input" placeholder="Username" type="username" v-model="username">
+          </div>
 
-  <div class="passwordInputBox">
-    <input
-      class="query-input"
-      placeholder="Password"
-      type="password"
-      v-model="password"
-    />
-  </div>
+          <div class = "emailInputBox">
+              <input class = "query-input" placeholder="Email" type="email" v-model="email">
+          </div>
 
-  <div class="registerButtonBox">
-    <button id="rectangle3" @click="register()">Register</button>
-  </div>
+          <div class = "passwordInputBox">
+              <input class = "query-input" placeholder="Password" type="password" v-model="password">
+          </div>
 
-  <div class="loginLink">
-    <p>
-      <a class="loginLink" @click="login">Already have an account? Sign in</a>
-    </p>
-  </div>
+          <div class = "registerButtonBox">
+              <button id = "rectangle3" @click = "register()">Register</button>
+              
+          </div>
+
+          <div class = "loginLink">
+              <p><a class = "loginLink" @click = "login">Already have an account? Sign in</a></p>
+          </div>
+          <img src="@/assets/Stretching exercises-amico.svg" alt="heart" class="icon" style="width: 500px; height: 500px; padding-left: 10px; padding-top: 100px;"/>
+        <img src="@/assets/Eating healthy food-cuate.svg" alt="heart" class="icon" style="width: 500px; height: 500px; padding-left: 450px; padding-top: 100px;"/>
+        </div>
+
 </template>
 
 <script>

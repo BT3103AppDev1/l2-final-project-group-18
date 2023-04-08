@@ -21,7 +21,6 @@
             <option value="Weight Gain">Weight Gain</option>
             <option value="Weight Loss">Weight Loss</option>
           </select>
-          <!--<input type="text" name="wgl" placeholder="Weight Goal">-->
         </div>
       </div>
 
@@ -150,7 +149,7 @@ export default {
 .setGoal {
   position: fixed;
   width: 700px;
-  height: 500px;
+  height: 450px;
   background-color: #faf4e1;
   border: 5px solid #9f978b;
   border-radius: 20px;
@@ -180,6 +179,7 @@ export default {
   font-weight: 700;
   font-size: 30px;
   line-height: 22px;
+  font-size: 19px;
   flex: 0.5; /* or 46% */
   text-align: center;
   font-family: 'Mulish', sans-serif;
@@ -204,7 +204,7 @@ export default {
 }
 
 .left-text {
-  padding-left: 8%;
+  padding-left: 12%;
   font-weight: 50;
   font-size: 20px;
   padding-top: 5px;
@@ -213,12 +213,12 @@ export default {
 .drop-down-list {
   position: relative;
   box-sizing: border-box;
-  flex: 0.67;
-  width: 200px;
+  /* flex: 0.67; */
+  width: 250px;
   height: 40px;
   margin-left: 50px;
-  padding-left: 20%;
-  padding-top: 15%;
+  /* padding-left: 20%; */
+  /* padding-top: 15%; */
   background: #ddd8ba;
   border: 1px solid #c1c1c1;
   border-radius: 20px;
@@ -236,7 +236,7 @@ export default {
 }
 
 .left-text2 {
-  padding-left: 8%;
+  padding-left: 12%;
   font-weight: 50;
   font-size: 20px;
   padding-top: 5px;
