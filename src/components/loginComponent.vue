@@ -1,4 +1,5 @@
 <template>
+    <div :style="{ backgroundColor: '#FAF4E1' }">
         <div class="title">
         <p>Sign in / Register a FREE account</p>
         </div>
@@ -22,7 +23,8 @@
         <div id = "firebaseui-auth-container"></div>
 
         <img src="@/assets/Skipping rope-bro.svg" alt="heart" class="icon" style="width: 500px; height: 500px; padding-left: 10px; padding-top: 100px;"/>
-        <!-- <img src="@/assets/Skipping rope-bro.svg" alt="heart" class="icon" style="width: 500px; height: 500px; padding-left: 10px; padding-top: 100px;"/> -->
+        <img src="@/assets/Diet-cuate.svg" alt="heart" class="icon" style="width: 500px; height: 500px; padding-left: 450px; padding-top: 100px;"/>
+    </div>
 </template>
 
 <script>

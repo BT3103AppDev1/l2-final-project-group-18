@@ -1,4 +1,5 @@
 <template>
+  <div :style="{ backgroundColor: '#FAF4E1' }">
   <div class="title">
     <p>Are you sure to sign out?</p>
   </div>
@@ -11,7 +12,7 @@
     </div>
   </div>
   <img src="@/assets/signout_thinking.svg" alt="heart" class="icon" style="width: 500px; height: 500px; padding-left: 500px; padding-top: 100px;"/>
-    
+</div>
 </template>
 
 <script>

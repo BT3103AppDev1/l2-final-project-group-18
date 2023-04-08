@@ -1,4 +1,5 @@
 <template>
+  <div :style="{ backgroundColor: '#FAF4E1' }">
         <div class = "title" >
             <p>Register a FREE account</p>
         </div>
@@ -23,6 +24,9 @@
           <div class = "loginLink">
               <p><a class = "loginLink" @click = "login">Already have an account? Sign in</a></p>
           </div>
+          <img src="@/assets/Stretching exercises-amico.svg" alt="heart" class="icon" style="width: 500px; height: 500px; padding-left: 10px; padding-top: 100px;"/>
+        <img src="@/assets/Eating healthy food-cuate.svg" alt="heart" class="icon" style="width: 500px; height: 500px; padding-left: 450px; padding-top: 100px;"/>
+        </div>
 </template>
 
 <script>
