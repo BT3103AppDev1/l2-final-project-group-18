@@ -13,7 +13,7 @@
     <div class="allRows">
       <div class="secondRow">
         <div class="left-text">
-          <label>Weight gain/ weight loss:</label>
+          <label>Weight gain / Weight loss:</label>
         </div>
         <div class="right-input">
           <select class="drop-down-list" v-model="weightGainOrLoss">
@@ -214,17 +214,14 @@ export default {
 .drop-down-list {
   position: relative;
   box-sizing: border-box;
-  /* flex: 0.67; */
-  width: 250px;
+  width: 210px;
   height: 40px;
-  margin-left: 50px;
-  /* padding-left: 20%; */
-  /* padding-top: 15%; */
+  margin-left: 35px;
   background: #ddd8ba;
   border: 1px solid #c1c1c1;
   border-radius: 20px;
   font-weight: 50;
-  font-size: 20px;
+  font-size: 17px;
   font-family: 'Mulish', sans-serif;
 }
 
