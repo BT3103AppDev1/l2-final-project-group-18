@@ -1,7 +1,7 @@
 <template>
     <div class = "barchart-wrapper">
         <h3 style="display: inline-block;">Weekly food calorie intake</h3>
-        <h5 style="display: inline-block;" class = "total-num">Total intake : {{ totalCalorie }}</h5>
+        <h5 style="display: inline-block;" class = "total-num">Total intake : {{ totalCalorie }} calories</h5>
         <column-chart
             :data="calorieData"
             :library="{
