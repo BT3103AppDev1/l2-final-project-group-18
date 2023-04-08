@@ -48,7 +48,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth'
 const db = getFirestore(firebaseApp)
 
 export default {
-    name: "cardUpdateCalorieGoal",
+    name: "CardUpdateCalorieGoal",
     components: {
         UpdateCaloriePopUp,
     },

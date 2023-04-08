@@ -97,7 +97,7 @@ export default {
 
 .barchart-wrapper {
     position: fixed;
-    top: 120px;
+    top: 140px;
     left: 760px;
     /* right: 50px; */
     width: 600px;

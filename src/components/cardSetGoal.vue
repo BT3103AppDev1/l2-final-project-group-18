@@ -29,10 +29,10 @@
 </template>
 
 <script>
-import SetGoalPopUp from './setGoalPopUp.vue'
+import SetGoalPopUp from './SetGoalPopUp.vue'
 
 export default {
-  name: 'cardSetGoal',
+  name: 'CardSetGoal',
   components: {
     SetGoalPopUp,
   },

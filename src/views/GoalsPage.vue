@@ -1,11 +1,11 @@
 <template>
     <DummyLeftPane/>
-    <setGoalComponent/>
+    <SetGoalComponent/>
   </template>
   
 <script>
 import DummyLeftPane from '../components/DummyLeftPane.vue';
-import SetGoalComponent from '../components/setGoalComponent.vue';
+import SetGoalComponent from '../components/SetGoalComponent.vue';
   
   export default {
     name: 'App',
