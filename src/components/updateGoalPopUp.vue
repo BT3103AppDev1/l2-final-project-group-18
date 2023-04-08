@@ -214,17 +214,15 @@ export default {
 .drop-down-list {
   position: relative;
   box-sizing: border-box;
-  width: 250px;
+  width: 210px;
   height: 40px;
-  margin-left: 50px;
-
-
+  margin-left: 35px;
   background: #ddd8ba;
   color: #746652;
   border: 1px solid #c1c1c1;
   border-radius: 20px;
   font-weight: 50;
-  font-size: 20px;
+  font-size: 17px;
   font-family: 'Mulish', sans-serif;
 }
 

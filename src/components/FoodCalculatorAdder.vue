@@ -211,7 +211,8 @@ export default {
   top: 92px;
 
   font-size: 13px;
-  color: #746652;
+
+  color: #292727;
 
   background: #ddd8ba;
   border: 1px solid #c1c1c1;
@@ -247,7 +248,8 @@ export default {
   top: 170px;
 
   font-size: 13px;
-  color: #746652;
+
+  color: #292727;
 
   background: #ddd8ba;
   border: 1px solid #c1c1c1;
