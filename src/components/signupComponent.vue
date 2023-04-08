@@ -1,28 +1,28 @@
 <template>
-            <div class = "title">
+        <div class = "title" >
             <p>Register a FREE account</p>
         </div>
 
-        <div class = "userNameBox">
-            <input class = "query-input" placeholder="Username" type="username" v-model="username">
-        </div>
+          <div class = "userNameBox">
+              <input class = "query-input" placeholder="Username" type="username" v-model="username">
+          </div>
 
-        <div class = "emailInputBox">
-            <input class = "query-input" placeholder="Email" type="email" v-model="email">
-        </div>
+          <div class = "emailInputBox">
+              <input class = "query-input" placeholder="Email" type="email" v-model="email">
+          </div>
 
-        <div class = "passwordInputBox">
-            <input class = "query-input" placeholder="Password" type="password" v-model="password">
-        </div>
+          <div class = "passwordInputBox">
+              <input class = "query-input" placeholder="Password" type="password" v-model="password">
+          </div>
 
-        <div class = "registerButtonBox">
-            <button id = "rectangle3" @click = "register()">Register</button>
-            
-        </div>
+          <div class = "registerButtonBox">
+              <button id = "rectangle3" @click = "register()">Register</button>
+              
+          </div>
 
-        <div class = "loginLink">
-            <p><a class = "loginLink" @click = "login">Already have an account? Sign in</a></p>
-        </div>
+          <div class = "loginLink">
+              <p><a class = "loginLink" @click = "login">Already have an account? Sign in</a></p>
+          </div>
 </template>
 
 <script>
@@ -108,6 +108,13 @@ export default {
           console.log("Error getting document:", error);
         });
 
+        // const sportStatsRef = collection(doc(getFirestore(), "users", user.uid), "sportStats");
+        // const dummyDocRef = doc(sportStatsRef, "dummy")
+        // await setDoc(dummyDocRef, {
+        //   caloriesBurntPerMinute: 0,
+        // })
+         
+
         this.$router.push('/welcome')
       } catch (error) {
         console.error(error);
@@ -122,36 +129,33 @@ export default {
 </script>
 
 <style scoped>
-/* register a free account*/
-.title  {
-    position: absolute;
-    width: 953.85px;
-    height: 118px;
-    left: 600px;
-    /* top: 79px; */
-
-    font-family: 'Mulish';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 30px;
-    line-height: 36px;
-
-    color: #061428;
-
-    transform: rotate(0.07deg);
+.title {
+  position: absolute;
+  top: 0%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+  width: 953.85px;
+  height: 118px;
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 36px;
+  color: #061428;
+  transform: rotate(0.07deg);
 }
+
 
 .userNameBox {
     position: absolute;
     top: -50px;
-    left: 20px;
-
+    left: 42px;
 }
 
 .emailInputBox {
     position: absolute;
     top: 10px;
-    left: 20px;
+    left: 42px;
 }
 
 input {
@@ -188,13 +192,13 @@ input {
 .passwordInputBox {
     position: absolute;
     top: 70px;
-    left: 20px;
+    left: 42px;
 }
 .registerButtonBox {
     position: absolute;
     width: 300.99px;
     height: 50px;
-    left: 340px;
+    left: 370px;
     top: 200px;
 
     transform: rotate(-0.27deg);
@@ -224,14 +228,11 @@ input {
     transform: matrix(1, 0, 0, 1, 0, 0);
 }
 
-
-
-/* Already have an account? Sign in */
 .loginLink {
     position: absolute;
     width: 502.31px;
     height: 10px;
-    left: 310px;
+    left: 320px;
     top: 275px;
 
     font-family: 'Mulish';

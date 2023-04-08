@@ -1,5 +1,3 @@
-
-
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import FoodMain from "../views/FoodMain.vue";
@@ -13,23 +11,20 @@ import GoalsPage from "../views/GoalsPage.vue";
 import DashboardView from "../views/DashboardView.vue";
 import profile from "../views/ProfileView.vue";
 
-
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/home',
-      name: 'home',
+      path: "/home",
+      name: "home",
       component: HomeView,
     },
     {
-      path: '/profile',
-      name: 'profile',
+      path: "/profile",
+      name: "profile",
       component: profile,
     },
     {
-
       path: "/dashboard",
       name: "dashboard",
       component: DashboardView,
@@ -40,41 +35,41 @@ const router = createRouter({
       component: FoodMain,
     },
     {
-      path: '/exercise',
-      name: 'exercise',
+      path: "/exercise",
+      name: "exercise",
       component: ExerciseMain,
     },
     {
-      path: '/goals',
-      name: 'Goals Page',
+      path: "/goals",
+      name: "Goals Page",
       component: GoalsPage,
     },
     {
-      path: '/',
-      name: 'login',
+      path: "/",
+      name: "login",
       component: login,
     },
     {
-      path: '/signup',
-      name: 'signup',
+      path: "/signup",
+      name: "signup",
       component: signup,
     },
     {
-      path: '/signout',
-      name: 'signout',
+      path: "/signout",
+      name: "signout",
       component: signout,
     },
     {
-      path: '/welcome',
-      name: 'welcome',
+      path: "/welcome",
+      name: "welcome",
       component: welcome,
     },
     {
-      path: '/updateProfile',
-      name: 'updateProfile',
+      path: "/updateProfile",
+      name: "updateProfile",
       component: updateProfile,
     },
   ],
-})
+});
 
-export default router
+export default router;
