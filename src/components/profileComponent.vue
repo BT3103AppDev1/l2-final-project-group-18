@@ -10,8 +10,8 @@
             <img src="@/assets/heart.svg" alt="heart" class="icon" />
             <h2>Weight & Height</h2>
           </div>
-          <div id = "weight">{{ weight }}kg</div>
-          <div id = "height">{{ height }}cm</div>
+          <div id = "weight">{{ weight }} kg</div>
+          <div id = "height">{{ height }} cm</div>
         </div>
 
         <div id = "exercise-card">
@@ -19,7 +19,7 @@
             <img src="@/assets/exercise_card.svg" alt="heart" class="icon" />
             <h2>Exercise</h2>
           </div>
-          <div id = "exerciseStats">{{ exerciseStats }}min</div>
+          <div id = "exerciseStats">{{ exerciseStats }} min</div>
         </div>
 
         <div id = "BMI-card">
@@ -36,7 +36,7 @@
             <img src="@/assets/calories.svg" alt="heart" class="icon" />
             <h2>Calories</h2>
           </div>
-          <div id = "calorieStats">{{ calorieStats }}/day</div>
+          <div id = "calorieStats">{{ calorieStats }} /day</div>
         </div>
     </div>
 
@@ -204,7 +204,7 @@ export default {
 
 .container #exerciseStats {
   position: absolute;
-  width: 103.03px;
+  width: 150px;
   height: 98.22px;
   left: 100px;
   top: 60px;
@@ -222,7 +222,7 @@ export default {
 
 .container #calorieStats {
   position: absolute;
-  width: 103.03px;
+  width: 150px;
   height: 98.22px;
   left: 100px;
   top: 60px;
@@ -264,7 +264,7 @@ export default {
 
 .container #weight {
   position: absolute;
-  width: 103.03px;
+  width: 150px;
   height: 98.22px;
   left: 100px;
   top: 60px;
@@ -283,7 +283,7 @@ export default {
 
 .container #height {
 position: absolute;
-width: 103.03px;
+width: 150px;
 height: 98.22px;
 left: 100px;
 top: 100px;
