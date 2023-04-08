@@ -128,6 +128,7 @@ export default {
     font-weight: 700;
     font-size: 30px;
     line-height: 22px;
+    font-size: 19px;
     flex: 0.5;/* or 46% */
     text-align: center;
     font-family: 'Mulish', sans-serif;
@@ -155,7 +156,7 @@ export default {
 }
 
 .left-text2-c {
-    padding-left: 8%;
+    padding-left: 12%;
     font-weight: 50;
     font-size: 20px;
     padding-top: 5px;

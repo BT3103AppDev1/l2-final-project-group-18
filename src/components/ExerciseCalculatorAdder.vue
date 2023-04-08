@@ -114,12 +114,11 @@ export default {
         return
       }
 
-      const typeRef = doc(db, 'exerciseCalorie', this.selectedExerciseType);
+      const typeRef = doc(db, 'exerciseCalorie', this.selectedExerciseType)
       const typeSnapshot = await getDoc(typeRef)
 
-
-      console.log("this.selectedExerciseType", typeSnapshot.data().name)
-      console.log("this.selectedExerciseType", this.selectedExerciseType)
+      console.log('this.selectedExerciseType', typeSnapshot.data().name)
+      console.log('this.selectedExerciseType', this.selectedExerciseType)
       const newExercise = {
         type: typeRef,
         duration: parseInt(this.selectedExerciseTime, 10),
@@ -129,42 +128,6 @@ export default {
       const userRef = doc(db, 'users', this.user.uid)
       const sportTrackingRef = collection(userRef, 'sportTracking')
 
-      // let flagNew = true;
-
-      // const sportTrackingSnapshot = await getDocs(sportTrackingRef)
-      // const newDocSnap = await getDoc(newExercise.type);
-      // const newDocID = newDocSnap.id;
-      // console.log("newdoc.ref ", newDocID)
-
-      // const sportTrackingStore = sportTrackingSnapshot.docs.map(async (doc) => {
-      //   const oldDocRef = doc.data().type;
-      //   const oldDocSnap = await getDoc(oldDocRef);
-      //   const oldDocID = oldDocSnap.id;
-      //   console.log("olddoc.ref ", oldDocID)
-      //   const oldExerciseDuration = doc.data().duration;
-      //   if (oldDocID == newDocID) {
-      //     return { type: oldDocRef, currDocID: doc.id, exerciseID: oldDocID, duration: oldExerciseDuration, same: true }
-      //   } else {
-      //     return { type: oldDocRef, currDocID: doc.id,  exerciseID: oldDocID, duration: oldExerciseDuration, same: false }
-      //   }
-      // })
-
-      // for (const exercise of sportTrackingStore) {
-      //   if (exercise.same) {
-      //     const newDuration = exercise.duration + newExercise.duration
-      //     const toUpdateRef = doc(sportTrackingRef, (await exercise).currDocID)
-      //     await updateDoc(toUpdateRef, {
-      //       type: exercise.type,
-      //       duration: newDuration
-      //     });
-      //     flagNew = false;
-      //     break;
-      //   }
-      // };
-      // console.log("falgnew ", flagNew)
-
-      // if (flagNew) {
-      console.log("creating new document whyy")
       await addDoc(sportTrackingRef, newExercise)
       // }
       eventBus.emit('exerciseAdded')
@@ -196,7 +159,7 @@ export default {
   border: 5px solid #9f978b;
   border-radius: 20px;
 
-  z-index: 10
+  z-index: 10;
 }
 
 .back-button {
@@ -261,10 +224,10 @@ export default {
   left: 170px;
   top: 92px;
 
-  font-size: 15px;
-  color: #7D7D7D;
+  font-size: 13px;
+  color: #292727;
 
-  background: #ececec;
+  background: #ddd8ba;
   border: 1px solid #c1c1c1;
   border-radius: 20px;
 }
@@ -297,10 +260,11 @@ export default {
   left: 170px;
   top: 170px;
 
-  font-size: 15px;
-  color: #7D7D7D;
+  font-size: 13px;
 
-  background: #ececec;
+  color: #292727;
+
+  background: #ddd8ba;
   border: 1px solid #c1c1c1;
   border-radius: 20px;
 }
