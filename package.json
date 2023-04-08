@@ -13,7 +13,7 @@
     "@fullcalendar/interaction": "^6.1.5",
     "@fullcalendar/vue3": "^6.1.5",
     "chart.js": "^4.2.1",
-    "firebase": "^9.18.0",
+    "firebase": "^9.19.1",
     "firebaseui": "^0.600.0",
     "mitt": "^3.0.0",
     "vue": "^3.2.47",
@@ -23,7 +23,7 @@
     "vuex": "^4.0.2"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^4.0.0",
+    "@vitejs/plugin-vue": "^4.1.0",
     "vite": "^4.2.1"
   }
 }

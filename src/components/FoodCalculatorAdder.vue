@@ -47,7 +47,13 @@
 
 <script>
 import firebaseApp from '../firebase.js'
-import { collection, doc, addDoc, getDocs, getFirestore } from 'firebase/firestore'
+import {
+  collection,
+  doc,
+  addDoc,
+  getDocs,
+  getFirestore,
+} from 'firebase/firestore'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { eventBus } from '@/eventBus.js'
 
@@ -205,10 +211,11 @@ export default {
   left: 170px;
   top: 92px;
 
-  font-size: 15px;
-  color: #7D7D7D;
+  font-size: 13px;
 
-  background: #ececec;
+  color: #292727;
+
+  background: #ddd8ba;
   border: 1px solid #c1c1c1;
   border-radius: 20px;
 }
@@ -241,10 +248,11 @@ export default {
   left: 170px;
   top: 170px;
 
-  font-size: 15px;
-  color: #7D7D7D;
+  font-size: 13px;
 
-  background: #ececec;
+  color: #292727;
+
+  background: #ddd8ba;
   border: 1px solid #c1c1c1;
   border-radius: 20px;
 }

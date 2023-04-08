@@ -31,7 +31,7 @@
 import SetCaloriePopUp from './SetCaloriePopUp.vue'
 
 export default {
-    name: "cardSetCalorieGoal",
+    name: "CardSetCalorieGoal",
     components: {
         SetCaloriePopUp,
     },

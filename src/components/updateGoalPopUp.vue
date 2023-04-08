@@ -13,7 +13,7 @@
     <div class="allRows">
       <div class="secondRow">
         <div class="left-text">
-          <label>Weight gain/ weight loss:</label>
+          <label>Weight gain / Weight loss:</label>
         </div>
         <div class="right-input">
           <select class="drop-down-list" v-model="weightGainOrLoss">
@@ -150,7 +150,7 @@ export default {
 .updateGoal {
   position: fixed;
   width: 700px;
-  height: 500px;
+  height: 450px;
   background-color: #faf4e1;
   border: 5px solid #9f978b;
   border-radius: 20px;
@@ -180,6 +180,7 @@ export default {
   font-weight: 700;
   font-size: 30px;
   line-height: 22px;
+  font-size: 19px;
   flex: 0.5; /* or 46% */
   text-align: center;
   font-family: 'Mulish', sans-serif;
@@ -204,7 +205,7 @@ export default {
 }
 
 .left-text {
-  padding-left: 8%;
+  padding-left: 12%;
   font-weight: 50;
   font-size: 20px;
   padding-top: 5px;
@@ -213,17 +214,15 @@ export default {
 .drop-down-list {
   position: relative;
   box-sizing: border-box;
-  flex: 0.67;
-  width: 200px;
+  width: 210px;
   height: 40px;
-  margin-left: 50px;
-  padding-left: 20%;
-  padding-top: 15%;
+  margin-left: 35px;
   background: #ddd8ba;
+  color: #746652;
   border: 1px solid #c1c1c1;
   border-radius: 20px;
   font-weight: 50;
-  font-size: 20px;
+  font-size: 17px;
   font-family: 'Mulish', sans-serif;
 }
 
@@ -236,7 +235,7 @@ export default {
 }
 
 .left-text2 {
-  padding-left: 8%;
+  padding-left: 12%;
   font-weight: 50;
   font-size: 20px;
   padding-top: 5px;
