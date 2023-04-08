@@ -99,42 +99,50 @@ export default {
                 // Need to retrieve previousLogin, if today is Monday but previous is not,
                 // then need to do something
                 const docSnapshot = await getDoc(userDocRef);
-                const previousLoginTime = docSnapshot.data().lastLogin;
+                if (docSnapshot.data().hasOwnProperty('lastLogin')) {
+                    const previousLoginTime = docSnapshot.data().lastLogin;
 
-                if (previousLoginTime) {
-                    const previousLoginDate = new Date(previousLoginTime);
-                    // const dummyDate = new Date("2023-04-03T06:26:06.613Z");
-                    if (previousLoginDate.getDay() == 0 && new Date().getDay() == 1) {
-                    // if (previousLoginDate.getDay() == 0 && dummyDate.getDay() == 1) {
-                        // only check for the ONE special circumstance:
-                        // last login is Sunday, this login is Monday
-                        // i.e. reset respective field at first login on Monday
+                    if (previousLoginTime) {
+                        const previousLoginDate = new Date(previousLoginTime);
+                        // const dummyDate = new Date("2023-04-03T06:26:06.613Z");
+                        if (previousLoginDate.getDay() == 0 && new Date(lastLoginTime).getDay() == 1) {
+                        // if (previousLoginDate.getDay() == 0 && dummyDate.getDay() == 1) {
+                            // only check for the ONE special circumstance:
+                            // last login is Sunday, this login is Monday
+                            // i.e. reset respective field at first login on Monday
 
-                        const calorieStatsRef = collection(
-                            doc(getFirestore(), "users", 
-                            getAuth().currentUser.uid), "calorieStats");
-                        console.log("Get collection");
+                            const calorieStatsRef = collection(
+                                doc(getFirestore(), "users", 
+                                getAuth().currentUser.uid), "calorieStats");
+                            console.log("Get collection");
 
-                        getDocs(calorieStatsRef).then((snapshot) => {
-                            snapshot.forEach((doc) => {
-                                updateDoc(doc.ref, {calorie: 0})
-                            }).catch((error) => {
-                                console.log("Error in update", error)
+                            getDocs(calorieStatsRef).then((snapshot) => {
+                                snapshot.forEach((doc) => {
+                                    updateDoc(doc.ref, {calorie: 0})
+                                }).catch((error) => {
+                                    console.log("Error in update", error)
+                                });
                             });
+
+                            // const sportStatsRef = collection(
+                            //     doc(getFirestore(), "users", 
+                            //     getAuth().currentUser.uid), "sportStats");
+
+                            // getDocs(sportStatsRef).then((snapshot) => {
+                            //     snapshot.forEach((doc) => {
+                            //         updateDoc(doc.ref, {caloriesBurntPerMinute: 0})
+                            //     })
+                            // });
+
+                        }
+                    } else {
+                        updateDoc(userDocRef, {
+                            lastLogin: new Date().toISOString()
                         });
-
-                        // const sportStatsRef = collection(
-                        //     doc(getFirestore(), "users", 
-                        //     getAuth().currentUser.uid), "sportStats");
-
-                        // getDocs(sportStatsRef).then((snapshot) => {
-                        //     snapshot.forEach((doc) => {
-                        //         updateDoc(doc.ref, {caloriesBurntPerMinute: 0})
-                        //     })
-                        // });
-
                     }
                 }
+
+                
 
                 // then, update the new login time
                 await setDoc(userDocRef, { lastLogin: lastLoginTime }, {merge: true}).then(() => {
