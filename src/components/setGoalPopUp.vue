@@ -68,9 +68,11 @@ import firebaseApp from '../firebase.js'
 import {
   collection,
   doc,
+  getDoc,
   setDoc,
   getFirestore,
   serverTimestamp,
+  updateDoc,
 } from 'firebase/firestore'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
@@ -84,6 +86,7 @@ export default {
       required: true,
     },
   },
+
   data() {
     return {
       weightGainOrLoss: '',
@@ -127,6 +130,15 @@ export default {
         weightGainOrLoss: this.weightGainOrLoss,
         goalSetAt: serverTimestamp(),
       })
+
+      // update the weight data of the user for goal tracking purpose
+      const userSnapshot = await getDoc(userRef)
+      const healthStats = userSnapshot.data().healthStats
+      const prevWeight = healthStats.weight
+      await updateDoc(userRef, {
+        'healthStats.weightForGoal': prevWeight,
+      })
+
       this.closePopUp()
       location.reload()
     },

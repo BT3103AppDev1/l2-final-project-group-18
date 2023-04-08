@@ -1,7 +1,12 @@
 <template>
   <div class="topbar-wrapper">
     <div class="topbar-achieve-text">
-      <h4>{{ daysLeftToAchieveGoal }} Days left to achieve Weight Gain goal</h4>
+      <h4 v-if="weightGainOrLoss === 'Weight Gain'">
+        {{ daysLeftToAchieveGoal }} Days left to achieve Weight Gain goal
+      </h4>
+      <h4 v-if="weightGainOrLoss === 'Weight Loss'">
+        {{ daysLeftToAchieveGoal }} Days left to achieve Weight Loss goal
+      </h4>
     </div>
 
     <!-- Use a wrapper class to put one rectangle on top of another -->
@@ -16,6 +21,15 @@
       </p>
       <p v-if="weightGainOrLoss === 'Weight Loss'">
         Target Weight Loss {{ weightChangeGoal }} kg
+      </p>
+    </div>
+
+    <div class="topbar-curr-change-text" :style="{ left: progressWidth }">
+      <p v-if="weightGainOrLoss === 'Weight Gain'">
+        Current Weight Gain {{ currWeightChange }} kg
+      </p>
+      <p v-if="weightGainOrLoss === 'Weight Loss'">
+        Current Weight Loss {{ currWeightChange }} kg
       </p>
     </div>
   </div>
@@ -38,18 +52,30 @@ export default {
       daysToAchieveGoal: 0,
       weightGainOrLoss: '',
       weightChangeGoal: 0,
+      currWeight: 0,
+      currWeightChange: 0,
+      weightForGoal: 0,
     }
   },
 
   computed: {
-    // progressWidth() {
-    //   const goalWidth = 940
-    //   const progressPercentage =
-    //     (this.totalWeeklyExerciseTime / this.weeklyExerciseTimeTarget) * 100
-    //   const progressWidth =
-    //     (Math.min(progressPercentage, 100) / 100) * goalWidth
-    //   return progressWidth + 'px'
-    // },
+    progressWidth() {
+      const goalWidth = 940
+      let currWeightChange = 0
+      if (this.weightGainOrLoss == 'Weight Gain') {
+        currWeightChange = Math.max(0, this.currWeight - this.weightForGoal)
+      } else {
+        currWeightChange = Math.max(0, this.weightForGoal - this.currWeight)
+      }
+      this.currWeightChange = currWeightChange
+
+      const progressPercentage =
+        (currWeightChange / this.weightChangeGoal) * 100
+      const progressWidth =
+        (Math.min(progressPercentage, 100) / 100) * goalWidth
+      return progressWidth + 'px'
+    },
+
     daysLeftToAchieveGoal() {
       if (!this.goalStartDate || !this.daysToAchieveGoal) {
         return '-'
@@ -69,6 +95,7 @@ export default {
       if (user) {
         this.user = user
         await this.fetchGoalInfo()
+        await this.fetchWeightStats()
       }
     })
   },
@@ -88,6 +115,15 @@ export default {
       this.daysToAchieveGoal = weightGoalSnapshot.data().daysToCompleteGoal
       this.weightChangeGoal = weightGoalSnapshot.data().weightChangeInKg
       this.weightGainOrLoss = weightGoalSnapshot.data().weightGainOrLoss
+    },
+
+    async fetchWeightStats() {
+      const userRef = doc(db, 'users', this.user.uid)
+      const userSnapshot = await getDoc(userRef)
+      const currWeight = userSnapshot.data().healthStats.weight
+      const weightForGoal = userSnapshot.data().healthStats.weightForGoal
+      this.currWeight = currWeight
+      this.weightForGoal = weightForGoal
     },
   },
 }
@@ -139,6 +175,20 @@ export default {
 }
 
 .topbar-goal-text {
+  position: absolute;
+  top: 22px;
+  right: 130px;
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 19px;
+  letter-spacing: 0.4px;
+
+  color: #c5c7cd;
+}
+
+.topbar-curr-change-text {
   position: absolute;
   top: 90px;
   right: 130px;
