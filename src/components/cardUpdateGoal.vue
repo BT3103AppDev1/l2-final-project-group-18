@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import UpdateGoalPopUp from './updateGoalPopUp.vue'
+import UpdateGoalPopUp from './UpdateGoalPopUp.vue'
 import firebaseApp from '../firebase.js'
 import { collection, doc, getDoc, getFirestore } from 'firebase/firestore'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
@@ -51,7 +51,7 @@ import { mapActions } from 'vuex'
 const db = getFirestore(firebaseApp)
 
 export default {
-  name: 'cardUpdateGoal',
+  name: 'CardUpdateGoal',
   components: {
     UpdateGoalPopUp,
   },

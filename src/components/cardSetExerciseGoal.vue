@@ -31,7 +31,7 @@
 import SetExercisePopUp from './SetExercisePopUp.vue'
 
 export default {
-    name: "cardSetExerciseGoal",
+    name: "CardSetExerciseGoal",
     components: {
         SetExercisePopUp,
     },

@@ -176,7 +176,7 @@ export default {
   font-family: 'DM Sans';
   font-style: normal;
   font-weight: 500;
-  font-size: 19px;
+  font-size: 18px;
   line-height: 26px;
 
   color: #0db1ad;
@@ -249,21 +249,20 @@ export default {
 }
 
 .title {
+  position: absolute;
+  width: 953.85px;
+  height: 100px;
+  left: 300px;
 
-    position: absolute;
-    width: 953.85px;
-    height: 100px;
-    left: 300px;
+  font-family: 'Mulish', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 35px;
+  line-height: 30px;
 
-    font-family: 'Mulish', sans-serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 35px;
-    line-height: 30px;
+  color: #061428;
 
-    color: #061428;
-
-    transform: rotate(0.07deg);
+  transform: rotate(0.07deg);
 }
 
 .container {
