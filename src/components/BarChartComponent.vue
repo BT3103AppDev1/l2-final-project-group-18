@@ -15,6 +15,7 @@
     </div>
 </template>
 
+
 <script>
 import firebaseApp from '../firebase.js';
 import { getFirestore, collection, doc, getDocs, writeBatch, setDoc } from "firebase/firestore";
