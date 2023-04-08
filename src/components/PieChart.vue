@@ -116,7 +116,7 @@ export default {
     align-items: center;
     justify-content: center;
 
-    top: 120px;
+    top: 140px;
     left: 290px;  
     width: 440px;
     height: 440px;

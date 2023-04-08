@@ -120,15 +120,7 @@ export default {
                             });
                         });
 
-                        // const sportStatsRef = collection(
-                        //     doc(getFirestore(), "users", 
-                        //     getAuth().currentUser.uid), "sportStats");
 
-                        // getDocs(sportStatsRef).then((snapshot) => {
-                        //     snapshot.forEach((doc) => {
-                        //         updateDoc(doc.ref, {caloriesBurntPerMinute: 0})
-                        //     })
-                        // });
 
                     }
                 }
