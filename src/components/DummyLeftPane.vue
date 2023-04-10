@@ -97,7 +97,7 @@ ul {
   padding: 0; /* Remove default padding from list */
   width: 100%;
   position: absolute;
-  top: 110px;
+  top: 100px;
   left: 19px;
 }
 
