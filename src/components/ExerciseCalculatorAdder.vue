@@ -167,7 +167,7 @@ export default {
   top: -10px;
   right: 10px;
 
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-size: 15px;
   color: #746652;
@@ -184,10 +184,10 @@ export default {
   left: 21px;
   top: 17px;
 
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 700;
-  font-size: 12px;
+  font-size: 11px;
   line-height: 22px;
   /* or 92% */
   display: flex;
@@ -203,10 +203,10 @@ export default {
   left: 41px;
   top: 89px;
 
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 17px;
   line-height: 22px;
   /* or 110% */
   display: flex;
@@ -224,7 +224,7 @@ export default {
   left: 170px;
   top: 92px;
 
-  font-size: 13px;
+  font-size: 12px;
   color: #292727;
 
   background: #ddd8ba;
@@ -239,10 +239,10 @@ export default {
   left: 41px;
   top: 166px;
 
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 17px;
   line-height: 22px;
   /* or 110% */
   display: flex;
@@ -260,8 +260,7 @@ export default {
   left: 170px;
   top: 170px;
 
-  font-size: 13px;
-
+  font-size: 12px;
   color: #292727;
 
   background: #ddd8ba;
@@ -281,7 +280,7 @@ export default {
   width: 400px;
   height: 40px;
 
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-size: 20px;
   text-align: center;
@@ -302,7 +301,7 @@ export default {
   width: 260px;
   height: 37px;
 
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-size: 19px;
   text-align: center;
@@ -319,7 +318,7 @@ export default {
   left: 37px;
   top: 50px;
 
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 22px;
