@@ -98,7 +98,7 @@ ul {
   width: 100%;
   position: absolute;
   top: 110px;
-  left: 20px;
+  left: 19px;
 }
 
 li {
