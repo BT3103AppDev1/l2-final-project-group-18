@@ -1,16 +1,15 @@
 <template>
   <div class="title">
-    <h1>Info Card</h1>
+    <h1>Top picks for you! </h1>
+    <p>food, exercise, and more!</p>
   </div>
 
   <div class="container">
     <div class="infoCard">
-      <h1>Info Card 1</h1>
-      <p>Weight Loss Tips</p>
-      <button @click="goToLink1">Explore</button>
-      <button @click="showPopup1">More Info</button>
-
-      <PopupBox v-if="showingPopup1" :text="popupText1" @close="closePopup1" />
+      <img src="@/assets/infocard1.png" alt="Info card image" >
+      <router-link to="/dashboard">Explore Weight Loss Tips</router-link>
+      
+      
       
     </div>
 
@@ -35,26 +34,16 @@
 </template>
 
 <script>
-import PopupBox from "@/components/PopupBox.vue";
+import { RouterLink } from 'vue-router'
 
 export default {
   name: "infoCard",
   components: {
-    PopupBox,
-  },
-  data() {
-    return {
-      showingPopup1: false,
-      popupText1: "insert paragraph here",
-      // Define other popup text and flags for other info cards
-    };
+    RouterLink,
   },
   methods: {
-    showPopup1() {
-      this.showingPopup1 = true;
-    },
-    closePopup1() {
-      this.showingPopup1 = false;
+    updateProfile() {
+      this.$router.push('/updateProfile')
     },
     goToLink1() {
       window.location.href =
@@ -99,20 +88,29 @@ export default {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
+  margin-top: 50px; /* Add some space between the title and the containers */
 }
-
 
 .infoCard {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between; /* Ensure the elements are spaced evenly */
   align-items: center;
-  width: 45%;
-  height: 45%;
-  background-color: lightblue;
+  width: 75%;
+  height: 75%;
   padding: 20px;
   margin: 10px;
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  border: 2px solid black;
+
+  /* Add these rules to position the image and text */
+  text-align: center;
+  overflow: hidden; /* Ensure the image stays within the container */
+}
+
+.infoCard img {
+  max-width: 100%; /* Ensure the image fits within the container */
+  margin-bottom: 20px; /* Add some space between the image and text */
 }
 </style>
