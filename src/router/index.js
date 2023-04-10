@@ -11,7 +11,8 @@ import GoalsPage from "../views/GoalsPage.vue";
 import DashboardView from "../views/DashboardView.vue";
 import profile from "../views/ProfileView.vue";
 import infoCard from "../views/infoCard.vue";
-
+import infoPage1 from "../views/infoPage1.vue";
+import infoPage2 from "../views/infoPage2.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -75,6 +76,16 @@ const router = createRouter({
       path: '/infoCard',
       name: 'infoCard',
       component: infoCard,
+    },
+    {
+      path: '/infoPage1',
+      name: 'infoPage1',
+      component: infoPage1,
+    },
+    {
+      path: '/infoPage2',
+      name: 'infoPage2',
+      component: infoPage2,
     },
   ],
 });

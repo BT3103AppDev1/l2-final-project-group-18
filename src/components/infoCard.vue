@@ -6,17 +6,13 @@
 
   <div class="container">
     <div class="infoCard">
-      <img src="@/assets/infocard1.png" alt="Info card image" >
-      <router-link to="/dashboard">Explore Weight Loss Tips</router-link>
-      
-      
-      
+      <img src="@/assets/infocard1.png" @click="infoPage1" alt="Info card image" class="clickable-image">
+      <p>Salad ready in 5 min</p>
     </div>
 
     <div class="infoCard">
-      <h1>Info Card 2</h1>
-      <p>Exercise Tips</p>
-      <button @click="goToLink2">Explore</button>
+      <img src="@/assets/infocard2.png" alt="Info card image" >
+      <router-link to="/infoPage2">infopage2</router-link>
     </div>
 
     <div class="infoCard">
@@ -42,8 +38,8 @@ export default {
     RouterLink,
   },
   methods: {
-    updateProfile() {
-      this.$router.push('/updateProfile')
+    infoPage1() {
+      this.$router.push('/infoPage1')
     },
     goToLink1() {
       window.location.href =
@@ -73,7 +69,7 @@ export default {
   font-family: "DM Sans";
   font-style: normal;
   font-weight: 600;
-  font-size: 35px;
+  font-size: 30px;
   line-height: 30px;
   color: #061428;
   transform: rotate(0.07deg);
@@ -110,7 +106,11 @@ export default {
 }
 
 .infoCard img {
-  max-width: 100%; /* Ensure the image fits within the container */
+  max-width: 110%; /* Ensure the image fits within the container */
   margin-bottom: 20px; /* Add some space between the image and text */
+}
+
+.clickable-image {
+  cursor: pointer;
 }
 </style>

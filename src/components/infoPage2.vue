@@ -1,12 +1,12 @@
 <template>
   <div class="title">
-    <h1>Salad ready in 5 minutes </h1>
+    <h1>Info page 2 </h1>
     <div class="text">
       <p>This is a sample paragraph. I need it long to test if it is working or overlapping. I dont know what needs to be here but here it is and it is here to be here and to stay here and to done.</p>
     </div>
   </div>
 
-  <img class = "image" src="../assets/infocard1.png" alt="image here">
+  <img class = "image" src="../assets/infocard2.png" alt="image here">
 
   <div class="button">
     <button id="btn" @click="infoCard">Back to Info Card</button>
