@@ -1,8 +1,8 @@
 <template>
   <div class="title">
-    <h1>Salad ready in 5 minutes </h1>
+    <h1>Quick Eating Tips </h1>
     <div class="text">
-      <p>This is a sample paragraph. I need it long to test if it is working or overlapping. I dont know what needs to be here but here it is and it is here to be here and to stay here and to done.</p>
+      <p>Here are some quick tips for staying healthy and losing weight: Avoid skipping breakfast, eat regular meals, eat plenty of fruits and veg, drink plenty of water, eat high fibre foods, use a smaller plate, don't stock on junk food, and finally, avoid alochol.</p>
     </div>
   </div>
 

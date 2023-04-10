@@ -1,8 +1,8 @@
 <template>
   <div class="title">
-    <h1>Info page 2 </h1>
+    <h1>Good Daily Exercise Habits</h1>
     <div class="text">
-      <p>This is a sample paragraph. I need it long to test if it is working or overlapping. I dont know what needs to be here but here it is and it is here to be here and to stay here and to done.</p>
+        <p>Here are some exercise habits you can apply daily: Plan a routine in advance, exercise with friends, keep it brisk and controllable, exercise before eating, try using pedometers to count your setps, sign up for fitness classes or gym memberships to keep yourself active, and finally, set short term goals and reward yourself when they are hit to stay motivated.</p>
     </div>
   </div>
 

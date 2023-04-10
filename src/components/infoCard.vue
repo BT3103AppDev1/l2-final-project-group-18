@@ -6,26 +6,15 @@
 
   <div class="container">
     <div class="infoCard">
-      <img src="@/assets/infocard1.png" @click="infoPage1" alt="Info card image" class="clickable-image">
-      <p>Salad ready in 5 min</p>
+      <img src="../assets/infocard1.png" @click="infoPage1" alt="Info card image" class="clickable-image">
+      <h2>Quick Tips for Healthy Eating and Losing Weight</h2>
     </div>
 
     <div class="infoCard">
-      <img src="@/assets/infocard2.png" alt="Info card image" >
-      <router-link to="/infoPage2">infopage2</router-link>
+      <img src="@/assets/infocard2.png" @click="infoPage2" alt="Info card image" class="clickable-image">
+      <h2>Good Daily Exercise Habits Worth Learning</h2>
     </div>
 
-    <div class="infoCard">
-      <h1>Info Card 3</h1>
-      <p>Healthy Recipes</p>
-      <button @click="goToLink3">Explore</button>
-    </div>
-
-    <div class="infoCard">
-      <h1>Info Card 4</h1>
-      <p>Motivation Quotes</p>
-      <button @click="goToLink4">Explore</button>
-    </div>
   </div>
 </template>
 
@@ -41,21 +30,10 @@ export default {
     infoPage1() {
       this.$router.push('/infoPage1')
     },
-    goToLink1() {
-      window.location.href =
-        "https://www.nhs.uk/live-well/healthy-weight/managing-your-weight/12-tips-to-help-you-lose-weight/";
+    infoPage2() {
+      this.$router.push('/infoPage2')
     },
-    goToLink2() {
-      window.location.href = "https://www.healthline.com/nutrition/best-exercise-for-weight-loss";
-    },
-    goToLink3() {
-      window.location.href =
-        "https://www.bbcgoodfood.com/recipes/collection/healthy";
-    },
-    goToLink4() {
-      window.location.href =
-        "https://www.success.com/17-motivational-quotes-to-help-you-achieve-your-dreams/";
-    },
+    
   },
 };
 </script>
@@ -93,7 +71,7 @@ export default {
   justify-content: space-between; /* Ensure the elements are spaced evenly */
   align-items: center;
   width: 75%;
-  height: 75%;
+  height: 50%;
   padding: 20px;
   margin: 10px;
   border-radius: 10px;
