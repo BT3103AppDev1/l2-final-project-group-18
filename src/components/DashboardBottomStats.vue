@@ -71,7 +71,7 @@ export default {
 }
 
 .statistic-block h3 {
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 17px;
@@ -83,7 +83,7 @@ export default {
 }
 
 .statistic-block p {
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 32px;

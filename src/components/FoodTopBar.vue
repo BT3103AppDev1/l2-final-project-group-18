@@ -89,7 +89,7 @@ export default {
 .topbar-achieve-text {
   position: absolute;
   left: 80px;
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 20px;
@@ -124,10 +124,10 @@ export default {
   position: absolute;
   top: 90px;
   right: 130px;
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 14px;
   line-height: 19px;
   letter-spacing: 0.4px;
 

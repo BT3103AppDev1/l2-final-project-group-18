@@ -16,8 +16,8 @@
 
     <div class="calorie-checker-wrapper">
       <!-- Originally title is put here, later move outside to ensure correct display of ExerciseChecker -->
-      <div class = "calorie-checker-image">
-        <img src = "../../public/locate1.png">
+      <div class="calorie-checker-image">
+        <img src="../../public/locate1.png" />
       </div>
       <div class="calorie-checker-intro">
         <p>Check the calorie burnt per minute for different types of sports!</p>
@@ -36,8 +36,8 @@
     </div>
 
     <div class="calorie-calculator-wrapper">
-      <div class = "calorie-calculator-image">
-        <img src = "../../public/football.png">
+      <div class="calorie-calculator-image">
+        <img src="../../public/football.png" />
       </div>
       <div class="calorie-calculator-intro">
         <p>Calculate your current weekly calories burnt!</p>
@@ -69,8 +69,8 @@
     </div>
 
     <div class="exercise-planning-wrapper">
-      <div class = "exercise-planning-image">
-        <img src = "../../public/stopwatch.png">
+      <div class="exercise-planning-image">
+        <img src="../../public/stopwatch.png" />
       </div>
       <div class="exercise-planning-intro">
         <p>Plan your personal fitness activities!</p>
@@ -138,7 +138,7 @@ export default {
 
   width: 400px;
 
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 24px;
@@ -166,7 +166,7 @@ export default {
   left: 30px;
   width: 300px;
 
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 23px;
@@ -198,7 +198,7 @@ export default {
   top: 80px;
   left: 150px;
 
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 15px;
@@ -230,7 +230,7 @@ export default {
   left: 350px;
   width: 300px;
 
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 23px;
@@ -256,7 +256,7 @@ export default {
   top: 80px;
   left: 150px;
 
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 15px;
@@ -288,7 +288,7 @@ export default {
   left: 670px;
   width: 300px;
 
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 23px;
@@ -314,7 +314,7 @@ export default {
   top: 80px;
   left: 150px;
 
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 15px;
