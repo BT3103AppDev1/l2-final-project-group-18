@@ -45,10 +45,12 @@
       alt="heart"
       class="icon"
       style="
+        position: absolute;
         width: 500px;
         height: 500px;
-        padding-left: 10px;
+        /* padding-left: 10px; */
         padding-top: 100px;
+        left: 0;
       "
     />
     <img
@@ -56,10 +58,12 @@
       alt="heart"
       class="icon"
       style="
+        position: absolute;
         width: 500px;
         height: 500px;
-        padding-left: 450px;
+        /* padding-left: 450px; */
         padding-top: 100px;
+        right: 0;
       "
     />
   </div>
@@ -217,7 +221,7 @@ export default {
 .title {
   position: absolute;
   top: 0%;
-  left: 40%;
+  left: 585px;
   transform: translate(-50%, -50%);
   width: 953.85px;
   height: 118px;
@@ -233,13 +237,13 @@ export default {
 .userNameBox {
   position: absolute;
   top: -50px;
-  left: 42px;
+  left: 21px;
 }
 
 .emailInputBox {
   position: absolute;
   top: 10px;
-  left: 42px;
+  left: 21px;
 }
 
 input {
@@ -276,14 +280,14 @@ input {
 .passwordInputBox {
   position: absolute;
   top: 70px;
-  left: 42px;
+  left: 21px;
 }
 .registerButtonBox {
   position: absolute;
   width: 300.99px;
   height: 50px;
-  left: 370px;
-  top: 200px;
+  left: 349px;
+  top: 160px;
 
   transform: rotate(-0.27deg);
 }
@@ -316,8 +320,8 @@ input {
   position: absolute;
   width: 502.31px;
   height: 10px;
-  left: 320px;
-  top: 275px;
+  left: 308px;
+  top: 240px;
 
   font-family: 'Mulish';
   font-style: normal;

@@ -218,6 +218,7 @@ export default {
   height: 40px;
   margin-left: 35px;
   background: #ddd8ba;
+  color: #746652;
   border: 1px solid #c1c1c1;
   border-radius: 20px;
   font-weight: 50;

@@ -128,7 +128,6 @@ export default {
       const userRef = doc(db, 'users', this.user.uid)
       const sportTrackingRef = collection(userRef, 'sportTracking')
 
-      console.log('creating new document whyy')
       await addDoc(sportTrackingRef, newExercise)
       // }
       eventBus.emit('exerciseAdded')
