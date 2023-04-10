@@ -181,7 +181,7 @@ export default {
   font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 14px;
   line-height: 19px;
   letter-spacing: 0.4px;
 
@@ -195,7 +195,7 @@ export default {
   font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 14px;
   line-height: 19px;
   letter-spacing: 0.4px;
 
