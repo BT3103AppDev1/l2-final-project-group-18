@@ -132,7 +132,7 @@ export default {
 <style scoped>
 .topbar-wrapper {
   position: fixed;
-  top: 0;
+  top: 15px;
   right: 0;
   /* right:0 -> the element should be positioned at the right edge of its parent element */
   width: 82%;
