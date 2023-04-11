@@ -94,19 +94,23 @@ input {
     position: relative;
     left: 10px;
 
-    width: 420px;
+    width: 390px;
     height: 35px;
 
     background: #ECECEC;
     border: 1px solid #C1C1C1;
-    border-radius: 20px;    
+    border-radius: 20px;   
+    
+    padding-left: 20px;
+    font-family: 'Mulish', sans-serif;
+    font-size: 17px;
 }
 
 .before-input {
     position: relative;
     left: 20px;
     
-    font-family: 'Mulish';
+    font-family: 'Mulish', sans-serif;
     font-style: normal;
     font-size: 24px;
 
@@ -118,7 +122,7 @@ input {
     top: 5px;
     left: 20px;
 
-    font-family: 'Mulish';
+    font-family: 'Mulish', sans-serif;
     font-style: normal;
     font-size: 20px;
     color: #746652;
@@ -130,7 +134,7 @@ input {
     width: 600px;
     height: 50px;
     
-    font-family: 'Mulish';
+    font-family: 'Mulish', sans-serif;
     font-style: normal;
     font-size: 20px;
     text-align: center;

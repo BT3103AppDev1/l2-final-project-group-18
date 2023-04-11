@@ -133,12 +133,23 @@ export default {
     z-index: 9999;
 }
 
+input {
+    padding-left: 10px;
+    font-family: 'Mulish', sans-serif;
+    font-size: 17px;
+}
+
+label {
+    font-family: 'Mulish', sans-serif;
+    font-size: 19px;
+}
+
 .add-new-text {
     position: relative;
     top: 5px;
     left: 20px;
 
-    font-family: 'Mulish';
+    font-family: 'Mulish', sans-serif;
     font-style: normal;
     font-size: 20px;
     color: #746652;
@@ -189,7 +200,7 @@ input::-webkit-datetime-edit-fields-wrapper {
     width: 280px;
     height: 40px;
 
-    font-family: 'Mulish';
+    font-family: 'Mulish', sans-serif;
     font-style: normal;
     font-size: 20px;
     text-align: center;

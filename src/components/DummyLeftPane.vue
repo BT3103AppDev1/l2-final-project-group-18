@@ -20,19 +20,11 @@
         <img src="@/assets/profile.svg" alt="profile" class="icon" />
         <router-link to="/profile">Profile</router-link>
       </li>
+
       <!-- <li>
-                <router-link to="/login">login</router-link>
-            </li> -->
-      <!-- <li>
-                <router-link to="/welcome">welcome</router-link>
-            </li> -->
-      <!-- <li>
-                <router-link to="/updateProfile">update profile</router-link>
-            </li> -->
-      <li>
         <img src="@/assets/leaderboard.svg" alt="leaderboard" class="icon" />
         Leaderboard
-      </li>
+      </li> -->
       <li>
         <img src="@/assets/infocard.svg" alt="infocard" class="icon" />
         <router-link to="/infoCard">infoCard</router-link>

@@ -132,7 +132,7 @@ export default {
 .exercise-planner {
     position: absolute;
     top: -100px;
-    left: -480px;
+    left: -460px;
 
     width: 800px;
     height: 670px;
@@ -186,7 +186,7 @@ export default {
     width: 600px;
     height: 50px;
     
-    font-family: 'Mulish';
+    font-family: 'Mulish', sans-serif;
     font-style: normal;
     font-size: 20px;
     text-align: center;
