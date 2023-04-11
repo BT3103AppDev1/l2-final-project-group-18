@@ -126,7 +126,7 @@ export default {
     top: 10px;
     right: 10px;
 
-    font-family: 'Mulish';
+    font-family: 'Mulish', sans-serif;
     font-style: normal;
     font-size: 15px;
     color: #746652;
@@ -143,7 +143,7 @@ export default {
     top: 10px;
     left: 20px;
 
-    font-family: 'Mulish';
+    font-family: 'Mulish', sans-serif;
     font-style: normal;
     font-size: 20px;
     color: #746652;
@@ -154,7 +154,7 @@ export default {
     top: 120px;
     left: 20px;
 
-    font-family: 'Mulish';
+    font-family: 'Mulish', sans-serif;
     font-style: normal;
     font-size: 20px;
     color: #746652;
@@ -175,13 +175,13 @@ input {
     border-radius: 54px;
 
     padding-left: 20px;
-    font-family: 'Mulish';
+    font-family: 'Mulish', sans-serif;
     font-size: 18px;
 }
 
 .query-input::placeholder {
     text-indent: 30px;
-    font-family: 'Mulish';
+    font-family: 'Mulish', sans-serif;
     font-size: 16px;
     color: #B5B7B9;
 
@@ -194,7 +194,7 @@ input {
     border: 2px solid #746652;
     border-radius: 8px;
     color: white;
-    font-family: 'Mulish';
+    font-family: 'Mulish', sans-serif;
     font-size: 16px;
     padding: 10px;
 }
@@ -203,7 +203,7 @@ input {
     position: absolute;
     top: -5px;
     left: 40px;
-    font-family: 'Mulish';
+    font-family: 'Mulish', sans-serif;
     font-style: normal;
     font-size: 18px;
     color: #B5B7B9;
@@ -216,7 +216,7 @@ input {
     left: 30px;
 
     width: 300px;
-    font-family: 'Lato';
+    font-family: 'Mulish', sans-serif;
     font-style: normal;
     font-size: 28px;
     color: #A08666;
@@ -254,7 +254,7 @@ input {
     width: 600px;
     height: 50px;
     
-    font-family: 'Mulish';
+    font-family: 'Mulish', sans-serif;
     font-style: normal;
     font-size: 20px;
     text-align: center;

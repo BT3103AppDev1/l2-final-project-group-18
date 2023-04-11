@@ -37,7 +37,7 @@ export default {
     left: 30px;
 
     width: 300px;
-    font-family: 'Lato';
+    font-family: 'Mulish', sans-serif;
     font-style: normal;
     font-size: 28px;
     color: #A08666;
@@ -51,7 +51,7 @@ export default {
     left: 550px;
 
     width: 120px;
-    font-family: 'Lato';
+    font-family: 'Mulish', sans-serif;
     font-style: normal;
     font-size: 20px;
     color: #A08666;

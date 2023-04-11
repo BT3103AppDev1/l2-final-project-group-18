@@ -137,7 +137,7 @@ export default {
   width: 600px;
   height: 400px;
 
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-size: 16px;
   color: #746652;
@@ -150,7 +150,7 @@ export default {
 
 .total-num {
   position: relative;
-  left: 240px;
+  left: 190px;
   padding: 4px;
   background-color: #ffdfdd;
 }
