@@ -215,7 +215,7 @@ input::-webkit-datetime-edit-fields-wrapper {
     top: 10px;
     right: 10px;
 
-    font-family: 'Mulish';
+    font-family: 'Mulish', sans-serif;
     font-style: normal;
     font-size: 15px;
     color: #746652;
