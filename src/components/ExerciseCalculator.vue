@@ -169,16 +169,16 @@ export default {
           exerciseTypeSnapshot.data().caloriesBurntPerMinute
 
         totalCaloriesBurnt += exercise.duration * caloriesBurntPerMinute
-      //   eachExerciseCalBurnt = exercise.duration * caloriesBurntPerMinute
+        //   eachExerciseCalBurnt = exercise.duration * caloriesBurntPerMinute
 
-      //   const sportStatsDocRef = doc(
-      //     userRef,
-      //     'sportStats',
-      //     exerciseTypeSnapshot.data().name
-      //   )
-      //   await setDoc(sportStatsDocRef, {
-      //     caloriesBurntPerMinute: eachExerciseCalBurnt,
-      //   })
+        //   const sportStatsDocRef = doc(
+        //     userRef,
+        //     'sportStats',
+        //     exerciseTypeSnapshot.data().name
+        //   )
+        //   await setDoc(sportStatsDocRef, {
+        //     caloriesBurntPerMinute: eachExerciseCalBurnt,
+        //   })
       }
 
       this.updateTotalWeeklyCaloriesBurnt(totalCaloriesBurnt.toFixed(2))
@@ -220,7 +220,7 @@ export default {
   top: -10px;
   right: 10px;
 
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-size: 15px;
   color: #746652;
@@ -239,7 +239,7 @@ export default {
   left: 28px;
   top: 32px;
 
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 23px;
@@ -301,7 +301,7 @@ export default {
 .text-wrapper #sport {
   width: 89px;
   padding-left: 35px;
-  font-family: 'Lato';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-size: 19px;
   color: #a08666;
@@ -309,7 +309,7 @@ export default {
 
 .exercise-block #duration {
   width: 87px;
-  font-family: 'Lato';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-size: 19px;
   color: #a08666;
@@ -327,7 +327,7 @@ export default {
   width: 450px;
   height: 40px;
 
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-size: 17px;
   text-align: center;
@@ -344,7 +344,7 @@ export default {
   left: 94px;
   top: 445px;
 
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 22px;

@@ -18,8 +18,8 @@
     </div>
 
     <div class="calorie-checker-wrapper">
-      <div class = "calorie-checker-image">
-        <img src = "../../public/Salad.png">
+      <div class="calorie-checker-image">
+        <img src="../../public/Salad.png" />
       </div>
       <div class="calorie-checker-intro">
         <p>Check the calorie content of each serving of food!</p>
@@ -40,8 +40,8 @@
     </div>
 
     <div class="calorie-calculator-wrapper">
-      <div class = "calorie-calculator-image">
-        <img src = "../../public/Burger.png">
+      <div class="calorie-calculator-image">
+        <img src="../../public/Burger.png" />
       </div>
       <div class="calorie-calculator-intro">
         <p>Calculate your current daily calorie intake!</p>
@@ -56,7 +56,7 @@ import {
   getDocs,
   collection,
   doc,
-  writeBatch
+  writeBatch,
 } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
 
@@ -76,40 +76,60 @@ export default {
     }
   },
   mounted() {
-    const currentUser = getAuth().currentUser;
-        console.log("Get current user");
+    const currentUser = getAuth().currentUser
+    console.log('Get current user')
 
-        const calorieStatsRef = 
-            collection(doc(getFirestore(), "users", currentUser.uid), "calorieStats");
-        console.log("Get collection");
+    const calorieStatsRef = collection(
+      doc(getFirestore(), 'users', currentUser.uid),
+      'calorieStats'
+    )
+    console.log('Get collection')
 
-        getDocs(calorieStatsRef).then((snapshot) => {
-            if (snapshot.size > 0) {
-                console.log("calorieStats already exists");
-            } else {
-                console.log("calorieStats collection does not exist");
+    getDocs(calorieStatsRef)
+      .then((snapshot) => {
+        if (snapshot.size > 0) {
+          console.log('calorieStats already exists')
+        } else {
+          console.log('calorieStats collection does not exist')
 
-                const batch = writeBatch(getFirestore());
-                const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-                daysOfWeek.forEach((day) => {
-                    const docRef = doc(calorieStatsRef, day);
-                    batch.set(docRef, { calorie: 0 });
-                });
+          const batch = writeBatch(getFirestore())
+          const daysOfWeek = [
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Saturday',
+            'Sunday',
+          ]
+          daysOfWeek.forEach((day) => {
+            const docRef = doc(calorieStatsRef, day)
+            batch.set(docRef, { calorie: 0 })
+          })
 
-                batch.commit().then(() => {
-                    console.log("calorieStats collection and documents created successfully");
-                }).catch((error) => {
-                    console.log("Error creating calorieStats collection and documents:", error);
-                });
+          batch
+            .commit()
+            .then(() => {
+              console.log(
+                'calorieStats collection and documents created successfully'
+              )
+            })
+            .catch((error) => {
+              console.log(
+                'Error creating calorieStats collection and documents:',
+                error
+              )
+            })
 
-                for (const day of daysOfWeek) {
-                    this.calorieStats[day] = 0;
-                }
-            }
-        }).catch((error) => {
-            console.log("Error getting document:", error);
-        });
-  }
+          for (const day of daysOfWeek) {
+            this.calorieStats[day] = 0
+          }
+        }
+      })
+      .catch((error) => {
+        console.log('Error getting document:', error)
+      })
+  },
 }
 </script>
 
@@ -137,7 +157,7 @@ export default {
 
   width: 400px;
 
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 24px;
@@ -171,7 +191,7 @@ export default {
   left: 30px;
   width: 300px;
 
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 23px;
@@ -197,7 +217,7 @@ export default {
   top: 80px;
   left: 150px;
 
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 15px;
@@ -229,7 +249,7 @@ export default {
   left: 350px;
   width: 300px;
 
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 23px;
@@ -255,7 +275,7 @@ export default {
   top: 80px;
   left: 150px;
 
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 15px;

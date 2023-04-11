@@ -206,7 +206,7 @@ export default {
   top: -10px;
   right: 10px;
 
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-size: 15px;
   color: #746652;
@@ -225,7 +225,7 @@ export default {
   left: 28px;
   top: 32px;
 
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 23px;
@@ -287,7 +287,7 @@ export default {
 .text-wrapper #food {
   width: 89px;
   padding-left: 35px;
-  font-family: 'Lato';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-size: 19px;
   color: #a08666;
@@ -295,7 +295,7 @@ export default {
 
 .food-block #servings {
   width: 87px;
-  font-family: 'Lato';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-size: 19px;
   color: #a08666;
@@ -313,7 +313,7 @@ export default {
   width: 450px;
   height: 40px;
 
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-size: 17px;
   text-align: center;
@@ -330,7 +330,7 @@ export default {
   left: 85px;
   top: 445px;
 
-  font-family: 'Mulish';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 22px;

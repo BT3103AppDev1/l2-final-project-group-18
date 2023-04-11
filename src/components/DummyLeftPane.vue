@@ -34,8 +34,8 @@
         Leaderboard
       </li>
       <li>
-        <img src="@/assets/infocard.svg" alt="infocard" class="icon" />Info
-        cards
+        <img src="@/assets/infocard.svg" alt="infocard" class="icon" />
+        <router-link to="/infoCard">infoCard</router-link>
       </li>
       <li>
         <img src="@/assets/goal.svg" alt="goal" class="icon" />
@@ -80,14 +80,14 @@ export default {
 .app-name {
   width: 100%;
   position: absolute;
-  top: 10px;
+  top: 23px;
 }
 
 h2 {
-  color: #182508;
-  font-family: monospace;
+  color: #892142;
+  font-family: 'Verdana', monospace;
   text-align: center;
-  font-size: 26px;
+  font-size: 28px;
   font-weight: bold;
   margin-bottom: 25px;
 }
@@ -97,7 +97,8 @@ ul {
   padding: 0; /* Remove default padding from list */
   width: 100%;
   position: absolute;
-  top: 70px;
+  top: 100px;
+  left: 19px;
 }
 
 li {
@@ -121,7 +122,7 @@ li a:hover {
 .icon {
   width: 24px;
   height: 24px;
-  margin-right: 30px;
+  margin-right: 25px;
   margin-left: 25px;
 }
 
