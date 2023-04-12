@@ -153,7 +153,7 @@ input {
   height: 118px;
   left: 300px;
   /* top: 79px; */
-  font-family: 'DM Sans';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 600;
   font-size: 30px;
@@ -168,7 +168,7 @@ input {
   height: 42px;
   left: 300px;
   top: 150px;
-  font-family: 'DM Sans';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 24px;

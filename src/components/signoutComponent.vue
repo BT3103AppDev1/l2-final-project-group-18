@@ -70,7 +70,7 @@ export default {
 }
 
 .title {
-  font-family: 'DM Sans';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: bold;
   font-size: 40px;

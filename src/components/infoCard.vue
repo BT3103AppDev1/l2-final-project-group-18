@@ -44,7 +44,7 @@ export default {
   width: 953.85px;
   height: 100px;
   left: 300px;
-  font-family: "DM Sans";
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 600;
   font-size: 30px;

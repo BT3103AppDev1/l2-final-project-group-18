@@ -37,7 +37,7 @@ export default {
   width: 953.85px;
   height: 200px; /* increase the height to accommodate the text */
   left: 300px;
-  font-family: "DM Sans";
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 600;
   font-size: 25px;
@@ -75,7 +75,7 @@ export default {
   width: 220px;
   height: 60px;
 
-  font-family: 'DM Sans';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 20px;

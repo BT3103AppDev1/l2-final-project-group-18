@@ -158,7 +158,7 @@ export default {
   left: 100px;
   top: 60px;
 
-  font-family: 'DM Sans';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 30px;
@@ -173,7 +173,7 @@ export default {
   width: 84px;
   height: 26px;
 
-  font-family: 'DM Sans';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
@@ -219,7 +219,7 @@ export default {
   left: 100px;
   top: 60px;
 
-  font-family: 'DM Sans';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 30px;
@@ -237,7 +237,7 @@ export default {
   left: 100px;
   top: 60px;
 
-  font-family: 'DM Sans';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 30px;
@@ -279,7 +279,7 @@ export default {
   left: 100px;
   top: 60px;
 
-  font-family: 'DM Sans';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 30px;
@@ -297,7 +297,7 @@ export default {
   left: 100px;
   top: 100px;
 
-  font-family: 'DM Sans';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 30px;
@@ -323,7 +323,7 @@ export default {
   width: 220px;
   height: 60px;
 
-  font-family: 'DM Sans';
+  font-family: 'Mulish', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
