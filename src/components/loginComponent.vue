@@ -220,6 +220,12 @@ export default {
     async signin() {
       try {
         const auth = getAuth()
+
+        if (!this.password || !this.email) {
+          alert('Please fill in all the required fields.')
+          return
+        }
+
         await signInWithEmailAndPassword(auth, this.email, this.password)
 
         this.$router.push('/goals')

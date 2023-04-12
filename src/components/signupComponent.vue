@@ -93,6 +93,12 @@ export default {
     }
   },
   methods: {
+    validateEmail(email) {
+      // check if email is valid using regular expression
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    },
+
     async register() {
       // check if user has put in all required fields
       if (!this.username || !this.email || !this.password) {
@@ -115,6 +121,12 @@ export default {
       const usernameSnapshot = await getDocs(usernameQuery)
       if (!usernameSnapshot.empty) {
         alert('Username already exists. Please choose a different username.')
+        return
+      }
+
+      // Validate email format
+      if (!this.validateEmail(this.email)) {
+        alert('Invalid email format. Please use a valid email address.')
         return
       }
 
