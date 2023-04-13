@@ -76,7 +76,7 @@ export default {
 }
 
 h2 {
-  color: #892142;
+  color: #42b581;
   font-family: 'Verdana', monospace;
   text-align: center;
   font-size: 28px;
