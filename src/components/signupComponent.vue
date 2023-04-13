@@ -54,7 +54,7 @@
       "
     />
     <img
-      src="@/assets/Eating-healthy food-cuate.svg"
+      src="@/assets/Eating-healthy-food-cuate.svg"
       alt="heart"
       class="icon"
       style="
