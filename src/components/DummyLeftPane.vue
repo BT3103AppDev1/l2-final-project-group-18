@@ -27,7 +27,7 @@
       </li> -->
       <li>
         <img src="@/assets/infocard.svg" alt="infocard" class="icon" />
-        <router-link to="/infoCard">infoCard</router-link>
+        <router-link to="/infoCard">Info Card</router-link>
       </li>
       <li>
         <img src="@/assets/goal.svg" alt="goal" class="icon" />
