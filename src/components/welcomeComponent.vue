@@ -11,11 +11,11 @@
   <div>
   <div class="gender-selection">
     <div class="gender-option" :class="{ active: gender === 'male' }" @click="gender = 'male'">
-      <img src="../assets/male icon.png">
+      <img src="../assets/male_icon.png">
       <p>Male</p>
     </div>
     <div class="gender-option" :class="{ active: gender === 'female' }" @click="gender = 'female'">
-      <img src="../assets/female icon.png" >
+      <img src="../assets/female_icon.png" >
       <p>Female</p>
     </div>
   </div>
