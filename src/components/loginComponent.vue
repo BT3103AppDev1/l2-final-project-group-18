@@ -39,7 +39,7 @@
     <div id="firebaseui-auth-container"></div>
 
     <img
-      src="@/assets/Skipping rope-bro.svg"
+      src="@/assets/Skipping-rope-bro.svg"
       alt="heart"
       class="icon"
       style="
