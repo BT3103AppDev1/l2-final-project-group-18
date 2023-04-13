@@ -49,7 +49,8 @@ export default {
 .text {
   position: absolute;
   top: 100px;
-  right: 550px;
+  right: 460px;
+  width: 480px;
 }
 
 .image {
