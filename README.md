@@ -3,7 +3,13 @@
 ## Project Description
 Our web application is a simple and effective solution for tracking daily calorie intake and exercise plans. It entails key features including calorie tracking, exercise tracking, and goal setting for food, exercise and weight control, which makes it a comprehensive solution for users who want to keep track of their health and fitness. 
 
+![image](https://user-images.githubusercontent.com/97591125/232308597-c3fb4635-f7c8-493a-8b41-ddccd8a91019.png)
+
 The scope of this app spans across three main fields, which includes food intake, exercise, and goals setting and tracking. To elaborate, firstly, food tracking allows users to easily check food calorie content and track food items consumed. Secondly, exercise tracking enables users to check calories of their workouts, track exercises done and schedule future exercises. Last but not least, our dashboard offers visualisations of multiple aspects of food consumption and exercise activities, as well as the progress in achieving the goals set for food, exercise and weight control. These features are designed to help users make informed decisions about their health and fitness goals, thereby promoting healthy lifestyle practices.
+
+![image](https://user-images.githubusercontent.com/97591125/232308638-2308ff8c-9336-4e37-8acb-a61f37e70341.png)
+
+![image](https://user-images.githubusercontent.com/97591125/232308670-8ef5977b-a1ef-4abf-a34b-1b3b7172f766.png)
 
 Our web application is mainly designed for working adults who are enthusiastic about tracking and achieving their fitness goals, but face challenges to do so with traditional tracking methods due to their busy schedules. A total of 24 user stories were implemented in this project.
 
